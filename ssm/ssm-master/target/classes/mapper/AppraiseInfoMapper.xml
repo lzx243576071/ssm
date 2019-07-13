@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soecode.web.mapper.AppraiseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.soecode.web.entity.AppraiseInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <id column="ORDER_ID" jdbcType="INTEGER" property="orderId" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="USER_MOBILE" jdbcType="VARCHAR" property="userMobile" />
+    <result column="START_ORDER_TIME" jdbcType="TIMESTAMP" property="startOrderTime" />
+    <result column="APPRAISE_TIME" jdbcType="TIMESTAMP" property="appraiseTime" />
+    <result column="APPRAISE_CONTENT" jdbcType="VARCHAR" property="appraiseContent" />
+    <result column="APPRAISE_IMG" jdbcType="VARCHAR" property="appraiseImg" />
+    <result column="GRADE" jdbcType="DOUBLE" property="grade" />
+    <result column="Enable_SHOW" jdbcType="INTEGER" property="enableShow" />
+    <result column="APPRAISE_REPLY" jdbcType="INTEGER" property="appraiseReply" />
+    <result column="REPLY_CONTENT" jdbcType="VARCHAR" property="replyContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, ORDER_ID, USER_NAME, USER_MOBILE, START_ORDER_TIME, APPRAISE_TIME, APPRAISE_CONTENT, 
+    APPRAISE_IMG, GRADE, Enable_SHOW, APPRAISE_REPLY, REPLY_CONTENT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.soecode.web.entity.AppraiseInfoKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from appraise_info
+    where ID = #{id,jdbcType=INTEGER}
+      and ORDER_ID = #{orderId,jdbcType=INTEGER}
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.soecode.web.entity.AppraiseInfoKey">
+    delete from appraise_info
+    where ID = #{id,jdbcType=INTEGER}
+      and ORDER_ID = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.soecode.web.entity.AppraiseInfo">
+    insert into appraise_info (ID, ORDER_ID, USER_NAME, 
+      USER_MOBILE, START_ORDER_TIME, APPRAISE_TIME, 
+      APPRAISE_CONTENT, APPRAISE_IMG, GRADE, 
+      Enable_SHOW, APPRAISE_REPLY, REPLY_CONTENT
+      )
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{userMobile,jdbcType=VARCHAR}, #{startOrderTime,jdbcType=TIMESTAMP}, #{appraiseTime,jdbcType=TIMESTAMP}, 
+      #{appraiseContent,jdbcType=VARCHAR}, #{appraiseImg,jdbcType=VARCHAR}, #{grade,jdbcType=DOUBLE}, 
+      #{enableShow,jdbcType=INTEGER}, #{appraiseReply,jdbcType=INTEGER}, #{replyContent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.soecode.web.entity.AppraiseInfo">
+    insert into appraise_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="userMobile != null">
+        USER_MOBILE,
+      </if>
+      <if test="startOrderTime != null">
+        START_ORDER_TIME,
+      </if>
+      <if test="appraiseTime != null">
+        APPRAISE_TIME,
+      </if>
+      <if test="appraiseContent != null">
+        APPRAISE_CONTENT,
+      </if>
+      <if test="appraiseImg != null">
+        APPRAISE_IMG,
+      </if>
+      <if test="grade != null">
+        GRADE,
+      </if>
+      <if test="enableShow != null">
+        Enable_SHOW,
+      </if>
+      <if test="appraiseReply != null">
+        APPRAISE_REPLY,
+      </if>
+      <if test="replyContent != null">
+        REPLY_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null">
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="startOrderTime != null">
+        #{startOrderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appraiseTime != null">
+        #{appraiseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appraiseContent != null">
+        #{appraiseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="appraiseImg != null">
+        #{appraiseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=DOUBLE},
+      </if>
+      <if test="enableShow != null">
+        #{enableShow,jdbcType=INTEGER},
+      </if>
+      <if test="appraiseReply != null">
+        #{appraiseReply,jdbcType=INTEGER},
+      </if>
+      <if test="replyContent != null">
+        #{replyContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.web.entity.AppraiseInfo">
+    update appraise_info
+    <set>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null">
+        USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="startOrderTime != null">
+        START_ORDER_TIME = #{startOrderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appraiseTime != null">
+        APPRAISE_TIME = #{appraiseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appraiseContent != null">
+        APPRAISE_CONTENT = #{appraiseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="appraiseImg != null">
+        APPRAISE_IMG = #{appraiseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        GRADE = #{grade,jdbcType=DOUBLE},
+      </if>
+      <if test="enableShow != null">
+        Enable_SHOW = #{enableShow,jdbcType=INTEGER},
+      </if>
+      <if test="appraiseReply != null">
+        APPRAISE_REPLY = #{appraiseReply,jdbcType=INTEGER},
+      </if>
+      <if test="replyContent != null">
+        REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+      and ORDER_ID = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.AppraiseInfo">
+    update appraise_info
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
+      START_ORDER_TIME = #{startOrderTime,jdbcType=TIMESTAMP},
+      APPRAISE_TIME = #{appraiseTime,jdbcType=TIMESTAMP},
+      APPRAISE_CONTENT = #{appraiseContent,jdbcType=VARCHAR},
+      APPRAISE_IMG = #{appraiseImg,jdbcType=VARCHAR},
+      GRADE = #{grade,jdbcType=DOUBLE},
+      Enable_SHOW = #{enableShow,jdbcType=INTEGER},
+      APPRAISE_REPLY = #{appraiseReply,jdbcType=INTEGER},
+      REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+      and ORDER_ID = #{orderId,jdbcType=INTEGER}
+  </update>
+<!--查询评价列表-->
+  <select id="selectAppraiseList" resultType="java.util.Map">
+    select
+      USER_NAME as userName,
+      USER_MOBILE  as userMobile,
+      APPRAISE_TIME as appraiseTime,
+      APPRAISE_CONTENT as appraiseContent,
+      APPRAISE_IMG as appraiseImg
+    from appraise_info
+    where Enable_SHOW = 1
+    order by appraiseTime desc
+  </select>
+
+</mapper>

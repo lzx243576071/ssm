@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soecode.web.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.soecode.web.entity.UserDO">
+        <result column="SYS_ID" property="sysId" />
+        <result column="SYS_USER_NAME" property="userName" />
+        <result column="SYS_USER_PASSWORD" property="userPassword" />
+        <result column="SYS_USER_MOBILE" property="userMobile" />
+        <result column="ROLE_ID" property="roleId" />
+        <result column="CREAT_TIME" property="createTime" />
+        <result column="UPDATE_TIME" property="updateTime" />
+        <result column="REMARKS" property="remarks" />
+    </resultMap>
+
+    <sql id="BaseColumn">
+        SYS_USER_NAME,
+        SYS_USER_PASSWORD,
+        SYS_USER_MOBILE,
+        ROLE_ID,CREAT_TIME,
+        UPDATE_TIME,
+        REMARKS
+    </sql>
+
+    <select id="queryUser" resultType="BaseResultMap" parameterMap="com.soecode.web.entity.UserDO">
+     select SYS_ID,
+        <include refid="baseColumn" />
+        WHERE 1=1
+        <if test="SYS_USER_NAME != null">
+            AND SYS_USER_NAME = #{userName}
+        </if>
+        <if test="SYS_USER_NAME != null">
+            AND SYS_USER_NAME = #{userName}
+        </if>
+        <if test="SYS_USER_PASSWORD != null">
+            AND SYS_USER_PASSWORD = #{userPasswor}
+        </if>
+        <if test="SYS_USER_MOBILE != null">
+            AND SYS_USER_MOBILE = #{userMobile}
+        </if>
+        <if test="ROLE_ID != null">
+            AND ROLE_ID = #{roleId}
+        </if>
+        <if test="CREAT_TIME != null">
+            AND CREAT_TIME = #{createTime}
+        </if>
+        <if test="UPDATE_TIME != null">
+            AND UPDATE_TIME = #{updateTime}
+        </if>
+        <if test="REMARKS != null">
+            AND REMARKS = #{remarks}
+        </if>
+
+	</select>
+
+</mapper>

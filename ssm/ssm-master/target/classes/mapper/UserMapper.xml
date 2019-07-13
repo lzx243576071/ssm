@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soecode.web.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.soecode.web.entity.UserDO">
+        <result column="XMBH" property="xmbh" />
+        <result column="XMMC" property="xmmc" />
+        <result column="ZSTP" property="zstp" />
+        <result column="SFQY" property="sfqy" />
+    </resultMap>
+    <parameterMap id="GYXM01" type="com.soecode.web.entity.GYXM01"/>
+
+    <select id="queryUser" resultType="BaseResultMap" parameterMap="com.soecode.web.entity.UserDO">
+     select XMBH as xmbh,XMMC as xmmc ,ZSTP as zstp  from gy_xm01 where SFQY = 1
+	</select>
+</mapper>

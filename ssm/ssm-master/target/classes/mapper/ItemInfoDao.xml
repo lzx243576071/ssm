@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soecode.web.dao.ItemInfoDao">
+  <resultMap id="BaseResultMap" type="com.soecode.web.entity.ItemInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <id column="ITEM_ID" jdbcType="INTEGER" property="itemId" />
+    <result column="ITEM_NAME" jdbcType="VARCHAR" property="itemName" />
+    <result column="CLASSIFY_ID" jdbcType="INTEGER" property="classifyId" />
+    <result column="CLASSIFY _NAME" jdbcType="VARCHAR" property="classifyName" />
+    <result column="ITEM_PRICE" jdbcType="DOUBLE" property="itemPrice" />
+    <result column="GOODS_TEXTURE" jdbcType="VARCHAR" property="goodsTexture" />
+    <result column="SEASON" jdbcType="INTEGER" property="season" />
+    <result column="WASH_METHOD" jdbcType="VARCHAR" property="washMethod" />
+    <result column="ITEM_IMG" jdbcType="VARCHAR" property="itemImg" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, ITEM_ID, ITEM_NAME, CLASSIFY_ID, "CLASSIFY _NAME", ITEM_PRICE, GOODS_TEXTURE, 
+    SEASON, WASH_METHOD, ITEM_IMG
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.soecode.web.entity.ItemInfoKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item_info
+    where ID = #{id,jdbcType=INTEGER}
+      and ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.soecode.web.entity.ItemInfoKey">
+    delete from item_info
+    where ID = #{id,jdbcType=INTEGER}
+      and ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.soecode.web.entity.ItemInfo">
+    insert into item_info (ID, ITEM_ID, ITEM_NAME, 
+      CLASSIFY_ID, "CLASSIFY _NAME", ITEM_PRICE, 
+      GOODS_TEXTURE, SEASON, WASH_METHOD, 
+      ITEM_IMG)
+    values (#{id,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{itemName,jdbcType=VARCHAR}, 
+      #{classifyId,jdbcType=INTEGER}, #{classifyName,jdbcType=VARCHAR}, #{itemPrice,jdbcType=DOUBLE}, 
+      #{goodsTexture,jdbcType=VARCHAR}, #{season,jdbcType=INTEGER}, #{washMethod,jdbcType=VARCHAR}, 
+      #{itemImg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.soecode.web.entity.ItemInfo">
+    insert into item_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="itemName != null">
+        ITEM_NAME,
+      </if>
+      <if test="classifyId != null">
+        CLASSIFY_ID,
+      </if>
+      <if test="classifyName != null">
+        "CLASSIFY _NAME",
+      </if>
+      <if test="itemPrice != null">
+        ITEM_PRICE,
+      </if>
+      <if test="goodsTexture != null">
+        GOODS_TEXTURE,
+      </if>
+      <if test="season != null">
+        SEASON,
+      </if>
+      <if test="washMethod != null">
+        WASH_METHOD,
+      </if>
+      <if test="itemImg != null">
+        ITEM_IMG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemName != null">
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="classifyId != null">
+        #{classifyId,jdbcType=INTEGER},
+      </if>
+      <if test="classifyName != null">
+        #{classifyName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemPrice != null">
+        #{itemPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsTexture != null">
+        #{goodsTexture,jdbcType=VARCHAR},
+      </if>
+      <if test="season != null">
+        #{season,jdbcType=INTEGER},
+      </if>
+      <if test="washMethod != null">
+        #{washMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="itemImg != null">
+        #{itemImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.web.entity.ItemInfo">
+    update item_info
+    <set>
+      <if test="itemName != null">
+        ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="classifyId != null">
+        CLASSIFY_ID = #{classifyId,jdbcType=INTEGER},
+      </if>
+      <if test="classifyName != null">
+        "CLASSIFY _NAME" = #{classifyName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemPrice != null">
+        ITEM_PRICE = #{itemPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsTexture != null">
+        GOODS_TEXTURE = #{goodsTexture,jdbcType=VARCHAR},
+      </if>
+      <if test="season != null">
+        SEASON = #{season,jdbcType=INTEGER},
+      </if>
+      <if test="washMethod != null">
+        WASH_METHOD = #{washMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="itemImg != null">
+        ITEM_IMG = #{itemImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+      and ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.ItemInfo">
+    update item_info
+    set ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      CLASSIFY_ID = #{classifyId,jdbcType=INTEGER},
+      "CLASSIFY _NAME" = #{classifyName,jdbcType=VARCHAR},
+      ITEM_PRICE = #{itemPrice,jdbcType=DOUBLE},
+      GOODS_TEXTURE = #{goodsTexture,jdbcType=VARCHAR},
+      SEASON = #{season,jdbcType=INTEGER},
+      WASH_METHOD = #{washMethod,jdbcType=VARCHAR},
+      ITEM_IMG = #{itemImg,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+      and ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </update>
+</mapper>
