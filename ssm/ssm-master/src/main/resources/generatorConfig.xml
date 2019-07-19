@@ -11,7 +11,7 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3308/test" userId="root"
+                        connectionURL="jdbc:mysql://l47.98.51.132:3306/test" userId="root"
                         password="1234"/>
 
         <javaModelGenerator targetPackage="com.soecode.web.entity"

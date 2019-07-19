@@ -12,18 +12,20 @@
         <result column="REMARKS" property="remarks" />
     </resultMap>
 
-    <sql id="BaseColumn">
+    <sql id="baseColumn">
         SYS_USER_NAME,
         SYS_USER_PASSWORD,
         SYS_USER_MOBILE,
-        ROLE_ID,CREAT_TIME,
+        ROLE_ID,
+        CREAT_TIME,
         UPDATE_TIME,
         REMARKS
     </sql>
 
-    <select id="queryUser" resultType="BaseResultMap" parameterMap="com.soecode.web.entity.UserDO">
+    <select id="queryUser" resultMap="BaseResultMap" parameterType="com.soecode.web.entity.UserDO">
      select SYS_ID,
         <include refid="baseColumn" />
+        from system_info
         WHERE 1=1
         <if test="SYS_USER_NAME != null">
             AND SYS_USER_NAME = #{userName}
