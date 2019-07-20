@@ -11,7 +11,7 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://l47.98.51.132:3306/test" userId="root"
+                        connectionURL="jdbc:mysql://47.98.51.132:3306/test" userId="root"
                         password="1234"/>
 
         <javaModelGenerator targetPackage="com.soecode.web.entity"
@@ -28,7 +28,7 @@
                              targetPackage="com.soecode.web.mapper" targetProject="src/main/java">
         </javaClientGenerator>
 
-        <table schema="test" tableName="appraise_info" domainObjectName="AppraiseInfo"
+        <table schema="test" tableName="APPRAISE_INFO " domainObjectName="AppraiseInfo"
                mapperName="AppraiseInfoMapper" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false">

@@ -2,7 +2,13 @@ package com.soecode.web.entity;
 
 import java.util.Date;
 
-public class AppraiseInfo extends AppraiseInfoKey {
+public class AppraiseInfo {
+    private Integer id;
+
+    private Integer orderId;
+
+    private Integer userId;
+
     private String userName;
 
     private String userMobile;
@@ -22,6 +28,34 @@ public class AppraiseInfo extends AppraiseInfoKey {
     private Integer appraiseReply;
 
     private String replyContent;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     public String getUserName() {
         return userName;
@@ -101,5 +135,21 @@ public class AppraiseInfo extends AppraiseInfoKey {
 
     public void setReplyContent(String replyContent) {
         this.replyContent = replyContent == null ? null : replyContent.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

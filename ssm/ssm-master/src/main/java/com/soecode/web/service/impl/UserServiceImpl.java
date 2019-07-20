@@ -1,33 +1,50 @@
 package com.soecode.web.service.impl;
 
 import com.soecode.web.dto.Result;
-import com.soecode.web.entity.UserDO;
-import com.soecode.web.mapper.UserMapper;
+import com.soecode.web.entity.AppraiseInfo;
+import com.soecode.web.entity.UserInfo;
+import com.soecode.web.mapper.AppraiseInfoMapper;
+import com.soecode.web.mapper.UserInfoMapper;
 import com.soecode.web.service.UserService;
+import org.aspectj.lang.annotation.SuppressAjWarnings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserMapper userMapper;
+    UserInfoMapper userInfoMapper;
+    @Autowired
+    AppraiseInfoMapper appraiseInfoMapper;
+
 
     @Override
-    public Result<List<UserDO>> queryUsers(UserDO userDO) {
-     Result result = Result.createFailResult();
-        List<UserDO> list = userMapper.queryUser(userDO);
-        if(list.size()<0) {
-            userDO.setUserPassword(null);
-            List<UserDO> listUserName = userMapper.queryUser(userDO);
-            if(listUserName.size()==0) {
-                return result.value("用户名不存在");
-            }else{
-                return result.value("密码错误");
-            }
+    public Result queryByUserId(int userId) {
+        Result result = Result.createFailResult();
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(userId);
+        List<UserInfo> customerInformation = userInfoMapper.queryUserInfo(userInfo);
+        return Result.createSuccessResult(customerInformation);
+    }
+
+    @Override
+    public Result changeUserInformation(UserInfo userInfo) {
+        Result result = Result.createFailResult();
+        int icode =  userInfoMapper.updateByPrimaryKeySelective(userInfo);
+        if(icode>0){
+            return Result.createSuccessResult("保存成功");
         }
-        return Result.createSuccessResult(list);
+        return result.value("修改失败");
+
+    }
+
+    @Override
+    public Result getUserApprise(int userId) {
+        AppraiseInfo appraiseInfos = appraiseInfoMapper.selectByPrimaryKey(userId);
+        return Result.createSuccessResult(appraiseInfos);
     }
 }

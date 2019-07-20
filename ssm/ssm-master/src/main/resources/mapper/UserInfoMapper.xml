@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soecode.web.mapper.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.soecode.web.entity.UserInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="WECAHT_ID" jdbcType="VARCHAR" property="wecahtId" />
+    <result column="USER_SEX" jdbcType="INTEGER" property="userSex" />
+    <result column="USER_ MOBILE" jdbcType="VARCHAR" property="userMobile" />
+    <result column="USER_AREA" jdbcType="VARCHAR" property="userArea" />
+    <result column="USER_ADDR" jdbcType="VARCHAR" property="userAddr" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="USER_ACCOUNT" jdbcType="VARCHAR" property="userAccount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USER_ID, USER_NAME, WECAHT_ID, USER_SEX, "USER_ MOBILE", USER_AREA, USER_ADDR, 
+    CREATE_TIME, UPDATE_TIME, USER_ACCOUNT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.soecode.web.entity.UserInfo">
+    insert into user_info (ID, USER_ID, USER_NAME, 
+      WECAHT_ID, USER_SEX, "USER_ MOBILE", 
+      USER_AREA, USER_ADDR, CREATE_TIME, 
+      UPDATE_TIME, USER_ACCOUNT)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{wecahtId,jdbcType=VARCHAR}, #{userSex,jdbcType=INTEGER}, #{userMobile,jdbcType=VARCHAR}, 
+      #{userArea,jdbcType=VARCHAR}, #{userAddr,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{userAccount,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.soecode.web.entity.UserInfo">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="wecahtId != null">
+        WECAHT_ID,
+      </if>
+      <if test="userSex != null">
+        USER_SEX,
+      </if>
+      <if test="userMobile != null">
+        "USER_ MOBILE",
+      </if>
+      <if test="userArea != null">
+        USER_AREA,
+      </if>
+      <if test="userAddr != null">
+        USER_ADDR,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="userAccount != null">
+        USER_ACCOUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="wecahtId != null">
+        #{wecahtId,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userMobile != null">
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userArea != null">
+        #{userArea,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddr != null">
+        #{userAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.web.entity.UserInfo">
+    update user_info
+    <set>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="wecahtId != null">
+        WECAHT_ID = #{wecahtId,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        USER_SEX = #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userMobile != null">
+        "USER_ MOBILE" = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userArea != null">
+        USER_AREA = #{userArea,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddr != null">
+        USER_ADDR = #{userAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userAccount != null">
+        USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.UserInfo">
+    update user_info
+    set USER_ID = #{userId,jdbcType=INTEGER},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      WECAHT_ID = #{wecahtId,jdbcType=VARCHAR},
+      USER_SEX = #{userSex,jdbcType=INTEGER},
+      "USER_ MOBILE" = #{userMobile,jdbcType=VARCHAR},
+      USER_AREA = #{userArea,jdbcType=VARCHAR},
+      USER_ADDR = #{userAddr,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryUserInfo" resultMap="BaseResultMap" parameterType="com.soecode.web.entity.UserInfo">
+    select
+     <include refid="Base_Column_List"/>
+     where 1=1
+    <if test="userID != null">
+      and USER_ID = #{userID,jdbcType=INTEGER}
+    </if>
+      <if test="userName != null">
+        and USER_NAME = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="wecahtId != null">
+        and WECAHT_ID = #{wecahtId,jdbcType=VARCHAR}
+      </if>
+      <if test="userSex != null">
+        and USER_SEX = #{userSex,jdbcType=INTEGER}
+      </if>
+      <if test="userMobile != null">
+        and "USER_ MOBILE" = #{userMobile,jdbcType=VARCHAR}
+      </if>
+      <if test="userArea != null">
+        and USER_AREA = #{userArea,jdbcType=VARCHAR}
+      </if>
+      <if test="userAddr != null">
+        USER_ADDR = #{userAddr,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null">
+        and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="userAccount != null">
+        and USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR}
+      </if>
+
+  </select>
+</mapper>
