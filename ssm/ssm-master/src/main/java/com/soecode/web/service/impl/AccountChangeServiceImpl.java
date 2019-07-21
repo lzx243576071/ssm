@@ -35,13 +35,7 @@ public class AccountChangeServiceImpl implements AccountChangeService {
             return result.value("查不到该用户信息");
         }
 
-        String account = userInfos.get(0).getUserAccount();
-        Double accountMoney = 0.0;
-        try{
-            accountMoney = Double.parseDouble(account);
-        }catch (Exception e){
-//            logger
-        }
+        Double accountMoney = userInfos.get(0).getUserAccount();
         accountChange.setRestMoney(accountMoney+accountChange.getRechargeMoney());
         int icode = accountChangeMapper.insertSelective(accountChange);
         if(icode==0){

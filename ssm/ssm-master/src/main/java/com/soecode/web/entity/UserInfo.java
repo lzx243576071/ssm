@@ -23,7 +23,7 @@ public class UserInfo {
 
     private Date updateTime;
 
-    private String userAccount;
+    private Double userAccount;
 
     public Integer getId() {
         return id;
@@ -105,11 +105,11 @@ public class UserInfo {
         this.updateTime = updateTime;
     }
 
-    public String getUserAccount() {
+    public Double getUserAccount() {
         return userAccount;
     }
 
-    public void setUserAccount(String userAccount) {
-        this.userAccount = userAccount == null ? null : userAccount.trim();
+    public void setUserAccount(Double userAccount) {
+        this.userAccount = userAccount == null ? null : userAccount;
     }
 }

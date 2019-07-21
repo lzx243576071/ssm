@@ -7,15 +7,15 @@
     <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
     <result column="WECAHT_ID" jdbcType="VARCHAR" property="wecahtId" />
     <result column="USER_SEX" jdbcType="INTEGER" property="userSex" />
-    <result column="USER_ MOBILE" jdbcType="VARCHAR" property="userMobile" />
+    <result column="USER_MOBILE" jdbcType="VARCHAR" property="userMobile" />
     <result column="USER_AREA" jdbcType="VARCHAR" property="userArea" />
     <result column="USER_ADDR" jdbcType="VARCHAR" property="userAddr" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="USER_ACCOUNT" jdbcType="VARCHAR" property="userAccount" />
+    <result column="USER_ACCOUNT" jdbcType="DOUBLE" property="userAccount" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, USER_ID, USER_NAME, WECAHT_ID, USER_SEX, "USER_ MOBILE", USER_AREA, USER_ADDR, 
+    ID, USER_ID, USER_NAME, WECAHT_ID, USER_SEX, USER_MOBILE, USER_AREA, USER_ADDR,
     CREATE_TIME, UPDATE_TIME, USER_ACCOUNT
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -30,13 +30,13 @@
   </delete>
   <insert id="insert" parameterType="com.soecode.web.entity.UserInfo">
     insert into user_info (ID, USER_ID, USER_NAME, 
-      WECAHT_ID, USER_SEX, "USER_ MOBILE", 
+      WECAHT_ID, USER_SEX, USER_MOBILE,
       USER_AREA, USER_ADDR, CREATE_TIME, 
       UPDATE_TIME, USER_ACCOUNT)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
       #{wecahtId,jdbcType=VARCHAR}, #{userSex,jdbcType=INTEGER}, #{userMobile,jdbcType=VARCHAR}, 
       #{userArea,jdbcType=VARCHAR}, #{userAddr,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{userAccount,jdbcType=VARCHAR})
+      #{updateTime,jdbcType=TIMESTAMP}, #{userAccount,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.soecode.web.entity.UserInfo">
     insert into user_info
@@ -107,7 +107,7 @@
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="userAccount != null">
-        #{userAccount,jdbcType=VARCHAR},
+        #{userAccount,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -139,7 +139,7 @@
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="userAccount != null">
-        USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR},
+        USER_ACCOUNT = #{userAccount,jdbcType=DOUBLE},
       </if>
     </set>
     where USER_ID = #{userId,jdbcType=INTEGER}
@@ -150,12 +150,12 @@
       USER_NAME = #{userName,jdbcType=VARCHAR},
       WECAHT_ID = #{wecahtId,jdbcType=VARCHAR},
       USER_SEX = #{userSex,jdbcType=INTEGER},
-      "USER_ MOBILE" = #{userMobile,jdbcType=VARCHAR},
+      USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
       USER_AREA = #{userArea,jdbcType=VARCHAR},
       USER_ADDR = #{userAddr,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR}
+      USER_ACCOUNT = #{userAccount,jdbcType=DOUBLE}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 
@@ -163,8 +163,8 @@
     select
      <include refid="Base_Column_List"/>
      where 1=1
-    <if test="userID != null">
-      and USER_ID = #{userID,jdbcType=INTEGER}
+    <if test="userId != null">
+      and USER_ID = #{userId,jdbcType=INTEGER}
     </if>
       <if test="userName != null">
         and USER_NAME = #{userName,jdbcType=VARCHAR}
@@ -191,7 +191,7 @@
         and UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
       </if>
       <if test="userAccount != null">
-        and USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR}
+        and USER_ACCOUNT = #{userAccount,jdbcType=DOUBLE}
       </if>
 
   </select>
