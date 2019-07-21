@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soecode.web.mapper.OrderDetailMapper">
+  <resultMap id="BaseResultMap" type="com.soecode.web.entity.OrderDetail">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="ORDER_ID" jdbcType="INTEGER" property="orderId" />
+    <result column="GOODS_ID" jdbcType="INTEGER" property="goodsId" />
+    <result column="GOODS_NAME" jdbcType="VARCHAR" property="goodsName" />
+    <result column="GOODS_PRICE" jdbcType="DOUBLE" property="goodsPrice" />
+    <result column="GOODS_NUM" jdbcType="INTEGER" property="goodsNum" />
+    <result column="TOTAL_PRICE" jdbcType="DOUBLE" property="totalPrice" />
+    <result column="GOODS_TEXTURE" jdbcType="VARCHAR" property="goodsTexture" />
+    <result column="GOODS_TYPE" jdbcType="VARCHAR" property="goodsType" />
+    <result column="WASH_METHOD" jdbcType="VARCHAR" property="washMethod" />
+    <result column="GOODS_STATE" jdbcType="INTEGER" property="goodsState" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, ORDER_ID, GOODS_ID, GOODS_NAME, GOODS_PRICE, GOODS_NUM, TOTAL_PRICE, GOODS_TEXTURE, 
+    GOODS_TYPE, WASH_METHOD, GOODS_STATE, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_detail
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from order_detail
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.soecode.web.entity.OrderDetail">
+    insert into order_detail (ID, ORDER_ID, GOODS_ID, 
+      GOODS_NAME, GOODS_PRICE, GOODS_NUM, 
+      TOTAL_PRICE, GOODS_TEXTURE, GOODS_TYPE, 
+      WASH_METHOD, GOODS_STATE, CREATE_TIME, 
+      UPDATE_TIME)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, 
+      #{goodsName,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DOUBLE}, #{goodsNum,jdbcType=INTEGER}, 
+      #{totalPrice,jdbcType=DOUBLE}, #{goodsTexture,jdbcType=VARCHAR}, #{goodsType,jdbcType=VARCHAR}, 
+      #{washMethod,jdbcType=VARCHAR}, #{goodsState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.soecode.web.entity.OrderDetail">
+    insert into order_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+      <if test="goodsId != null">
+        GOODS_ID,
+      </if>
+      <if test="goodsName != null">
+        GOODS_NAME,
+      </if>
+      <if test="goodsPrice != null">
+        GOODS_PRICE,
+      </if>
+      <if test="goodsNum != null">
+        GOODS_NUM,
+      </if>
+      <if test="totalPrice != null">
+        TOTAL_PRICE,
+      </if>
+      <if test="goodsTexture != null">
+        GOODS_TEXTURE,
+      </if>
+      <if test="goodsType != null">
+        GOODS_TYPE,
+      </if>
+      <if test="washMethod != null">
+        WASH_METHOD,
+      </if>
+      <if test="goodsState != null">
+        GOODS_STATE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsNum != null">
+        #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsTexture != null">
+        #{goodsTexture,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null">
+        #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="washMethod != null">
+        #{washMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsState != null">
+        #{goodsState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.web.entity.OrderDetail">
+    update order_detail
+    <set>
+      <if test="orderId != null">
+        ORDER_ID = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        GOODS_ID = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null">
+        GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        GOODS_PRICE = #{goodsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsNum != null">
+        GOODS_NUM = #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        TOTAL_PRICE = #{totalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsTexture != null">
+        GOODS_TEXTURE = #{goodsTexture,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null">
+        GOODS_TYPE = #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="washMethod != null">
+        WASH_METHOD = #{washMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsState != null">
+        GOODS_STATE = #{goodsState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.OrderDetail">
+    update order_detail
+    set ORDER_ID = #{orderId,jdbcType=INTEGER},
+      GOODS_ID = #{goodsId,jdbcType=INTEGER},
+      GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      GOODS_PRICE = #{goodsPrice,jdbcType=DOUBLE},
+      GOODS_NUM = #{goodsNum,jdbcType=INTEGER},
+      TOTAL_PRICE = #{totalPrice,jdbcType=DOUBLE},
+      GOODS_TEXTURE = #{goodsTexture,jdbcType=VARCHAR},
+      GOODS_TYPE = #{goodsType,jdbcType=VARCHAR},
+      WASH_METHOD = #{washMethod,jdbcType=VARCHAR},
+      GOODS_STATE = #{goodsState,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectMaxNumType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select t1.CLASSIFY_NAME as classifyName
+    from order_detail t left join ITEM_CLASSIFY t1 on t.GOODS_TYPE = t1.CLASSIFY_ID
+    where t.order_id = #{orderId,jdbcType=INTEGER}
+    order by GOODS_NUM desc limit 1
+  </select>
+
+</mapper>

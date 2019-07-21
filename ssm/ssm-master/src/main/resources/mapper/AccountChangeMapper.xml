@@ -20,26 +20,25 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from "account_change"
+    from account_change
     where user_id = #{userId,jdbcType=INTEGER}
     order by create_time desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from "account_change"
+    delete from account_change
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.soecode.web.entity.AccountChange">
-    insert into "account_change" (id, user_id, user_name, 
+    insert into account_change (id, user_id, user_name,
       recharge_money, expense_money, given_money, 
       rest_money, order_id, create_time, 
       update_time)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
       #{rechargeMoney,jdbcType=DOUBLE}, #{expenseMoney,jdbcType=DOUBLE}, #{givenMoney,jdbcType=DOUBLE}, 
-      #{restMoney,jdbcType=DOUBLE}, #{orderId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{restMoney,jdbcType=DOUBLE}, #{orderId,jdbcType=INTEGER}, now(), now())
   </insert>
   <insert id="insertSelective" parameterType="com.soecode.web.entity.AccountChange">
-    insert into "account_change"
+    insert into account_change
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -65,12 +64,8 @@
       <if test="orderId != null">
         order_id,
       </if>
-      <if test="createTime != null">
         create_time,
-      </if>
-      <if test="updateTime != null">
         update_time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -96,17 +91,11 @@
       </if>
       <if test="orderId != null">
         #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+      </if>now(), now()
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.soecode.web.entity.AccountChange">
-    update "account_change"
+    update account_change
     <set>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
@@ -132,14 +121,12 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+        update_time = now(),
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.AccountChange">
-    update "account_change"
+    update account_change
     set user_id = #{userId,jdbcType=INTEGER},
       user_name = #{userName,jdbcType=VARCHAR},
       recharge_money = #{rechargeMoney,jdbcType=DOUBLE},
@@ -148,7 +135,7 @@
       rest_money = #{restMoney,jdbcType=DOUBLE},
       order_id = #{orderId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -36,11 +36,12 @@ public class AccountChangeServiceImpl implements AccountChangeService {
         }
 
         Double accountMoney = userInfos.get(0).getUserAccount();
-        accountChange.setRestMoney(accountMoney+accountChange.getRechargeMoney());
+        accountChange.setRestMoney(accountMoney+accountChange.getRechargeMoney()+accountChange.getGivenMoney());
         int icode = accountChangeMapper.insertSelective(accountChange);
         if(icode==0){
             result.value("充值失败");
         }
+        userinfo.setUserAccount(accountMoney+accountChange.getRechargeMoney()+accountChange.getGivenMoney());
         int code = userInfoMapper.updateByPrimaryKeySelective(userinfo);
         if(code==0){
 //            logger.error("用户修改余额失败,"+"余额应为:"+accountMoney+accountChange.getRechargeMoney());
@@ -50,8 +51,8 @@ public class AccountChangeServiceImpl implements AccountChangeService {
     }
 
     @Override
-    public Result<AccountChange> queryAccountRecord(AccountChange accountChange) {
-        AccountChange accountRecord = accountChangeMapper.selectByPrimaryKey(accountChange.getUserId());
-        return Result.createSuccessResult(accountChange);
+    public Result<List<AccountChange>> queryAccountRecord(AccountChange accountChange) {
+        List<AccountChange> accountRecordList = accountChangeMapper.selectByPrimaryKey(accountChange.getUserId());
+        return Result.createSuccessResult(accountRecordList);
     }
 }

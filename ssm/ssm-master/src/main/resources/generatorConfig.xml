@@ -28,8 +28,8 @@
                              targetPackage="com.soecode.web.mapper" targetProject="src/main/java">
         </javaClientGenerator>
 
-        <table schema="test" tableName="APPRAISE_INFO " domainObjectName="AppraiseInfo"
-               mapperName="AppraiseInfoMapper" enableCountByExample="false"
+        <table schema="test" tableName="ORDER_DETAIL" domainObjectName="OrderDetail"
+               mapperName="OrderDetailMapper" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false">
             <property name="useActualColumnNames" value="false"/>

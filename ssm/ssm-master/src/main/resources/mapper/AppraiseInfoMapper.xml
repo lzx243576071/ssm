@@ -18,22 +18,45 @@
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
+<!--  <resultMap id="ResultMap" type="com.soecode.web.entity.entityVO.OrderAppraiseInfoVO">-->
+<!--    <result column="ORDER_ID" jdbcType="INTEGER" property="orderId" />-->
+<!--    <result column="USER_ID" jdbcType="INTEGER" property="userId" />-->
+<!--    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />-->
+<!--    <result column="USER_MOBILE" jdbcType="VARCHAR" property="userMobile" />-->
+<!--    <result column="START_ORDER_TIME" jdbcType="TIMESTAMP" property="startOrderTime" />-->
+<!--    <result column="APPRAISE_TIME" jdbcType="TIMESTAMP" property="appraiseTime" />-->
+<!--    <result column="APPRAISE_CONTENT" jdbcType="VARCHAR" property="appraiseContent" />-->
+<!--    <result column="APPRAISE_IMG" jdbcType="VARCHAR" property="appraiseImg" />-->
+<!--    <result column="GRADE" jdbcType="DOUBLE" property="grade" />-->
+<!--    <result column="Enable_SHOW" jdbcType="INTEGER" property="enableShow" />-->
+<!--    <result column="APPRAISE_REPLY" jdbcType="INTEGER" property="appraiseReply" />-->
+<!--    <result column="REPLY_CONTENT" jdbcType="VARCHAR" property="replyContent" />-->
+<!--    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />-->
+<!--    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />-->
+<!--    <result column="GOODS_TYPE" jdbcType="INTEGER" property="goodsType" />-->
+
+<!--  </resultMap>-->
+
   <sql id="Base_Column_List">
-    ID, ORDER_ID, USER_ID, USER_NAME, USER_MOBILE, START_ORDER_TIME, APPRAISE_TIME, APPRAISE_CONTENT, 
+    ID, ORDER_ID, USER_ID, USER_NAME, USER_MOBILE, START_ORDER_TIME, APPRAISE_TIME, APPRAISE_CONTENT,
     APPRAISE_IMG, GRADE, Enable_SHOW, APPRAISE_REPLY, REPLY_CONTENT, CREATE_TIME, UPDATE_TIME
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+<!--  <sql id="Base_Column_List_t">-->
+<!--    t.ORDER_ID, t.USER_ID, t.USER_NAME, t.USER_MOBILE, t.START_ORDER_TIME, t.APPRAISE_TIME, t.APPRAISE_CONTENT,-->
+<!--    t.APPRAISE_IMG, t.GRADE, t.Enable_SHOW, t.APPRAISE_REPLY, t.REPLY_CONTENT, t.CREATE_TIME, t.UPDATE_TIME,-->
+<!--  </sql>-->
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from "appraise_info"
+    from appraise_info
     where USER_ID = #{userId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from "appraise_info"
+    delete from appraise_info
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.soecode.web.entity.AppraiseInfo">
-    insert into "appraise_info" (ID, ORDER_ID, USER_ID, 
+    insert into appraise_info (ID, ORDER_ID, USER_ID,
       USER_NAME, USER_MOBILE, START_ORDER_TIME, 
       APPRAISE_TIME, APPRAISE_CONTENT, APPRAISE_IMG, 
       GRADE, Enable_SHOW, APPRAISE_REPLY, 
@@ -47,7 +70,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.soecode.web.entity.AppraiseInfo">
-    insert into "appraise_info"
+    insert into appraise_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         ID,
@@ -144,7 +167,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.soecode.web.entity.AppraiseInfo">
-    update "appraise_info"
+    update appraise_info
     <set>
       <if test="orderId != null">
         ORDER_ID = #{orderId,jdbcType=INTEGER},
@@ -192,7 +215,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.AppraiseInfo">
-    update "appraise_info"
+    update appraise_info
     set ORDER_ID = #{orderId,jdbcType=INTEGER},
       USER_ID = #{userId,jdbcType=INTEGER},
       USER_NAME = #{userName,jdbcType=VARCHAR},
@@ -222,4 +245,19 @@
     where Enable_SHOW = 1
     order by appraiseTime desc
   </select>
+
+<!--  <select id="queryAppraiseWithOrder" resultType="resultMap" parameterType="java.lang.Integer">-->
+<!--    select GOODS_TYPE,-->
+<!--    <include refid="Base_Column_List" />-->
+<!--    COUNT(GOODS_TYPE) as num-->
+<!--    FROM-->
+<!--    (select t2.GOODS_TYPE-->
+<!--    <include refid="Base_Column_List_t" />-->
+<!--    from APPRAISE_INFO t left join ORDER_DETAIL t2 on t.order_id = t2.order_id-->
+<!--    WHERE 1=1-->
+<!--    <if test="userId != null">-->
+<!--      and t.USER_ID = #{userId}-->
+<!--    </if>) order by num desc -->
+
+<!--  </select>-->
 </mapper>

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/accountChange")
 public class AccountChangeController {
@@ -33,7 +35,10 @@ public class AccountChangeController {
      * @return
      */
     @RequestMapping(value = "/money/record")
-    public Result<AccountChange> queryAccountRecord(AccountChange accountChange) {
+    public Result<List<AccountChange>> queryAccountRecord(AccountChange accountChange) {
+        if(null==accountChange.getUserId()){
+            return Result.createFailResult("缺少必要参数userId");
+        }
         return  accountChangeService.queryAccountRecord(accountChange);
     }
 }
