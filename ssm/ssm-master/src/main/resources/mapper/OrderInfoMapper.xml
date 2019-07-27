@@ -33,7 +33,10 @@
     select 
     <include refid="Base_Column_List" />
     from order_info
-    where ID = #{id,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
+    <if test="orderState!=0">
+        and  order_state = #{orderState}
+    </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from order_info

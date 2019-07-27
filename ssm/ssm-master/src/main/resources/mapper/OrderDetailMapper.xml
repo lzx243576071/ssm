@@ -16,9 +16,34 @@
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
+  <resultMap id="ResultMapOrder" type="com.soecode.web.entity.entityVO.OrderGoodsVO">
+    <id column="t.ID" jdbcType="INTEGER" property="id" />
+    <result column="t.ORDER_ID" jdbcType="INTEGER" property="orderId" />
+    <result column="t.GOODS_ID" jdbcType="INTEGER" property="goodsId" />
+    <result column="t.GOODS_NAME" jdbcType="VARCHAR" property="goodsName" />
+    <result column="t.GOODS_PRICE" jdbcType="DOUBLE" property="goodsPrice" />
+    <result column="t.GOODS_NUM" jdbcType="INTEGER" property="goodsNum" />
+    <result column="t.TOTAL_PRICE" jdbcType="DOUBLE" property="totalPrice" />
+    <result column="t.GOODS_TEXTURE" jdbcType="VARCHAR" property="goodsTexture" />
+    <result column="t.GOODS_TYPE" jdbcType="VARCHAR" property="goodsType" />
+    <result column="t.WASH_METHOD" jdbcType="VARCHAR" property="washMethod" />
+    <result column="t.GOODS_STATE" jdbcType="INTEGER" property="goodsState" />
+    <result column="t.CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="t.UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="t1.CLASSIFY_ID" jdbcType="INTEGER" property="classifyId" />
+    <result column="t1.CLASSIFY_NAME" jdbcType="VARCHAR" property="classifyName" />
+    <result column="t1.ITEM_PRICE" jdbcType="DOUBLE" property="itemPrice" />
+    <result column="t1.SEASON" jdbcType="INTEGER" property="season" />
+    <result column="t1.ITEM_IMG" jdbcType="VARCHAR" property="itemImg" />
+  </resultMap>
   <sql id="Base_Column_List">
     ID, ORDER_ID, GOODS_ID, GOODS_NAME, GOODS_PRICE, GOODS_NUM, TOTAL_PRICE, GOODS_TEXTURE, 
     GOODS_TYPE, WASH_METHOD, GOODS_STATE, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <sql id="Base_Column_List_t">
+    t.ID, t.ORDER_ID, t.GOODS_ID, t.GOODS_NAME, t.GOODS_PRICE, t.GOODS_NUM, t.TOTAL_PRICE, t.GOODS_TEXTURE,
+    t.GOODS_TYPE, t.WASH_METHOD, t.GOODS_STATE, t.CREATE_TIME, t.UPDATE_TIME
+    t1.CLASSIFY_ID, t1.CLASSIFY_NAME, t1.ITEM_PRICE, t1.SEASON, t1.ITEM_IMG,
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -130,9 +155,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.soecode.web.entity.OrderDetail">
     update order_detail
     <set>
-      <if test="orderId != null">
-        ORDER_ID = #{orderId,jdbcType=INTEGER},
-      </if>
       <if test="goodsId != null">
         GOODS_ID = #{goodsId,jdbcType=INTEGER},
       </if>
@@ -163,11 +185,9 @@
       <if test="createTime != null">
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null">
-        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+        UPDATE_TIME = now()
     </set>
-    where ID = #{id,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.OrderDetail">
     update order_detail
@@ -191,6 +211,17 @@
     from order_detail t left join ITEM_CLASSIFY t1 on t.GOODS_TYPE = t1.CLASSIFY_ID
     where t.order_id = #{orderId,jdbcType=INTEGER}
     order by GOODS_NUM desc limit 1
+  </select>
+
+  <select id="selectDetailByOrderId" parameterType="java.lang.Integer" resultMap="ResultMapOrder">
+    select
+        <include refid="Base_Column_List_t" />
+    from order_detail t left join item_info on t.good_id = t1.item_id
+    <if test="orderId!=null">
+        where order_id = #{orderId}
+    </if>
+    order by update_time desc
+
   </select>
 
 </mapper>

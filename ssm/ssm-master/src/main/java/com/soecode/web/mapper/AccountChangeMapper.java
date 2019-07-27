@@ -11,7 +11,7 @@ public interface AccountChangeMapper {
 
     int insertSelective(AccountChange record);
 
-    List<AccountChange> selectByPrimaryKey(Integer id);
+    List<AccountChange> selectByPrimaryKey(Integer userId);
 
     int updateByPrimaryKeySelective(AccountChange record);
 

@@ -2,6 +2,7 @@ package com.soecode.web.mapper;
 
 import com.soecode.web.entity.OrderDetail;
 import com.soecode.web.entity.entityVO.OrderAppraiseInfoVO;
+import com.soecode.web.entity.entityVO.OrderGoodsVO;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface OrderDetailMapper {
     int updateByPrimaryKey(OrderDetail record);
 
     List<OrderAppraiseInfoVO> selectMaxNumType(Integer orderId);
+
+    List<OrderGoodsVO> selectDetailByOrderId(Integer orderId);
 }

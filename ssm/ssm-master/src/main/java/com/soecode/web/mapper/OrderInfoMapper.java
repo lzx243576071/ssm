@@ -2,6 +2,8 @@ package com.soecode.web.mapper;
 
 import com.soecode.web.entity.OrderInfo;
 
+import java.util.List;
+
 public interface OrderInfoMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -9,7 +11,7 @@ public interface OrderInfoMapper {
 
     int insertSelective(OrderInfo record);
 
-    OrderInfo selectByPrimaryKey(Integer id);
+    List<OrderInfo> selectByPrimaryKey(Integer userId,Integer orderStates);
 
     int updateByPrimaryKeySelective(OrderInfo record);
 

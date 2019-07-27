@@ -14,6 +14,10 @@
                         connectionURL="jdbc:mysql://47.98.51.132:3306/test" userId="root"
                         password="1234"/>
 
+<!--        <jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+<!--                        connectionURL="jdbc:mysql://10.122.2.78:6033/yuantu_user" userId="yuantu_user"-->
+<!--                        password="Yuantu123"/>-->
+
         <javaModelGenerator targetPackage="com.soecode.web.entity"
                             targetProject="src/main/java">
             <property name="trimStrings" value="true"/>
