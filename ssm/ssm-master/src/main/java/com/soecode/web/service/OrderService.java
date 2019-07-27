@@ -11,5 +11,5 @@ public interface OrderService {
 
     Result getOrderDetail(int orderId);
 
-    Result cancelOrder(OrderDetail record);
+    Result updateOrder(OrderDetail record);
 }

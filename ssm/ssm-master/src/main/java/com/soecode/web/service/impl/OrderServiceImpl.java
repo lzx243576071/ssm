@@ -48,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Result cancelOrder(OrderDetail record) {
+    public Result updateOrder(OrderDetail record) {
         Result result = Result.createFailResult();
         int icode = orderDetailMapper.updateByPrimaryKey(record);
         if(icode>0){

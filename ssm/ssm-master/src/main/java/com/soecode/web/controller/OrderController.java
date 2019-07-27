@@ -33,8 +33,8 @@ public class OrderController {
         return orderService.getOrderDetail(OrderId);
     }
 
-    @RequestMapping(value = "/common/cancelOrder")
-    public Result cancelOrder(HttpServletRequest request, OrderDetail record) {
-        return orderService.cancelOrder(record);
+    @RequestMapping(value = "/common/updateOrder")
+    public Result updateOrder(HttpServletRequest request, OrderDetail record) {
+        return orderService.updateOrder(record);
     }
 }
