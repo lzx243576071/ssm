@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soecode.web.mapper.ShopCartInfoMapper">
+  <resultMap id="BaseResultMap" type="com.soecode.web.entity.ShopCartInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="ITEM_ID" jdbcType="INTEGER" property="itemId" />
+    <result column="NUM" jdbcType="INTEGER" property="num" />
+    <result column="STATE" jdbcType="INTEGER" property="state" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USER_ID, ITEM_ID, NUM, STATE, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shopcart_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shopcart_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.soecode.web.entity.ShopCartInfo">
+    insert into `test`.`shopcart_info` ( USER_ID, ITEM_ID,
+        CREATE_TIME,
+      UPDATE_TIME)
+    values (#{userId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER},
+       #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.soecode.web.entity.ShopCartInfo">
+    insert into shopcart_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="num != null">
+        NUM,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.web.entity.ShopCartInfo">
+    update shopcart_info
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        ITEM_ID = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        NUM = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.ShopCartInfo">
+    update shopcart_info
+    set USER_ID = #{userId,jdbcType=INTEGER},
+      ITEM_ID = #{itemId,jdbcType=INTEGER},
+      NUM = #{num,jdbcType=INTEGER},
+      STATE = #{state,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+<!--查询购物车列表-->
+  <select id="queryShopCart" resultType="java.util.Map">
+    SELECT
+      c.ITEM_IMG as itemImg,
+    c.CLASSIFY_NAME as classifyName,
+    c.ITEM_PRICE as itemPrice,
+    c.GOODS_TEXTURE as goodsTexture,
+    case c.SEASON
+        when 1 then '春秋'
+        when 2 then '夏'
+        when 3 then '冬'
+        else '' end  as season,
+    a.NUM as num
+    FROM
+      shopcart_info a
+    LEFT JOIN user_info b ON a.USER_ID = b.USER_ID
+    LEFT JOIN item_info c ON a.ITEM_ID = c.ITEM_ID
+    where  a.STATE = 0
+    <if test="userId != null and  userId!= ''">
+    and  a.user_id = #{userId,jdbcType=TINYINT}
+    </if>
+  </select>
+  <select id="queryUserId" resultType="java.util.Map">
+   select  USER_ID  as userId
+   from user_info where OPEN_ID = #{openId,jdbcType=VARCHAR}
+  </select>
+</mapper>

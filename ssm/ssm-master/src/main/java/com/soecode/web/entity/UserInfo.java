@@ -3,7 +3,6 @@ package com.soecode.web.entity;
 import java.util.Date;
 
 public class UserInfo {
-    private Integer id;
 
     private Integer userId;
 
@@ -24,14 +23,6 @@ public class UserInfo {
     private Date updateTime;
 
     private Double userAccount;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getUserId() {
         return userId;

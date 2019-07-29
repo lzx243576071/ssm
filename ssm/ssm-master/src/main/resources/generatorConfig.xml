@@ -32,8 +32,8 @@
                              targetPackage="com.soecode.web.mapper" targetProject="src/main/java">
         </javaClientGenerator>
 
-        <table schema="test" tableName="ORDER_DETAIL" domainObjectName="OrderDetail"
-               mapperName="OrderDetailMapper" enableCountByExample="false"
+        <table schema="test" tableName="shopcart_info" domainObjectName="ShopCartInfo"
+               mapperName="ShopCartInfoMapper" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false">
             <property name="useActualColumnNames" value="false"/>

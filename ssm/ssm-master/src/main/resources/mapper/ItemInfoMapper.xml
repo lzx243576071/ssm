@@ -162,7 +162,7 @@
       and ITEM_ID = #{itemId,jdbcType=INTEGER}
   </update>
   <!--查询限时抢购项目列表-->
-  <select id="selectItemClassifyList" resultType="java.util.Map">
+  <select id="selectXSQGItemList" resultType="java.util.Map">
   select
       CLASSIFY_NAME  as  classifyName,
       ITEM_ID as itemId,
@@ -179,4 +179,21 @@
       from item_info
       where JOIN_ACTIVITIES = 1
  </select>
+<!--查询加入购物车商品-->
+  <select id="queryItemShopCart" resultType="java.util.Map">
+    select
+    ITEM_ID as itemId,
+    ITEM_NAME as itemName,
+    ITEM_PRICE  as itemPrice,
+    GOODS_TEXTURE  as goodsTexture,
+    case SEASON
+    when 1 then '春秋'
+    when 2 then '夏'
+    when 3 then '冬'
+    else '' end  as season,
+    ITEM_IMG as itemImg
+    from item_info
+    where
+    ITEM_ID = #{itemId}
+  </select>
 </mapper>

@@ -238,7 +238,7 @@
     select
       USER_NAME as userName,
       USER_MOBILE  as userMobile,
-      APPRAISE_TIME as appraiseTime,
+      DATE_FORMAT(APPRAISE_TIME,'%Y-%m-%d') as appraiseTime,
       APPRAISE_CONTENT as appraiseContent,
       APPRAISE_IMG as appraiseImg
     from appraise_info
