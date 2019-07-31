@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * Created by luzhexuan on 2019/7/13.
@@ -22,7 +25,7 @@ public class SystemInfoController {
     private SystemInfoService systemInfoService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public Result queryUsers(SystemInfo systemInfo) {
-        return  systemInfoService.queryUsers(systemInfo);
+    public Result queryUsers(HttpServletRequest request, HttpServletResponse response, SystemInfo systemInfo) {
+        return  systemInfoService.queryUsers(request,response,systemInfo);
     }
 }
