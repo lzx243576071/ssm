@@ -118,10 +118,10 @@
 					<groupId>org.apache.cxf</groupId>
 					<artifactId>cxf-rt-transports-http-jetty</artifactId>
 				</exclusion>
-				<exclusion>
-					<groupId>org.apache.commons</groupId>
-					<artifactId>commons-httpclient</artifactId>
-				</exclusion>
+<!--				<exclusion>-->
+<!--					<groupId>org.apache.commons</groupId>-->
+<!--					<artifactId>commons-httpclient</artifactId>-->
+<!--				</exclusion>-->
 				<exclusion>
 					<groupId>org.apache.ibatis</groupId>
 					<artifactId>ibatis-sqlmap</artifactId>
@@ -154,10 +154,10 @@
 					<groupId>commons-beanutils</groupId>
 					<artifactId>commons-beanutils</artifactId>
 				</exclusion>
-				<exclusion>
-					<groupId>commons-lang</groupId>
-					<artifactId>commons-lang</artifactId>
-				</exclusion>
+<!--				<exclusion>-->
+<!--					<groupId>commons-lang</groupId>-->
+<!--					<artifactId>commons-lang</artifactId>-->
+<!--				</exclusion>-->
 				<exclusion>
 					<groupId>org.apache.commons</groupId>
 					<artifactId>commons-email</artifactId>
@@ -534,11 +534,11 @@
 			<version>1.2.54</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>19.0-rc1</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.google.guava</groupId>-->
+<!--			<artifactId>guava</artifactId>-->
+<!--			<version>19.0-rc1</version>-->
+<!--		</dependency>-->
 	</dependencies>
 
 	<build>

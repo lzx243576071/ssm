@@ -1,8 +1,6 @@
 package com.soecode.web.cache;
 
-/**
- * Created by johny on 15/9/24.
- */
+
 public interface RedisCacheServiceAdapter<V> {
 
 	V get(String key);

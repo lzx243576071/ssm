@@ -1,6 +1,5 @@
 package com.soecode.web.service.impl;
 
-import com.soecode.web.cache.RedisCacheServiceAdapter;
 import com.soecode.web.dto.Result;
 import com.soecode.web.entity.SystemInfo;
 import com.soecode.web.entity.UserDO;
@@ -27,8 +26,8 @@ public class SystemInfoServiceImpl implements SystemInfoService {
 
     @Autowired
     private SystemInfoMapper systemInfoMapper;
-    @Resource
-    private RedisCacheServiceAdapter redisCacheServiceAdapter;
+//    @Resource
+//    private RedisCacheServiceAdapter redisCacheServiceAdapter;
 
     @Override
     public Result<List<SystemInfo>> queryUsers(HttpServletRequest request, HttpServletResponse response, SystemInfo systemInfo) {
@@ -55,11 +54,11 @@ public class SystemInfoServiceImpl implements SystemInfoService {
     }
 
     private Map<String, Object> afterLoginProcess(SystemInfo user) {
-        redisCacheServiceAdapter.del(Constants.LOGIN_RETRY_PRIFIX + user.getId());
+//        redisCacheServiceAdapter.del(Constants.LOGIN_RETRY_PRIFIX + user.getId());
 
         UserSession<SystemInfo> userSession = new UserSession<>(user, null);
-        redisCacheServiceAdapter.set(userSession.getSessionId(), userSession);
-        redisCacheServiceAdapter.set("login-" + user.getSysUserMobile(), userSession.getSessionId());
+//        redisCacheServiceAdapter.set(userSession.getSessionId(), userSession);
+//        redisCacheServiceAdapter.set("login-" + user.getSysUserMobile(), userSession.getSessionId());
 
 
         String idstr = MD5Util.getMD5Code("" + user.getId());
