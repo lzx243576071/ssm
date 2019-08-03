@@ -13,7 +13,7 @@ public interface WeChatService {
 
    Map<String,Object> queryoneKeyOrderList();
 
-   void addShopCart(weChatQuery query) throws ParseException;
+   Map<String,Object> addShopCart(weChatQuery query) throws ParseException;
 
    Map<String,Object> queryShopCart(weChatQuery query);
 

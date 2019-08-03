@@ -5,6 +5,7 @@ package com.soecode.web.controller;
  */
 
 import com.alibaba.fastjson.JSONObject;
+import com.alipay.api.internal.util.StringUtils;
 import com.google.gson.*;
 import com.soecode.web.query.LoginQuery;
 import com.soecode.web.service.WXLoginService;
@@ -21,6 +22,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.text.ParseException;
@@ -28,6 +30,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Controller
@@ -51,7 +55,7 @@ public class WXLoginController {
                        HttpServletResponse response)
          throws ParseException, IOException {
         //这个url的域名必须要进行再公众号中进行注册验证，这个地址是成功后的回调地址
-        String backUrl="http://jpzzss.natappfree.cc/wx/callBack";
+        String backUrl="http://prmw6i.natappfree.cc/ssm/wx/callBack";
         // 第一步：用户同意授权，获取code
         String url ="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+ APPID
         + "&redirect_uri=" + URLEncoder.encode(backUrl)
@@ -120,7 +124,7 @@ public class WXLoginController {
 
         /*
         {  "openid":" OPENID",
-          " nickname": NICKNAME,
+          " nickname": NICKNAME,/o
           "sex":"1",
           "province":"PROVINCE"
           "city":"CITY",
@@ -143,14 +147,52 @@ public class WXLoginController {
         Date nowdate = sf.parse(format);
         query.setOpenId(map.get("openid").toString());
         query.setUserSex(sex);
-        query.setWecahtId(map.get("nickname").toString());
+        String name = emojiConvert(map.get("nickname").toString());
+        query.setWecahtId(name);
         query.setHeadimgUrl(map.get("headimgurl").toString());
-        query.setCreateTime(nowdate);
-        query.setUpdateTime(nowdate);
-        wxLoginService.SaveUserInfo(query);
-
+        Map<String,Object> userMap =  wxLoginService.queryUserInfo(query);
+        if("1".equals(userMap.get("num").toString())){//根据openId查询用户是否存在，已存在则更新用户信息，不存在则保存
+            query.setUpdateTime(nowdate);
+            wxLoginService.updateUserInfo(query);
+        }else{
+            query.setCreateTime(nowdate);
+            wxLoginService.SaveUserInfo(query);
+        }
         return map;
   }
+    /**
+     * @Description 将字符串中的emoji表情转换成可以在utf-8字符集数据库中保存的格式（表情占4个字节，需要utf8mb4字符集）
+     * @param str
+     *            待转换字符串
+     * @return 转换后字符串
+     * @throws UnsupportedEncodingException
+     *             exception
+     */
+    public static String emojiConvert(String str)
+            throws UnsupportedEncodingException {
+        if(StringUtils.isEmpty(str)){
+            return "";
+        }
+        String patternString = "([\\x{10000}-\\x{10ffff}\ud800-\udfff])";
 
+        Pattern pattern = Pattern.compile(patternString);
+        Matcher matcher = pattern.matcher(str);
+        StringBuffer sb = new StringBuffer();
+        while(matcher.find()) {
+            try {
+                matcher.appendReplacement(
+                        sb,
+                        "[["
+                                + URLEncoder.encode(matcher.group(1),
+                                "UTF-8") + "]]");
+            } catch(UnsupportedEncodingException e) {
+                //LOG.error("emojiConvert error", e);
+                throw e;
+            }
+        }
+        matcher.appendTail(sb);
+        //LOG.debug("emojiConvert " + str + " to " + sb.toString()+ ", len：" + sb.length());
+        return sb.toString();
+    }
 
 }

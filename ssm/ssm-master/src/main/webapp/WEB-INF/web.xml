@@ -2,8 +2,24 @@
 		 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 		 version="3.1" metadata-complete="true">
-	<!-- 如果是用mvn命令生成的xml，需要修改servlet版本为3.1 -->
-	<!-- 配置DispatcherServlet -->
+
+	<!-- Spring配置文件开始 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/spring-*.xml</param-value></context-param>
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>ROOT.root</param-value>
+	</context-param>
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>classpath:log4j.properties</param-value>
+	</context-param>
+	<!-- log4jRefreshInterval为6000表示 开一条watchdog线程每6秒扫描一下配置文件的变化 -->
+	<context-param>
+		<param-name>log4jRefreshInterval</param-name>
+		<param-value>6000</param-value>
+	</context-param>
 	<servlet>
 		<servlet-name>mvc-dispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -14,10 +30,6 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:spring/spring-*.xml</param-value>
-		</init-param>
-		<init-param>
-		<param-name>log4jConfigLocation</param-name>
-		<param-value>classpath:log4j.properties</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>

@@ -47,7 +47,7 @@ public class WeChatServiceImpl implements WeChatService {
     }
 
 
-    public void addShopCart(weChatQuery query) throws ParseException {
+    public Map<String,Object> addShopCart(weChatQuery query) throws ParseException {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = sf.format(new Date());
         Date nowdate = sf.parse(format);
@@ -56,7 +56,7 @@ public class WeChatServiceImpl implements WeChatService {
         query.setCreateTime(nowdate);
         query.setUpdateTime(nowdate);
         shopCartInfoMapper.insert(query);
-        return;
+        return userInfo;
     }
 
 

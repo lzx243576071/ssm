@@ -6,6 +6,8 @@ import com.soecode.web.service.WXLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 /**
  * Created by Jiangyue on 2019/7/28.
  */
@@ -16,6 +18,15 @@ public class WXLoginServiceImpl implements WXLoginService {
 
     public void SaveUserInfo(LoginQuery query) {
         wXLoginMapper.insert(query);
+        return;
+    }
+
+    public Map<String,Object> queryUserInfo(LoginQuery query) {
+        return wXLoginMapper.queryUserInfo(query);
+    }
+
+    public void updateUserInfo(LoginQuery query) {
+        wXLoginMapper.updateByPrimaryKeySelective(query);
         return;
     }
 }

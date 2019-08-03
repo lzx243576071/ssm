@@ -14,7 +14,7 @@ public class LoginQuery {
     private Date  createTime;
     private Date updateTime;
 
-//    private String unionid;
+    private Double userAccount;
 
     public String getUserId() {
         return userId;
@@ -62,6 +62,7 @@ public class LoginQuery {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
     public Date getUpdateTime() {
         return updateTime;
     }
@@ -70,5 +71,12 @@ public class LoginQuery {
         this.updateTime = updateTime;
     }
 
+    public Double getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(Double userAccount) {
+        this.userAccount = userAccount;
+    }
 
 }
