@@ -3,8 +3,6 @@ package com.soecode.web.entity;
 import java.util.Date;
 
 public class SystemInfo {
-    private Integer id;
-
     private Integer sysId;
 
     private String sysUserName;
@@ -22,14 +20,6 @@ public class SystemInfo {
     private Date updateTime;
 
     private String remarks;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getSysId() {
         return sysId;

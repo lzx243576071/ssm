@@ -6,6 +6,11 @@ package com.soecode.web.dto;
      */
 
 public enum ResultCodeEnums {
+
+        NOT_LOGIN("202", "未登录"),
+
+        NET_ERROR("203", "医院网络出错"),
+
         SERVER_EXCEPTION("-2", "服务端异常code"),
         TIMEOUT_EXCEPTION("-4", "业务超时"),
         OK("100", "成功"),
@@ -46,4 +51,13 @@ public enum ResultCodeEnums {
         public void setMsg(String msg) {
                 this.msg = msg;
         }
+
+            public static ResultCodeEnums getByCode(String code) {
+                    for (ResultCodeEnums result : ResultCodeEnums.values()) {
+                            if (result.getCode().equals(code)) {
+                                    return result;
+                            }
+                    }
+                    return null;
+            }
 }

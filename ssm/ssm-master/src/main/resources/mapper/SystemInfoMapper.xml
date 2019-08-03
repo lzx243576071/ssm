@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.soecode.web.mapper.SystemInfoMapper">
   <resultMap id="BaseResultMap" type="com.soecode.web.entity.SystemInfo">
-    <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="SYS_ID" jdbcType="INTEGER" property="sysId" />
     <result column="SYS_USER_NAME" jdbcType="VARCHAR" property="sysUserName" />
     <result column="SYS_USER_PASSWORD" jdbcType="VARCHAR" property="sysUserPassword" />
@@ -14,25 +13,25 @@
     <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, SYS_ID, SYS_USER_NAME, SYS_USER_PASSWORD, ROLE_ID, SYS_NAME, SYS_USER_MOBILE, 
+    SYS_ID, SYS_USER_NAME, SYS_USER_PASSWORD, ROLE_ID, SYS_NAME, SYS_USER_MOBILE,
     CREATE_TIME, UPDATE_TIME, REMARKS
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from "system_info"
-    where ID = #{id,jdbcType=INTEGER}
+    where SYS_ID = #{sysId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from "system_info"
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.soecode.web.entity.SystemInfo">
-    insert into "system_info" (ID, SYS_ID, SYS_USER_NAME, 
+    insert into "system_info" (SYS_ID, SYS_USER_NAME,
       SYS_USER_PASSWORD, ROLE_ID, SYS_NAME, 
       SYS_USER_MOBILE, CREATE_TIME, UPDATE_TIME, 
       REMARKS)
-    values (#{id,jdbcType=INTEGER}, #{sysId,jdbcType=INTEGER}, #{sysUserName,jdbcType=VARCHAR}, 
+    values (#{sysId,jdbcType=INTEGER}, #{sysUserName,jdbcType=VARCHAR},
       #{sysUserPassword,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, #{sysName,jdbcType=VARCHAR}, 
       #{sysUserMobile,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{remarks,jdbcType=VARCHAR})
@@ -40,9 +39,6 @@
   <insert id="insertSelective" parameterType="com.soecode.web.entity.SystemInfo">
     insert into "system_info"
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        ID,
-      </if>
       <if test="sysId != null">
         SYS_ID,
       </if>
@@ -72,9 +68,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="sysId != null">
         #{sysId,jdbcType=INTEGER},
       </if>
@@ -153,32 +146,29 @@
 
 
   <select id="queryUser" resultMap="BaseResultMap" parameterType="com.soecode.web.entity.SystemInfo">
-    select SYS_ID,
+    select
     <include refid="Base_Column_List" />
     from system_info
     WHERE 1=1
-    <if test="SYS_USER_NAME != null">
-      AND SYS_USER_NAME = #{userName}
+    <if test="sysUserName != null">
+      AND SYS_USER_NAME = #{sysUserName}
     </if>
-    <if test="SYS_USER_NAME != null">
-      AND SYS_USER_NAME = #{userName}
+    <if test="sysUserPassword != null">
+      AND SYS_USER_PASSWORD = #{sysUserPassword}
     </if>
-    <if test="SYS_USER_PASSWORD != null">
-      AND SYS_USER_PASSWORD = #{userPasswor}
+    <if test="sysUserMobile != null">
+      AND SYS_USER_MOBILE = #{sysUserMobile}
     </if>
-    <if test="SYS_USER_MOBILE != null">
-      AND SYS_USER_MOBILE = #{userMobile}
-    </if>
-    <if test="ROLE_ID != null">
+    <if test="roleId != null">
       AND ROLE_ID = #{roleId}
     </if>
-    <if test="CREAT_TIME != null">
+    <if test="createTime != null">
       AND CREAT_TIME = #{createTime}
     </if>
-    <if test="UPDATE_TIME != null">
+    <if test="updateTime != null">
       AND UPDATE_TIME = #{updateTime}
     </if>
-    <if test="REMARKS != null">
+    <if test="remarks != null">
       AND REMARKS = #{remarks}
     </if>
 

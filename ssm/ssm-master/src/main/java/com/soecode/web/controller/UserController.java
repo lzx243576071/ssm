@@ -50,7 +50,7 @@ public class UserController {
     }
 
     /**
-     * 用户评价
+     * 获取用户评价
      * @param request
      * @param userInfo
      * @return
