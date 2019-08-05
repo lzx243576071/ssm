@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.soecode.web.mapper.OrderInfoMapper">
   <resultMap id="BaseResultMap" type="com.soecode.web.entity.OrderInfo">
-    <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="ORDER_ID" jdbcType="INTEGER" property="orderId" />
     <result column="ORDER_STATE" jdbcType="INTEGER" property="orderState" />
     <result column="GOODS_NUM" jdbcType="INTEGER" property="goodsNum" />
@@ -25,7 +24,7 @@
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, ORDER_ID, ORDER_STATE, GOODS_NUM, ORDER_MONERY, START_ORDER_TIME, PAY_WAY, USER_ID, 
+    ORDER_ID, ORDER_STATE, GOODS_NUM, ORDER_MONERY, START_ORDER_TIME, PAY_WAY, USER_ID,
     USER_NAME, USER_ADDR, TAKE_PERSON_ID, TAKE_PERSON_NAME, TAKE_TIME, SORT_TIME, CLEAN_TIME, 
     DELIVERY_TIME, GET_GOODS_TIME, COMMISSION, REMARKS, CREATE_TIME, UPDATE_TIME
   </sql>
@@ -40,10 +39,10 @@
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from order_info
-    where ID = #{id,jdbcType=INTEGER}
+    where ORDER_ID = #{orderId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.soecode.web.entity.OrderInfo">
-    insert into order_info (ID, ORDER_ID, ORDER_STATE, 
+    insert into order_info (ORDER_ID, ORDER_STATE,
       GOODS_NUM, ORDER_MONERY, START_ORDER_TIME, 
       PAY_WAY, USER_ID, USER_NAME, 
       USER_ADDR, TAKE_PERSON_ID, TAKE_PERSON_NAME, 
@@ -51,7 +50,7 @@
       DELIVERY_TIME, GET_GOODS_TIME, COMMISSION, 
       REMARKS, CREATE_TIME, UPDATE_TIME
       )
-    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{orderState,jdbcType=INTEGER}, 
+    values ( #{orderId,jdbcType=INTEGER}, #{orderState,jdbcType=INTEGER},
       #{goodsNum,jdbcType=INTEGER}, #{orderMonery,jdbcType=DOUBLE}, #{startOrderTime,jdbcType=TIMESTAMP}, 
       #{payWay,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
       #{userAddr,jdbcType=VARCHAR}, #{takePersonId,jdbcType=INTEGER}, #{takePersonName,jdbcType=VARCHAR}, 
@@ -63,9 +62,6 @@
   <insert id="insertSelective" parameterType="com.soecode.web.entity.OrderInfo">
     insert into order_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        ID,
-      </if>
       <if test="orderId != null">
         ORDER_ID,
       </if>
@@ -128,9 +124,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="orderId != null">
         #{orderId,jdbcType=INTEGER},
       </if>

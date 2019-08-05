@@ -27,8 +27,8 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public Result getOrderInfo(int userId,int orderStates) {
-        List<OrderInfo> orderInfoList = orderInfoMapper.selectByPrimaryKey(userId,orderStates);
+    public Result getOrderInfo(Integer userId,Integer orderState) {
+        List<OrderInfo> orderInfoList = orderInfoMapper.selectByPrimaryKey(userId,orderState);
         List<Map<String,Object>>  orderGoodsList = new ArrayList<>();
         for (OrderInfo orderInfo:orderInfoList) {
             Map<String,Object> orderMap = new HashMap<>();
@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Result getOrderDetail(int orderId) {
+    public Result getOrderDetail(Integer orderId) {
         List<OrderGoodsVO> orderGoodsVOreturnList= orderDetailMapper.selectDetailByOrderId(orderId);
         return Result.createSuccessResult(orderGoodsVOreturnList);
     }
@@ -50,10 +50,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Result updateOrder(OrderDetail record) {
         Result result = Result.createFailResult();
-        int icode = orderDetailMapper.updateByPrimaryKey(record);
+        int icode = orderDetailMapper.updateByPrimaryKeySelective(record);
         if(icode>0){
             return Result.createSuccessResult();
         }
-        return null;
+        return result;
     }
 }

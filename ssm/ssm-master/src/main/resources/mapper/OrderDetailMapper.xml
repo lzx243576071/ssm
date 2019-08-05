@@ -42,8 +42,8 @@
   </sql>
   <sql id="Base_Column_List_t">
     t.ID, t.ORDER_ID, t.GOODS_ID, t.GOODS_NAME, t.GOODS_PRICE, t.GOODS_NUM, t.TOTAL_PRICE, t.GOODS_TEXTURE,
-    t.GOODS_TYPE, t.WASH_METHOD, t.GOODS_STATE, t.CREATE_TIME, t.UPDATE_TIME
-    t1.CLASSIFY_ID, t1.CLASSIFY_NAME, t1.ITEM_PRICE, t1.SEASON, t1.ITEM_IMG,
+    t.GOODS_TYPE, t.WASH_METHOD, t.GOODS_STATE, t.CREATE_TIME, t.UPDATE_TIME,
+    t1.CLASSIFY_ID, t1.CLASSIFY_NAME, t1.ITEM_PRICE, t1.SEASON, t1.ITEM_IMG
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -187,7 +187,7 @@
       </if>
         UPDATE_TIME = now()
     </set>
-    where order_id = #{orderId,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.OrderDetail">
     update order_detail
@@ -216,7 +216,7 @@
   <select id="selectDetailByOrderId" parameterType="java.lang.Integer" resultMap="ResultMapOrder">
     select
         <include refid="Base_Column_List_t" />
-    from order_detail t left join item_info on t.good_id = t1.item_id
+    from order_detail t left join item_info t1 on t.goods_id = t1.item_id
     <if test="orderId!=null">
         where order_id = #{orderId}
     </if>

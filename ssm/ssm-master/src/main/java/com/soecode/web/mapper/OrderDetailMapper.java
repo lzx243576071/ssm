@@ -3,6 +3,7 @@ package com.soecode.web.mapper;
 import com.soecode.web.entity.OrderDetail;
 import com.soecode.web.entity.entityVO.OrderAppraiseInfoVO;
 import com.soecode.web.entity.entityVO.OrderGoodsVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,5 +22,5 @@ public interface OrderDetailMapper {
 
     List<OrderAppraiseInfoVO> selectMaxNumType(Integer orderId);
 
-    List<OrderGoodsVO> selectDetailByOrderId(Integer orderId);
+    List<OrderGoodsVO> selectDetailByOrderId(@Param("orderId") Integer orderId);
 }

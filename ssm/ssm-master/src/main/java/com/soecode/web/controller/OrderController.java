@@ -32,7 +32,7 @@ public class OrderController {
      * @return
      */
     @RequestMapping(value = "/common/getOrderInfo")
-    public Result getOrderInfo(HttpServletRequest request,int orderStates) {
+    public Result getOrderInfo(HttpServletRequest request,Integer orderState) {
         Result result = Result.createFailResult();
         HttpSession session = request.getSession();
         if(session.getAttribute(Constants.WEB_SESSSION_ID_KEY) == null){
@@ -44,19 +44,19 @@ public class OrderController {
             result.value(ResultCodeEnums.NOT_LOGIN);
             return result;
         }
-        return orderService.getOrderInfo(userId,orderStates);
+        return orderService.getOrderInfo(userId,orderState);
     }
 
 
     /**
      * 获取订单明细
      * @param request
-     * @param OrderId
+     * @param orderId
      * @return
      */
     @RequestMapping(value = "/common/getOrderDetail")
-    public Result getOrderDetail(HttpServletRequest request,int OrderId) {
-        return orderService.getOrderDetail(OrderId);
+    public Result getOrderDetail(HttpServletRequest request,Integer orderId) {
+        return orderService.getOrderDetail(orderId);
     }
 
     /**
