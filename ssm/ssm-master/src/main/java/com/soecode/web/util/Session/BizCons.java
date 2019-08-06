@@ -10,6 +10,6 @@ public class BizCons {
 
     public static Properties APP_CONFIG;
 
-    public static String APP_DOMAIN;
+    public static String APP_DOMAIN = "ssm";
 
 }

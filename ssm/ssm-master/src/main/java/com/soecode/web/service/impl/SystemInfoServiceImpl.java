@@ -55,11 +55,11 @@ public class SystemInfoServiceImpl implements SystemInfoService {
     }
 
     private Map<String, Object> afterLoginProcess(SystemInfo user) {
-        redisCacheServiceAdapter.del(Constants.LOGIN_RETRY_PRIFIX + user.getSysId());
+//        redisCacheServiceAdapter.del(Constants.LOGIN_RETRY_PRIFIX + user.getSysId());
 
         UserSession<SystemInfo> userSession = new UserSession<>(user, null);
-        redisCacheServiceAdapter.set(userSession.getSessionId(), userSession);
-        redisCacheServiceAdapter.set("login-" + user.getSysUserMobile(), userSession.getSessionId());
+//        redisCacheServiceAdapter.set(userSession.getSessionId(), userSession);
+//        redisCacheServiceAdapter.set("login-" + user.getSysUserMobile(), userSession.getSessionId());
 
 
         String idstr = MD5Util.getMD5Code("" + user.getSysId());

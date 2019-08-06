@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
             int orderId = orderInfo.getOrderId();
             List<OrderGoodsVO> orderGoodsVOList = orderDetailMapper.selectDetailByOrderId(orderId);
             orderMap.put("orderInfo",orderInfo);
-            orderMap.put("orderGoodsVOList",orderGoodsList);
+            orderMap.put("orderGoodsVOList",orderGoodsVOList);
             orderGoodsList.add(orderMap);
         }
         return Result.createSuccessResult(orderGoodsList);

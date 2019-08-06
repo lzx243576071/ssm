@@ -7,12 +7,14 @@ import com.soecode.web.entity.OrderDetail;
 import com.soecode.web.entity.UserInfo;
 import com.soecode.web.service.OrderService;
 import com.soecode.web.util.constants.Constants;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -28,20 +30,32 @@ public class OrderController {
     /**
      * 获取订单详情
      * @param request
-     * @param orderStates
+     * @param orderState
      * @return
      */
     @RequestMapping(value = "/common/getOrderInfo")
     public Result getOrderInfo(HttpServletRequest request,Integer orderState) {
         Result result = Result.createFailResult();
+        Cookie[] cookies = request.getCookies();
         HttpSession session = request.getSession();
-        if(session.getAttribute(Constants.WEB_SESSSION_ID_KEY) == null){
-            result.value(ResultCodeEnums.NOT_LOGIN);
-            return result;
-        }
-        int userId = (Integer) session.getAttribute(Constants.WEB_SESSSION_ID_KEY);
+        int userId = 0;
+//        Boolean cookieBoolean = false;
+//        for (Cookie cookie : cookies) {
+//            if(session.getId()==cookie.getValue()){
+//                cookieBoolean=true;
+//            }
+//        }
+            for (Cookie cookie : cookies) {
+                if(cookie.getName().equals("uid")){
+                    userId = Integer.parseInt(cookie.getValue());
+                }
+            }
+//        if(session.getAttribute(Constants.WEB_SESSSION_ID_KEY) == null){
+//            return result.error(ResultCodeEnums.NOT_LOGIN);
+//        }
+//        int userId = (Integer) session.getAttribute(Constants.WEB_SESSSION_ID_KEY);
         if(userId == 0){
-            result.value(ResultCodeEnums.NOT_LOGIN);
+            result.error(ResultCodeEnums.NOT_LOGIN);
             return result;
         }
         return orderService.getOrderInfo(userId,orderState);
