@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("order")
 public class OrderController {
 
-    private static final Logger logger = LoggerFactory.getLogger(CheckController.class);
+    private static final Logger logger = LoggerFactory.getLogger(WXCheckController.class);
 
     @Autowired
     private OrderService orderService;
