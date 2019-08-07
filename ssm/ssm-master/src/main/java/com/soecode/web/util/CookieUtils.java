@@ -46,24 +46,24 @@ public class CookieUtils {
                                  Integer expiry,
                                  String domains,
                                  String path) {
-        if (StringUtils.isNotEmpty(domains)) {
-            String[] split = domains.split(",");
-            for (String domain : split) {
+//        if (StringUtils.isNotEmpty(domains)) {
+//            String[] split = domains.split(",");
+//            for (String domain : split) {
                 Cookie cookie = new Cookie(name, value);
                 if (expiry != null) {
                     cookie.setMaxAge(expiry);
                 }
-                if (StringUtils.isNotBlank(domain)) {
-                    cookie.setDomain(domain);
-                }
+//                if (StringUtils.isNotBlank(domain)) {
+//                    cookie.setDomain(domain);
+//                }
                 if (StringUtils.isNotBlank(path)) {
                     cookie.setPath(path);
                 }
         //        cookie.setHttpOnly(true);
-                cookie.setSecure(true);
+                cookie.setSecure(false);
                 response.addCookie(cookie);
-            }
-        }
+//            }
+//        }
     }
     /**
      * @param domains 域名：本方法中域名可以配置多个，以逗号分隔，用以支持多域名绑定到同一台服务器的需求
