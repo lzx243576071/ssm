@@ -13,9 +13,9 @@ public enum ResultCodeEnums {
 
         SERVER_EXCEPTION("-2", "服务端异常code"),
         TIMEOUT_EXCEPTION("-4", "业务超时"),
-        OK("100", "成功"),
+        OK("0000000", "成功"),
         SERVICE_ERROR("201", "服务器异常"),
-        DEFAULT_ERROR("1000", "系统出错, 请联系管理员!"),
+        DEFAULT_ERROR("9999990", "系统出错, 请联系管理员!"),
         ERROR("1001", "系统出错,错误未知!"),
         PARAM_ERROR("1002", "提交参数异常, 请联系管理员!"),
         SERVER_INNER_ERROR("1003", "请求错误，服务器内部发生异常！请联系管理员!"),

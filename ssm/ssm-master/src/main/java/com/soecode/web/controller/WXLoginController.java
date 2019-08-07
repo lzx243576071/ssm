@@ -50,12 +50,12 @@ public class WXLoginController {
  * @param request
  * @param response
  */
- @RequestMapping(value = "/wxLogin", method = RequestMethod.GET)
+     @RequestMapping(value = "/wxLogin", method = RequestMethod.GET)
  public void wxLogin(HttpServletRequest request,
                        HttpServletResponse response)
          throws ParseException, IOException {
         //这个url的域名必须要进行再公众号中进行注册验证，这个地址是成功后的回调地址
-        String backUrl="http://prmw6i.natappfree.cc/ssm/wx/callBack";
+        String backUrl="http://r3kxmc.natappfree.cc/ssm/wx/callBack";
         // 第一步：用户同意授权，获取code
         String url ="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+ APPID
         + "&redirect_uri=" + URLEncoder.encode(backUrl)

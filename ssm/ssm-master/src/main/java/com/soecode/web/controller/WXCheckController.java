@@ -15,8 +15,8 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping("loginCheck")
-public class CheckController extends BaseUtil {
-    private static final Logger logger = LoggerFactory.getLogger(CheckController.class);
+public class WXCheckController extends BaseUtil {
+    private static final Logger logger = LoggerFactory.getLogger(WXCheckController.class);
 
     /**
      * 校验信息是否是从微信服务器发出，处理消息

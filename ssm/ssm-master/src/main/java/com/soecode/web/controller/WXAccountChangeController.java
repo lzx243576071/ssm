@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/accountChange")
-public class AccountChangeController {
+public class WXAccountChangeController {
 
     @Autowired
     private AccountChangeService accountChangeService;

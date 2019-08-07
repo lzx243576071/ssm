@@ -34,13 +34,10 @@
       <if test="updateTime != null">
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="userAccount != null">
-        USER_ACCOUNT = #{userAccount,jdbcType=DOUBLE},
-      </if>
-      <if test="userAccount != null">
+      <if test="openId != null">
         OPEN_ID = #{openId,jdbcType=DOUBLE},
       </if>
-      <if test="userAccount != null">
+      <if test="headimgUrl != null">
         HEADIMG_URL = #{headimgUrl,jdbcType=DOUBLE},
       </if>
     </set>
