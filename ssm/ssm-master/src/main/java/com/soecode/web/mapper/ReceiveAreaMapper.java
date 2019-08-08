@@ -5,21 +5,14 @@ import com.soecode.web.entity.ReceiveArea;
 import java.util.List;
 
 public interface ReceiveAreaMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(ReceiveArea record);
+   int addReceiverAddress(ReceiveArea receiveArea);
 
-    int insertSelective(ReceiveArea record);
+    List chooseReceiverAddress(ReceiveArea receiveArea);
 
-    List<ReceiveArea> selectByPrimaryKey(Integer id);
+    int updteReceiverAddress(ReceiveArea receiveArea);
 
-    int updateByPrimaryKeySelective(ReceiveArea record);
+    int deleteReceiverAddress(ReceiveArea receiveArea);
 
-    int updateByPrimaryKey(ReceiveArea record);
-
-//    int addReceiverAddress(ReceiveArea receiveArea);
-//
-//    List<ReceiveArea> chooseReceiverAddress(ReceiveArea receiveArea);
-//
-//    int updteReceiverAddress(ReceiveArea receiveArea);
+    int updateHasDefault(ReceiveArea receiveArea);
 }

@@ -3,41 +3,66 @@ package com.soecode.web.entity;
 import java.util.Date;
 
 public class ReceiveArea {
-    private Integer id;
+    private long id;                //id
 
-    private Integer userId;
+    private long userId;            //用户ID
+    private String receiverName;    //收货人姓名
+    private String address;         //详细地址
+    private String phone;           //收货人电话号码
+    private String province;        //省
+    private String city;            //市
+    private String area;            //区
+    private String street;          //街道
 
-    private String receiverName;
+    private int hasDefault;         //是否默认
+    private Date gmtCreate;         //创建时间
+    private Date gmtModify;         //修改时间
 
-    private Integer areaId;
+    public String getProvince() {
+        return province;
+    }
 
-    private String areaName;
+    public void setProvince(String province) {
+        this.province = province;
+    }
 
-    private String address;
+    public String getCity() {
+        return city;
+    }
 
-    private String phone;
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-    private String zipCode;
+    public String getArea() {
+        return area;
+    }
 
-    private Byte hasDefault;
+    public void setArea(String area) {
+        this.area = area;
+    }
 
-    private Date gmtCreate;
+    public String getStreet() {
+        return street;
+    }
 
-    private Date gmtModify;
+    public void setStreet(String street) {
+        this.street = street;
+    }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -46,54 +71,33 @@ public class ReceiveArea {
     }
 
     public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName == null ? null : receiverName.trim();
+        this.receiverName = receiverName;
     }
 
-    public Integer getAreaId() {
-        return areaId;
-    }
-
-    public void setAreaId(Integer areaId) {
-        this.areaId = areaId;
-    }
-
-    public String getAreaName() {
-        return areaName;
-    }
-
-    public void setAreaName(String areaName) {
-        this.areaName = areaName == null ? null : areaName.trim();
-    }
 
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+        this.address = address;
     }
+
 
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
+        this.phone = phone;
     }
 
-    public String getZipCode() {
-        return zipCode;
-    }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode == null ? null : zipCode.trim();
-    }
-
-    public Byte getHasDefault() {
+    public int getHasDefault() {
         return hasDefault;
     }
 
-    public void setHasDefault(Byte hasDefault) {
+    public void setHasDefault(int hasDefault) {
         this.hasDefault = hasDefault;
     }
 
@@ -112,4 +116,6 @@ public class ReceiveArea {
     public void setGmtModify(Date gmtModify) {
         this.gmtModify = gmtModify;
     }
+
+
 }

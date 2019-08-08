@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.soecode.web.mapper.UserInfoMapper">
   <resultMap id="BaseResultMap" type="com.soecode.web.entity.UserInfo">
-    <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="USER_ID" jdbcType="INTEGER" property="userId" />
     <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
     <result column="WECAHT_ID" jdbcType="VARCHAR" property="wecahtId" />
@@ -15,25 +14,25 @@
     <result column="USER_ACCOUNT" jdbcType="DOUBLE" property="userAccount" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, USER_ID, USER_NAME, WECAHT_ID, USER_SEX, USER_MOBILE, USER_AREA, USER_ADDR,
+    USER_ID, USER_NAME, WECAHT_ID, USER_SEX, USER_MOBILE, USER_AREA, USER_ADDR,
     CREATE_TIME, UPDATE_TIME, USER_ACCOUNT
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from user_info
-    where ID = #{id,jdbcType=INTEGER}
+    where USER_ID = #{userId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_info
-    where ID = #{id,jdbcType=INTEGER}
+    where USER_ID = #{userId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.soecode.web.entity.UserInfo">
-    insert into user_info (ID, USER_ID, USER_NAME, 
+    insert into user_info (USER_ID, USER_NAME,
       WECAHT_ID, USER_SEX, USER_MOBILE,
       USER_AREA, USER_ADDR, CREATE_TIME, 
       UPDATE_TIME, USER_ACCOUNT)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
       #{wecahtId,jdbcType=VARCHAR}, #{userSex,jdbcType=INTEGER}, #{userMobile,jdbcType=VARCHAR}, 
       #{userArea,jdbcType=VARCHAR}, #{userAddr,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{userAccount,jdbcType=DOUBLE})
@@ -41,9 +40,6 @@
   <insert id="insertSelective" parameterType="com.soecode.web.entity.UserInfo">
     insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        ID,
-      </if>
       <if test="userId != null">
         USER_ID,
       </if>
@@ -65,15 +61,11 @@
       <if test="userAddr != null">
         USER_ADDR,
       </if>
-      <if test="createTime != null">
-        CREATE_TIME,
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME,
-      </if>
       <if test="userAccount != null">
         USER_ACCOUNT,
       </if>
+      now(),
+      now()
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -100,14 +92,14 @@
       <if test="userAddr != null">
         #{userAddr,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="userAccount != null">
         #{userAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
       </if>
     </trim>
   </insert>
@@ -135,18 +127,16 @@
       <if test="createTime != null">
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null">
-        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="userAccount != null">
         USER_ACCOUNT = #{userAccount,jdbcType=DOUBLE},
       </if>
+      UPDATE_TIME = now()
     </set>
     where USER_ID = #{userId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.UserInfo">
     update user_info
-    set USER_ID = #{userId,jdbcType=INTEGER},
+    set
       USER_NAME = #{userName,jdbcType=VARCHAR},
       WECAHT_ID = #{wecahtId,jdbcType=VARCHAR},
       USER_SEX = #{userSex,jdbcType=INTEGER},
@@ -156,7 +146,7 @@
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       USER_ACCOUNT = #{userAccount,jdbcType=DOUBLE}
-    where ID = #{id,jdbcType=INTEGER}
+    where USER_ID = #{userId,jdbcType=INTEGER}
   </update>
 
   <select id="queryUserInfo" resultMap="BaseResultMap" parameterType="com.soecode.web.entity.UserInfo">

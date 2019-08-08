@@ -4,6 +4,7 @@ package com.soecode.web.controller;
 import com.soecode.web.dto.Result;
 import com.soecode.web.dto.ResultCodeEnums;
 import com.soecode.web.entity.OrderDetail;
+import com.soecode.web.entity.OrderInfo;
 import com.soecode.web.entity.UserInfo;
 import com.soecode.web.service.OrderService;
 import com.soecode.web.util.constants.Constants;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("order")
 public class OrderController {
 
-    private static final Logger logger = LoggerFactory.getLogger(CheckController.class);
+    private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     @Autowired
     private OrderService orderService;
@@ -34,27 +35,27 @@ public class OrderController {
      * @return
      */
     @RequestMapping(value = "/common/getOrderInfo")
-    public Result getOrderInfo(HttpServletRequest request,Integer orderState) {
+    public Result getOrderInfo(HttpServletRequest request,Integer userId,Integer orderState) {
         Result result = Result.createFailResult();
-        Cookie[] cookies = request.getCookies();
-        HttpSession session = request.getSession();
-        int userId = 0;
-//        Boolean cookieBoolean = false;
-//        for (Cookie cookie : cookies) {
-//            if(session.getId()==cookie.getValue()){
-//                cookieBoolean=true;
+//        Cookie[] cookies = request.getCookies();
+//        HttpSession session = request.getSession();
+//        int userId = 0;
+////        Boolean cookieBoolean = false;
+////        for (Cookie cookie : cookies) {
+////            if(session.getId()==cookie.getValue()){
+////                cookieBoolean=true;
+////            }
+////        }
+//            for (Cookie cookie : cookies) {
+//                if(cookie.getName().equals("userid")){
+//                    userId = Integer.parseInt(cookie.getValue());
+//                }
 //            }
-//        }
-            for (Cookie cookie : cookies) {
-                if(cookie.getName().equals("uid")){
-                    userId = Integer.parseInt(cookie.getValue());
-                }
-            }
-//        if(session.getAttribute(Constants.WEB_SESSSION_ID_KEY) == null){
-//            return result.error(ResultCodeEnums.NOT_LOGIN);
-//        }
-//        int userId = (Integer) session.getAttribute(Constants.WEB_SESSSION_ID_KEY);
-        if(userId == 0){
+////        if(session.getAttribute(Constants.WEB_SESSSION_ID_KEY) == null){
+////            return result.error(ResultCodeEnums.NOT_LOGIN);
+////        }
+////        int userId = (Integer) session.getAttribute(Constants.WEB_SESSSION_ID_KEY);
+        if(null !=userId ||userId == 0){
             result.error(ResultCodeEnums.NOT_LOGIN);
             return result;
         }
@@ -75,12 +76,15 @@ public class OrderController {
 
     /**
      * 更改订单
-     * @param request
-     * @param record
+     * @param orderInfo
+     * @param orderDetail
      * @return
      */
     @RequestMapping(value = "/common/updateOrder")
-    public Result updateOrder(HttpServletRequest request, OrderDetail record) {
-        return orderService.updateOrder(record);
+    public Result updateOrder(OrderInfo orderInfo, OrderDetail orderDetail) {
+        if(null == orderInfo.getOrderId()){
+            return Result.createFailResult("orderId不能為空");
+        }
+        return orderService.updateOrder(orderInfo,orderDetail);
     }
 }

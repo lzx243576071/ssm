@@ -2,6 +2,7 @@ package com.soecode.web.service;
 
 import com.soecode.web.dto.Result;
 import com.soecode.web.entity.OrderDetail;
+import com.soecode.web.entity.OrderInfo;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,5 +12,5 @@ public interface OrderService {
 
     Result getOrderDetail(Integer orderId);
 
-    Result updateOrder(OrderDetail record);
+    Result updateOrder(OrderInfo orderInfo, OrderDetail orderDetail);
 }

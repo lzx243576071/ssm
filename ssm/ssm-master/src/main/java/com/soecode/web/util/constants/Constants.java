@@ -26,9 +26,9 @@ public class Constants {
 
 
     //用户端sessionId
-    public static final String WEB_SESSSION_ID_KEY = "sid";
-    public static final String WEB_USER_ID_KEY = "uid";
-    public static final String WEB_SESSSION_TRACK_KEY = "tid";//跟踪用户id
+    public static final String WEB_SESSSION_ID_KEY = "sessionid";
+    public static final String WEB_USER_ID_KEY = "userid";
+    public static final String WEB_SESSSION_TRACK_KEY = "trackid";//跟踪用户id
 
     //用户登录错误重试次数key
     public static final String LOGIN_RETRY_PRIFIX = "login_retry";

@@ -48,9 +48,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Result updateOrder(OrderDetail record) {
+    public Result updateOrder(OrderInfo orderInfo, OrderDetail orderDetail) {
         Result result = Result.createFailResult();
-        int icode = orderDetailMapper.updateByPrimaryKeySelective(record);
+        int icode = orderDetailMapper.updateByPrimaryKeySelective(orderDetail);
         if(icode>0){
             return Result.createSuccessResult();
         }

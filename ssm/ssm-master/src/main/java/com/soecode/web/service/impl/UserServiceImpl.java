@@ -39,6 +39,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result changeUserInformation(UserInfo userInfo) {
         Result result = Result.createFailResult();
+        userInfo.setUserAccount(null);
+        userInfo.setUserSex(null);
+        userInfo.setWecahtId(null);
         int icode =  userInfoMapper.updateByPrimaryKeySelective(userInfo);
         if(icode>0){
             return Result.createSuccessResult("保存成功");
@@ -65,18 +68,39 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int addReceiverAddress(ReceiveArea receiveArea) {
-        return receiveAreaMapper.insertSelective(receiveArea);
+    public Result addReceiverAddress(ReceiveArea receiveArea) {
+        Result result = Result.createFailResult();
+        if(receiveArea.getHasDefault()==1) {
+            receiveAreaMapper.updateHasDefault(receiveArea);
+        }
+        int icode = receiveAreaMapper.addReceiverAddress(receiveArea);
+        if(icode > 0){
+            return Result.createSuccessResult();
+        }
+        return result;
     }
 
     @Override
-    public List<ReceiveArea> chooseReceiverAddress(ReceiveArea receiveArea) {
-        return receiveAreaMapper.selectByPrimaryKey(receiveArea.getId());
+    public List chooseReceiverAddress(ReceiveArea receiveArea) {
+        return receiveAreaMapper.chooseReceiverAddress(receiveArea);
     }
 
     @Override
-    public int updteReceiverAddress(ReceiveArea receiveArea) {
-        return receiveAreaMapper.updateByPrimaryKeySelective(receiveArea);
+    public Result updteReceiverAddress(ReceiveArea receiveArea) {
+        Result result = Result.createFailResult();
+        if(receiveArea.getHasDefault()==1) {
+            receiveAreaMapper.updateHasDefault(receiveArea);
+        }
+        int icode = receiveAreaMapper.updteReceiverAddress(receiveArea);
+        if(icode>0){
+            return Result.createSuccessResult();
+        }
+        return result;
+    }
+
+    @Override
+    public int deleteReceiverAddress(ReceiveArea receiveArea) {
+        return receiveAreaMapper.deleteReceiverAddress(receiveArea);
     }
 
     @Override

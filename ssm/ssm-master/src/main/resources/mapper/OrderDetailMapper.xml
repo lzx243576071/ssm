@@ -64,8 +64,7 @@
     values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, 
       #{goodsName,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DOUBLE}, #{goodsNum,jdbcType=INTEGER}, 
       #{totalPrice,jdbcType=DOUBLE}, #{goodsTexture,jdbcType=VARCHAR}, #{goodsType,jdbcType=VARCHAR}, 
-      #{washMethod,jdbcType=VARCHAR}, #{goodsState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{washMethod,jdbcType=VARCHAR}, #{goodsState,jdbcType=INTEGER}, now(),now())
   </insert>
   <insert id="insertSelective" parameterType="com.soecode.web.entity.OrderDetail">
     insert into order_detail
@@ -103,12 +102,8 @@
       <if test="goodsState != null">
         GOODS_STATE,
       </if>
-      <if test="createTime != null">
-        CREATE_TIME,
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME,
-      </if>
+      CREATETIME = now(),
+      UPDATETIME = now()
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">

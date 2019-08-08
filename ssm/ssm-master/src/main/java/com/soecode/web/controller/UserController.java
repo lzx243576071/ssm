@@ -2,6 +2,7 @@ package com.soecode.web.controller;
 
 
 import com.soecode.web.dto.Result;
+import com.soecode.web.dto.ResultCodeEnums;
 import com.soecode.web.entity.ReceiveArea;
 import com.soecode.web.entity.UserDO;
 import com.soecode.web.entity.UserInfo;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -32,8 +35,7 @@ public class UserController {
     @RequestMapping(value = "/common/getUserInformation")
     public Result queryUsers(HttpServletRequest request,UserInfo userInfo) {
         //userID根据用户登录session获取
-        int userId = 0;
-        return  userService.queryByUserId(userId);
+        return  userService.queryByUserId(userInfo.getUserId());
     }
 
     /**
@@ -45,7 +47,6 @@ public class UserController {
     @RequestMapping(value = "/common/changeUserInformation")
     public Result changeUserInformation(HttpServletRequest request,UserInfo userInfo) {
         //userID根据用户登录session获取
-        int userId = 0;
         return  userService.changeUserInformation(userInfo);
     }
 
@@ -58,8 +59,7 @@ public class UserController {
     @RequestMapping(value = "/common/getUserApprise")
     public Result getUserApprise(HttpServletRequest request, UserInfo userInfo) {
         //userID根据用户登录session获取
-        int userId = 0;
-        return  userService.getUserApprise(userId);
+        return  userService.getUserApprise(userInfo.getUserId());
     }
 
     /**
@@ -69,15 +69,32 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("/addressAdministration/addReceiverAddress")
-    public Result addReceiverAddress(ReceiveArea receiveArea) {
-        if(receiveArea.getUserId()==0||(receiveArea.getUserId()+"").isEmpty()){
-            return Result.createFailResult("缺少必要参数userId");
+    public Result addReceiverAddress(HttpServletRequest request,ReceiveArea receiveArea) {
+        Result result = Result.createFailResult();
+        Cookie[] cookies = request.getCookies();
+        HttpSession session = request.getSession();
+        int userId = 0;
+//        Boolean cookieBoolean = false;
+//        for (Cookie cookie : cookies) {
+//            if(session.getId()==cookie.getValue()){
+//                cookieBoolean=true;
+//            }
+//        }
+        for (Cookie cookie : cookies) {
+            if(cookie.getName().equals("uid")){
+                userId = Integer.parseInt(cookie.getValue());
+            }
         }
-        int icode =  userService.addReceiverAddress(receiveArea);
-        if(icode>0){
-            return Result.createSuccessResult();
+//        if(session.getAttribute(Constants.WEB_SESSSION_ID_KEY) == null){
+//            return result.error(ResultCodeEnums.NOT_LOGIN);
+//        }
+//        int userId = (Integer) session.getAttribute(Constants.WEB_SESSSION_ID_KEY);
+        if(userId == 0){
+            result.error(ResultCodeEnums.NOT_LOGIN);
+            return result;
         }
-        return Result.createFailResult("新建失败");
+        receiveArea.setUserId(userId);
+        return userService.addReceiverAddress(receiveArea);
     }
 
     /**
@@ -87,13 +104,32 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("/addressAdministration/chooseReceiverAddress")
-    public Result chooseReceiverAddress(ReceiveArea receiveArea) {
-        if(receiveArea.getUserId()==0||(receiveArea.getUserId()+"").isEmpty()){
-            return Result.createFailResult("缺少必要参数userId");
+    public Result chooseReceiverAddress(HttpServletRequest request,ReceiveArea receiveArea) {
+        Result result = Result.createFailResult();
+        //获取userId
+        Cookie[] cookies = request.getCookies();
+        HttpSession session = request.getSession();
+        int userId = 0;
+//        Boolean cookieBoolean = false;
+//        for (Cookie cookie : cookies) {
+//            if(session.getId()==cookie.getValue()){
+//                cookieBoolean=true;
+//            }
+//        }
+        for (Cookie cookie : cookies) {
+            if(cookie.getName().equals("uid")){
+                userId = Integer.parseInt(cookie.getValue());
+            }
         }
-        if(receiveArea.getId()==0||(receiveArea.getId()+"").isEmpty()){
-            return Result.createFailResult("缺少必要参数id");
+//        if(session.getAttribute(Constants.WEB_SESSSION_ID_KEY) == null){
+//            return result.error(ResultCodeEnums.NOT_LOGIN);
+//        }
+//        int userId = (Integer) session.getAttribute(Constants.WEB_SESSSION_ID_KEY);
+        if(userId == 0){
+            result.error(ResultCodeEnums.NOT_LOGIN);
+            return result;
         }
+        receiveArea.setUserId(userId);
         List list =  userService.chooseReceiverAddress(receiveArea);
         return Result.createSuccessResult(list);
     }
@@ -105,15 +141,53 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("addressAdministration/updateReceiverAddress")
-    public Result updteReceiverAddress(ReceiveArea receiveArea) {
+    public Result updateReceiverAddress(HttpServletRequest request,ReceiveArea receiveArea) {
+        Result result = Result.createFailResult();
         if(receiveArea.getId()==0||(receiveArea.getId()+"").isEmpty()){
             return Result.createFailResult("缺少必要参数id");
         }
-        int icode =  userService.updteReceiverAddress(receiveArea);
+        Cookie[] cookies = request.getCookies();
+        HttpSession session = request.getSession();
+        int userId = 0;
+//        Boolean cookieBoolean = false;
+//        for (Cookie cookie : cookies) {
+//            if(session.getId()==cookie.getValue()){
+//                cookieBoolean=true;
+//            }
+//        }
+        for (Cookie cookie : cookies) {
+            if(cookie.getName().equals("uid")){
+                userId = Integer.parseInt(cookie.getValue());
+            }
+        }
+//        if(session.getAttribute(Constants.WEB_SESSSION_ID_KEY) == null){
+//            return result.error(ResultCodeEnums.NOT_LOGIN);
+//        }
+//        int userId = (Integer) session.getAttribute(Constants.WEB_SESSSION_ID_KEY);
+        if(userId == 0){
+            result.error(ResultCodeEnums.NOT_LOGIN);
+            return result;
+        }
+        receiveArea.setUserId(userId);
+        return userService.updteReceiverAddress(receiveArea);
+    }
+
+    /**
+     * 删除收货地址
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("addressAdministration/deleteReceiverAddress")
+    public Result deleterReceiverAddress(ReceiveArea ReceiveArea) {
+        if(ReceiveArea.getId()==0||(ReceiveArea.getId()+"").isEmpty()){
+            return Result.createFailResult("缺少必要参数receiveInfoId");
+        }
+        int icode =  userService.deleteReceiverAddress(ReceiveArea);
         if(icode>0){
             return Result.createSuccessResult();
         }
-        return Result.createFailResult("更新失败");
+        return Result.createFailResult("删除失败");
     }
 
     /**

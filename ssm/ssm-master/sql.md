@@ -324,3 +324,25 @@ MODIFY COLUMN `USER_ACCOUNT`  double(20,0) NULL DEFAULT 0 COMMENT '账户余额'
 ALTER TABLE `user_info`
 CHANGE COLUMN `USER_ MOBILE` `USER_MOBILE`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '手机号码' AFTER `USER_SEX`;
 
+
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for receive_area
+-- ----------------------------
+DROP TABLE IF EXISTS `receive_area`;
+CREATE TABLE `receive_area` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) NOT NULL COMMENT '用户ID',
+  `receiver_name` varchar(30) CHARACTER SET utf8 NOT NULL COMMENT '收货人姓名',
+  `area_id` int(11) NOT NULL COMMENT '最小地区ID',
+  `area_name` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '地区名称',
+  `address` varchar(128) CHARACTER SET utf8 DEFAULT NULL COMMENT '详细地址',
+  `phone` varchar(20) CHARACTER SET utf8 NOT NULL COMMENT '联系电话',
+  `zip_code` varchar(10) CHARACTER SET utf8 DEFAULT NULL COMMENT '邮编',
+  `has_default` tinyint(4) DEFAULT NULL COMMENT '是否默认',
+  `gmt_create` datetime NOT NULL COMMENT '创建时间',
+  `gmt_modify` datetime NOT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;

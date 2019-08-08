@@ -22,7 +22,7 @@ public interface UserService {
      * @param receiveArea
      * @return
      */
-    int addReceiverAddress(ReceiveArea receiveArea);
+    Result addReceiverAddress(ReceiveArea receiveArea);
 
     /**
      * 选择收货地址
@@ -37,8 +37,14 @@ public interface UserService {
      * @param receiveArea
      * @return
      */
-    int updteReceiverAddress(ReceiveArea receiveArea);
+    Result updteReceiverAddress(ReceiveArea receiveArea);
 
+    /**
+     * 删除收货地址
+     * @param receiveArea
+     * @return
+     */
+    int deleteReceiverAddress(ReceiveArea receiveArea);
 
     /**
      * 区域级联查询

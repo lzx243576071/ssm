@@ -13,7 +13,7 @@ public class AccountChange {
 
     private Double expenseMoney;
 
-    private Double givenMoney;
+    private Double givenMoney=0.0;
 
     private Double restMoney;
 
