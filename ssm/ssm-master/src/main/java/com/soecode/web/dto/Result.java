@@ -172,7 +172,7 @@ public class Result<T> implements Serializable {
 		return ret;
 	}
 
-	public static Result error(String msg) {
+	public Result error(String msg) {
 		Result ret = new Result();
 		ret.setResultCode(ResultCodeEnums.ERROR.getCode());
 		ret.setMsg(msg);
@@ -211,7 +211,7 @@ public class Result<T> implements Serializable {
 
 	/** @deprecated */
 	@Deprecated
-	public static <W> Result<W> error(String code, W data) {
+	public <W> Result<W> error(String code, W data) {
 		Result<W> ret = error(code);
 		ret.setData(data);
 		return ret;

@@ -34,7 +34,6 @@ public class UserController {
      */
     @RequestMapping(value = "/common/getUserInformation")
     public Result queryUsers(HttpServletRequest request,UserInfo userInfo) {
-        //userID根据用户登录session获取
         return  userService.queryByUserId(userInfo.getUserId());
     }
 
@@ -46,7 +45,6 @@ public class UserController {
      */
     @RequestMapping(value = "/common/changeUserInformation")
     public Result changeUserInformation(HttpServletRequest request,UserInfo userInfo) {
-        //userID根据用户登录session获取
         return  userService.changeUserInformation(userInfo);
     }
 
@@ -58,7 +56,6 @@ public class UserController {
      */
     @RequestMapping(value = "/common/getUserApprise")
     public Result getUserApprise(HttpServletRequest request, UserInfo userInfo) {
-        //userID根据用户登录session获取
         return  userService.getUserApprise(userInfo.getUserId());
     }
 
@@ -71,29 +68,9 @@ public class UserController {
     @RequestMapping("/addressAdministration/addReceiverAddress")
     public Result addReceiverAddress(HttpServletRequest request,ReceiveArea receiveArea) {
         Result result = Result.createFailResult();
-        Cookie[] cookies = request.getCookies();
-        HttpSession session = request.getSession();
-        int userId = 0;
-//        Boolean cookieBoolean = false;
-//        for (Cookie cookie : cookies) {
-//            if(session.getId()==cookie.getValue()){
-//                cookieBoolean=true;
-//            }
-//        }
-        for (Cookie cookie : cookies) {
-            if(cookie.getName().equals("uid")){
-                userId = Integer.parseInt(cookie.getValue());
-            }
-        }
-//        if(session.getAttribute(Constants.WEB_SESSSION_ID_KEY) == null){
-//            return result.error(ResultCodeEnums.NOT_LOGIN);
-//        }
-//        int userId = (Integer) session.getAttribute(Constants.WEB_SESSSION_ID_KEY);
-        if(userId == 0){
+        if(receiveArea.getUserId()<=0L || null==receiveArea.getUserId()){
             result.error(ResultCodeEnums.NOT_LOGIN);
-            return result;
         }
-        receiveArea.setUserId(userId);
         return userService.addReceiverAddress(receiveArea);
     }
 

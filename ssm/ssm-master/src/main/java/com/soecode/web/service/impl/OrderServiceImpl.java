@@ -50,9 +50,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Result updateOrder(OrderInfo orderInfo, OrderDetail orderDetail) {
         Result result = Result.createFailResult();
-        int icode = orderDetailMapper.updateByPrimaryKeySelective(orderDetail);
-        if(icode>0){
-            return Result.createSuccessResult();
+        int icode = orderInfoMapper.updateByPrimaryKeySelective(orderInfo);
+        if(icode == 0){
+            return result.error("更新orderDetail失败");
+        }
+        if(null != orderDetail.getId()){
+            int code = orderDetailMapper.updateByPrimaryKeySelective(orderDetail);
+            if(code == 0){
+                return result.error("更新orderInfo失败");
+            }
         }
         return result;
     }

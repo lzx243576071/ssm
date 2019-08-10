@@ -10,4 +10,11 @@ import java.util.List;
 public interface SystemInfoService {
 
     Result<List<SystemInfo>> queryUsers(HttpServletRequest request, HttpServletResponse response, SystemInfo systemInfo);
+
+    Result addSystemInfo(SystemInfo systemInfo);
+
+    Result updateSystemInfo(SystemInfo systemInfo);
+
+    Result deleteSystemInfo(SystemInfo systemInfo);
+
 }

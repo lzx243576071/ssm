@@ -3,9 +3,9 @@ package com.soecode.web.entity;
 import java.util.Date;
 
 public class ReceiveArea {
-    private long id;                //id
+    private Integer id;                //id
 
-    private long userId;            //用户ID
+    private Integer userId;            //用户ID
     private String receiverName;    //收货人姓名
     private String address;         //详细地址
     private String phone;           //收货人电话号码
@@ -50,19 +50,19 @@ public class ReceiveArea {
         this.street = street;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

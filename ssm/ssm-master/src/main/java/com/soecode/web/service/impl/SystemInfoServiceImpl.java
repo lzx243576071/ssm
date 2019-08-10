@@ -3,7 +3,6 @@ package com.soecode.web.service.impl;
 import com.soecode.web.cache.RedisCacheServiceAdapter;
 import com.soecode.web.dto.Result;
 import com.soecode.web.entity.SystemInfo;
-import com.soecode.web.entity.UserDO;
 import com.soecode.web.mapper.SystemInfoMapper;
 import com.soecode.web.service.SystemInfoService;
 import com.soecode.web.util.CookieUtils;
@@ -53,6 +52,48 @@ public class SystemInfoServiceImpl implements SystemInfoService {
 
         return Result.createSuccessResult(list);
     }
+
+    /**
+     * 添加用户
+     * @param systemInfo
+     * @return
+     */
+    @Override
+    public Result addSystemInfo(SystemInfo systemInfo) {
+        Result result = Result.createFailResult();
+        int icode = systemInfoMapper.insertSelective(systemInfo);
+        if(icode>0){
+            return Result.createSuccessResult();
+        }
+        return result;
+    }
+
+
+    /**
+     * 修改用户
+     * @param systemInfo
+     * @return
+     */
+    @Override
+    public Result updateSystemInfo(SystemInfo systemInfo) {
+        Result result = Result.createFailResult();
+        int icode = systemInfoMapper.updateByPrimaryKeySelective(systemInfo);
+        if(icode>0){
+            return Result.createSuccessResult();
+        }
+        return result;
+    }
+
+    @Override
+    public Result deleteSystemInfo(SystemInfo systemInfo) {
+        Result result = Result.createFailResult();
+        int icode = systemInfoMapper.deleteByPrimaryKey(systemInfo.getSysId());
+        if(icode>=0){
+            return  Result.createSuccessResult();
+        }
+        return result;
+    }
+
 
     private Map<String, Object> afterLoginProcess(SystemInfo user) {
 //        redisCacheServiceAdapter.del(Constants.LOGIN_RETRY_PRIFIX + user.getSysId());
