@@ -213,9 +213,18 @@
       ITEM_IMG as itemImg
       from item_info
       where
-       CLASSIFY_ID = #{classifyId}
-      <if test="season!=null and season != ''">
-        and  SEASON = #{season}
-      </if>
+      <choose>
+        <when test="itemName != null and itemName !=''">
+          lower(ITEM_NAME) like concat('%',concat(lower(#{itemName})),'%')
+        </when>
+        <otherwise>
+          <if test="classifyId!=null and classifyId != ''">
+             CLASSIFY_ID = #{classifyId}
+          </if>
+          <if test="season!=null and season != ''">
+            and  SEASON = #{season}
+          </if>
+        </otherwise>
+      </choose>
     </select>
 </mapper>
