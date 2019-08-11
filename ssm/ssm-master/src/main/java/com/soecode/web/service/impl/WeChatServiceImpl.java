@@ -46,6 +46,13 @@ public class WeChatServiceImpl implements WeChatService {
         return map;
     }
 
+    public Map<String,Object> queryItemList(weChatQuery query) {
+        Map<String,Object> map = new HashMap<>();
+        List<Map<String,Object>>goodsList =  itemInfoMapper.queryItemList(query);
+        map.put("goodsList",goodsList);
+        return map;
+    }
+
 
     public Map<String,Object> addShopCart(weChatQuery query) throws ParseException {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

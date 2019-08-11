@@ -55,7 +55,7 @@ public class OrderController {
 ////            return result.error(ResultCodeEnums.NOT_LOGIN);
 ////        }
 ////        int userId = (Integer) session.getAttribute(Constants.WEB_SESSSION_ID_KEY);
-        if(null !=userId ||userId == 0){
+        if(null ==userId ||userId == 0){
             result.error(ResultCodeEnums.NOT_LOGIN);
             return result;
         }

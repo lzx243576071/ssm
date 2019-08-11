@@ -196,4 +196,26 @@
     where
     ITEM_ID = #{itemId}
   </select>
+<!--查询商品列表-->
+    <select id="queryItemList" resultType="java.util.Map">
+ select
+      CLASSIFY_NAME  as  classifyName,
+      ITEM_ID as itemId,
+      ITEM_NAME as itemName,
+      ITEM_PRICE  as itemPrice,
+      GOODS_TEXTURE  as goodsTexture,
+      case SEASON
+      when 1 then '春秋'
+      when 2 then '夏'
+      when 3 then '冬'
+      else '' end  as season,
+      WASH_METHOD as washMethod,
+      ITEM_IMG as itemImg
+      from item_info
+      where
+       CLASSIFY_ID = #{classifyId}
+      <if test="season!=null and season != ''">
+        and  SEASON = #{season}
+      </if>
+    </select>
 </mapper>

@@ -31,4 +31,12 @@ public interface ItemInfoMapper {
      * @return
      */
     List<Map<String,Object>> queryItemShopCart(weChatQuery query);
+
+
+    /**
+     * 查询商品列表
+     * @param query
+     * @return
+     */
+    List<Map<String,Object>> queryItemList(weChatQuery query);
 }

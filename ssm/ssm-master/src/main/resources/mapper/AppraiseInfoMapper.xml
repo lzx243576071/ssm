@@ -236,14 +236,20 @@
   <!--查询评价列表-->
   <select id="selectAppraiseList" resultType="java.util.Map">
     select
-      USER_NAME as userName,
-      USER_MOBILE  as userMobile,
-      DATE_FORMAT(APPRAISE_TIME,'%Y-%m-%d') as appraiseTime,
-      APPRAISE_CONTENT as appraiseContent,
-      APPRAISE_IMG as appraiseImg
-    from appraise_info
-    where Enable_SHOW = 1
+      a.ORDER_ID as orderId,
+      a.USER_NAME as userName,
+      a.USER_MOBILE  as userMobile,
+      DATE_FORMAT(a.APPRAISE_TIME,'%Y-%m-%d') as appraiseTime,
+      a.APPRAISE_CONTENT as appraiseContent,
+      a.APPRAISE_IMG as appraiseImg,
+      c.CLASSIFY_NAME as classifyName,
+      count(a.ORDER_ID) as num
+    from appraise_info a left join order_detail b on a.ORDER_ID = b.ORDER_ID
+    left join item_classify c on b.GOODS_TYPE = c.CLASSIFY_ID
+    where a.Enable_SHOW = 1
+    group by orderId
     order by appraiseTime desc
+
   </select>
 
 <!--  <select id="queryAppraiseWithOrder" resultType="resultMap" parameterType="java.lang.Integer">-->
