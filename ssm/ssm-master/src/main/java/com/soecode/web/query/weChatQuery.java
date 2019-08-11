@@ -28,6 +28,7 @@ public class weChatQuery extends BaseQuery{
 
     private Integer season;
 
+    private String itemName;
 
 
     public String getOpenId() {
@@ -110,6 +111,12 @@ public class weChatQuery extends BaseQuery{
         this.season = season;
     }
 
+    public String getItemName() {
+        return itemName;
+    }
 
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
 
 }
