@@ -17,4 +17,5 @@ public interface SystemInfoService {
 
     Result deleteSystemInfo(SystemInfo systemInfo);
 
+    Result getSystemInfoList(SystemInfo systemInfo);
 }

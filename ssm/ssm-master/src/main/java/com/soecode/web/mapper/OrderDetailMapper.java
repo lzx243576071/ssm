@@ -1,13 +1,14 @@
 package com.soecode.web.mapper;
 
 import com.soecode.web.entity.OrderDetail;
+import com.soecode.web.entity.OrderInfo;
 import com.soecode.web.entity.entityVO.OrderAppraiseInfoVO;
 import com.soecode.web.entity.entityVO.OrderGoodsVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface OrderDetailMapper {
+public interface OrderDetailMapper{
     int deleteByPrimaryKey(Integer id);
 
     int insert(OrderDetail record);

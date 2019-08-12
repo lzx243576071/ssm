@@ -94,6 +94,12 @@ public class SystemInfoServiceImpl implements SystemInfoService {
         return result;
     }
 
+    @Override
+    public Result getSystemInfoList(SystemInfo systemInfo) {
+        List<SystemInfo> systemInfoList = systemInfoMapper.queryUser(systemInfo);
+        return Result.createSuccessResult(systemInfoList);
+    }
+
 
     private Map<String, Object> afterLoginProcess(SystemInfo user) {
 //        redisCacheServiceAdapter.del(Constants.LOGIN_RETRY_PRIFIX + user.getSysId());

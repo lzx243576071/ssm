@@ -2,7 +2,7 @@ package com.soecode.web.entity;
 
 import java.util.Date;
 
-public class SystemInfo {
+public class SystemInfo{
     private Integer sysId;
 
     private String sysUserName;

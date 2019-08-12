@@ -1,8 +1,11 @@
-package com.soecode.web.entity;
+package com.soecode.web.entity.entityVO;
+
+import com.soecode.web.entity.OrderDetail;
 
 import java.util.Date;
+import java.util.List;
 
-public class OrderInfo {
+public class OrderDetailWebVO {
     private Integer orderId;
 
     private Integer orderState;
@@ -35,13 +38,9 @@ public class OrderInfo {
 
     private Date getGoodsTime;
 
-    private String commission;
+    private String PhoneNum;
 
-    private String remarks;
-
-    private Date createTime;
-
-    private Date updateTime;
+    private List<OrderDetail> orderDetailList;
 
     public Integer getOrderId() {
         return orderId;
@@ -88,7 +87,7 @@ public class OrderInfo {
     }
 
     public void setPayWay(String payWay) {
-        this.payWay = payWay == null ? null : payWay.trim();
+        this.payWay = payWay;
     }
 
     public Integer getUserId() {
@@ -104,7 +103,7 @@ public class OrderInfo {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+        this.userName = userName;
     }
 
     public String getUserAddr() {
@@ -112,7 +111,7 @@ public class OrderInfo {
     }
 
     public void setUserAddr(String userAddr) {
-        this.userAddr = userAddr == null ? null : userAddr.trim();
+        this.userAddr = userAddr;
     }
 
     public Integer getTakePersonId() {
@@ -128,7 +127,7 @@ public class OrderInfo {
     }
 
     public void setTakePersonName(String takePersonName) {
-        this.takePersonName = takePersonName == null ? null : takePersonName.trim();
+        this.takePersonName = takePersonName;
     }
 
     public Date getTakeTime() {
@@ -171,35 +170,19 @@ public class OrderInfo {
         this.getGoodsTime = getGoodsTime;
     }
 
-    public String getCommission() {
-        return commission;
+    public String getPhoneNum() {
+        return PhoneNum;
     }
 
-    public void setCommission(String commission) {
-        this.commission = commission == null ? null : commission.trim();
+    public void setPhoneNum(String phoneNum) {
+        PhoneNum = phoneNum;
     }
 
-    public String getRemarks() {
-        return remarks;
+    public List<OrderDetail> getOrderDetailList() {
+        return orderDetailList;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks == null ? null : remarks.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setOrderDetailList(List<OrderDetail> orderDetailList) {
+        this.orderDetailList = orderDetailList;
     }
 }

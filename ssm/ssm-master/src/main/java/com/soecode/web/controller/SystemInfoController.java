@@ -74,4 +74,14 @@ public class SystemInfoController {
         }
         return  systemInfoService.deleteSystemInfo(systemInfo);
     }
+
+    /**
+     * 获取用户列表
+     * @param systemInfo
+     * @return
+     */
+    @RequestMapping(value = "/getSystemInfoList", method = RequestMethod.GET)
+    public Result getSystemInfoList(SystemInfo systemInfo) {
+        return  systemInfoService.getSystemInfoList(systemInfo);
+    }
 }

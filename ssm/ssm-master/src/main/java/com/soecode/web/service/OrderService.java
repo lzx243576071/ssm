@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface OrderService {
 
-    Result getOrderInfo(Integer userId,Integer orderState);
+    Result getOrderInfo(OrderInfo orderInfo,String phoneNum);
 
     Result getOrderDetail(Integer orderId);
 
     Result updateOrder(OrderInfo orderInfo, OrderDetail orderDetail);
+
+    Result getWebOrderDetail(Integer orderId);
 }

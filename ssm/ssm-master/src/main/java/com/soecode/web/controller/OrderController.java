@@ -29,37 +29,13 @@ public class OrderController {
     private OrderService orderService;
 
     /**
-     * 获取订单详情
-     * @param request
-     * @param orderState
+     * 获取订单列表
      * @return
      */
-    @RequestMapping(value = "/common/getOrderInfo")
-    public Result getOrderInfo(HttpServletRequest request,Integer userId,Integer orderState) {
+    @RequestMapping(value = "/web/getOrderInfo")
+    public Result getOrderInfo(OrderInfo orderInfo,String phoneNum) {
         Result result = Result.createFailResult();
-//        Cookie[] cookies = request.getCookies();
-//        HttpSession session = request.getSession();
-//        int userId = 0;
-////        Boolean cookieBoolean = false;
-////        for (Cookie cookie : cookies) {
-////            if(session.getId()==cookie.getValue()){
-////                cookieBoolean=true;
-////            }
-////        }
-//            for (Cookie cookie : cookies) {
-//                if(cookie.getName().equals("userid")){
-//                    userId = Integer.parseInt(cookie.getValue());
-//                }
-//            }
-////        if(session.getAttribute(Constants.WEB_SESSSION_ID_KEY) == null){
-////            return result.error(ResultCodeEnums.NOT_LOGIN);
-////        }
-////        int userId = (Integer) session.getAttribute(Constants.WEB_SESSSION_ID_KEY);
-        if(null ==userId ||userId == 0){
-            result.error(ResultCodeEnums.NOT_LOGIN);
-            return result;
-        }
-        return orderService.getOrderInfo(userId,orderState);
+        return orderService.getOrderInfo(orderInfo,phoneNum);
     }
 
 
@@ -86,5 +62,18 @@ public class OrderController {
             return Result.createFailResult("orderId不能為空");
         }
         return orderService.updateOrder(orderInfo,orderDetail);
+    }
+
+    /**
+     * 获取订单明细
+     * @param orderId
+     * @return
+     */
+    @RequestMapping(value = "/web/getOrderDetail")
+    public Result getWebOrderDetail(Integer orderId) {
+        if(null == orderId || orderId==0){
+            return Result.createFailResult().error("缺少必要参数orderId");
+        }
+        return orderService.getWebOrderDetail(orderId);
     }
 }

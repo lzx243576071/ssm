@@ -548,6 +548,18 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>tk.mybatis</groupId>
+			<artifactId>mapper</artifactId>
+			<version>3.4.5</version>
+		</dependency>
+
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+
 <!--		<dependency>-->
 <!--			<groupId>com.google.guava</groupId>-->
 <!--			<artifactId>guava</artifactId>-->

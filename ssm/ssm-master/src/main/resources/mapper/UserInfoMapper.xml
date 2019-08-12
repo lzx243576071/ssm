@@ -17,137 +17,137 @@
     USER_ID, USER_NAME, WECAHT_ID, USER_SEX, USER_MOBILE, USER_AREA, USER_ADDR,
     CREATE_TIME, UPDATE_TIME, USER_ACCOUNT
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from user_info
-    where USER_ID = #{userId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user_info
-    where USER_ID = #{userId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.soecode.web.entity.UserInfo">
-    insert into user_info (USER_ID, USER_NAME,
-      WECAHT_ID, USER_SEX, USER_MOBILE,
-      USER_AREA, USER_ADDR, CREATE_TIME, 
-      UPDATE_TIME, USER_ACCOUNT)
-    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
-      #{wecahtId,jdbcType=VARCHAR}, #{userSex,jdbcType=INTEGER}, #{userMobile,jdbcType=VARCHAR}, 
-      #{userArea,jdbcType=VARCHAR}, #{userAddr,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{userAccount,jdbcType=DOUBLE})
-  </insert>
-  <insert id="insertSelective" parameterType="com.soecode.web.entity.UserInfo">
-    insert into user_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        USER_ID,
-      </if>
-      <if test="userName != null">
-        USER_NAME,
-      </if>
-      <if test="wecahtId != null">
-        WECAHT_ID,
-      </if>
-      <if test="userSex != null">
-        USER_SEX,
-      </if>
-      <if test="userMobile != null">
-        USER_MOBILE,
-      </if>
-      <if test="userArea != null">
-        USER_AREA,
-      </if>
-      <if test="userAddr != null">
-        USER_ADDR,
-      </if>
-      <if test="userAccount != null">
-        USER_ACCOUNT,
-      </if>
-      now(),
-      now()
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="wecahtId != null">
-        #{wecahtId,jdbcType=VARCHAR},
-      </if>
-      <if test="userSex != null">
-        #{userSex,jdbcType=INTEGER},
-      </if>
-      <if test="userMobile != null">
-        #{userMobile,jdbcType=VARCHAR},
-      </if>
-      <if test="userArea != null">
-        #{userArea,jdbcType=VARCHAR},
-      </if>
-      <if test="userAddr != null">
-        #{userAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="userAccount != null">
-        #{userAccount,jdbcType=DOUBLE},
-      </if>
-      <if test="createTime != null">
-        CREATE_TIME,
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME,
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.web.entity.UserInfo">
-    update user_info
-    <set>
-      <if test="userName != null">
-        USER_NAME = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="wecahtId != null">
-        WECAHT_ID = #{wecahtId,jdbcType=VARCHAR},
-      </if>
-      <if test="userSex != null">
-        USER_SEX = #{userSex,jdbcType=INTEGER},
-      </if>
-      <if test="userMobile != null">
-        USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
-      </if>
-      <if test="userArea != null">
-        USER_AREA = #{userArea,jdbcType=VARCHAR},
-      </if>
-      <if test="userAddr != null">
-        USER_ADDR = #{userAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="userAccount != null">
-        USER_ACCOUNT = #{userAccount,jdbcType=DOUBLE},
-      </if>
-      UPDATE_TIME = now()
-    </set>
-    where USER_ID = #{userId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.UserInfo">
-    update user_info
-    set
-      USER_NAME = #{userName,jdbcType=VARCHAR},
-      WECAHT_ID = #{wecahtId,jdbcType=VARCHAR},
-      USER_SEX = #{userSex,jdbcType=INTEGER},
-      USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
-      USER_AREA = #{userArea,jdbcType=VARCHAR},
-      USER_ADDR = #{userAddr,jdbcType=VARCHAR},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      USER_ACCOUNT = #{userAccount,jdbcType=DOUBLE}
-    where USER_ID = #{userId,jdbcType=INTEGER}
-  </update>
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from user_info-->
+<!--    where USER_ID = #{userId,jdbcType=INTEGER}-->
+<!--  </select>-->
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+<!--    delete from user_info-->
+<!--    where USER_ID = #{userId,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.soecode.web.entity.UserInfo">-->
+<!--    insert into user_info (USER_ID, USER_NAME,-->
+<!--      WECAHT_ID, USER_SEX, USER_MOBILE,-->
+<!--      USER_AREA, USER_ADDR, CREATE_TIME, -->
+<!--      UPDATE_TIME, USER_ACCOUNT)-->
+<!--    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},-->
+<!--      #{wecahtId,jdbcType=VARCHAR}, #{userSex,jdbcType=INTEGER}, #{userMobile,jdbcType=VARCHAR}, -->
+<!--      #{userArea,jdbcType=VARCHAR}, #{userAddr,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, -->
+<!--      #{updateTime,jdbcType=TIMESTAMP}, #{userAccount,jdbcType=DOUBLE})-->
+<!--  </insert>-->
+<!--  <insert id="insertSelective" parameterType="com.soecode.web.entity.UserInfo">-->
+<!--    insert into user_info-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--      <if test="userId != null">-->
+<!--        USER_ID,-->
+<!--      </if>-->
+<!--      <if test="userName != null">-->
+<!--        USER_NAME,-->
+<!--      </if>-->
+<!--      <if test="wecahtId != null">-->
+<!--        WECAHT_ID,-->
+<!--      </if>-->
+<!--      <if test="userSex != null">-->
+<!--        USER_SEX,-->
+<!--      </if>-->
+<!--      <if test="userMobile != null">-->
+<!--        USER_MOBILE,-->
+<!--      </if>-->
+<!--      <if test="userArea != null">-->
+<!--        USER_AREA,-->
+<!--      </if>-->
+<!--      <if test="userAddr != null">-->
+<!--        USER_ADDR,-->
+<!--      </if>-->
+<!--      <if test="userAccount != null">-->
+<!--        USER_ACCOUNT,-->
+<!--      </if>-->
+<!--      now(),-->
+<!--      now()-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+<!--      <if test="id != null">-->
+<!--        #{id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="userId != null">-->
+<!--        #{userId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="userName != null">-->
+<!--        #{userName,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="wecahtId != null">-->
+<!--        #{wecahtId,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="userSex != null">-->
+<!--        #{userSex,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="userMobile != null">-->
+<!--        #{userMobile,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="userArea != null">-->
+<!--        #{userArea,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="userAddr != null">-->
+<!--        #{userAddr,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="userAccount != null">-->
+<!--        #{userAccount,jdbcType=DOUBLE},-->
+<!--      </if>-->
+<!--      <if test="createTime != null">-->
+<!--        CREATE_TIME,-->
+<!--      </if>-->
+<!--      <if test="updateTime != null">-->
+<!--        UPDATE_TIME,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.web.entity.UserInfo">-->
+<!--    update user_info-->
+<!--    <set>-->
+<!--      <if test="userName != null">-->
+<!--        USER_NAME = #{userName,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="wecahtId != null">-->
+<!--        WECAHT_ID = #{wecahtId,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="userSex != null">-->
+<!--        USER_SEX = #{userSex,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="userMobile != null">-->
+<!--        USER_MOBILE = #{userMobile,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="userArea != null">-->
+<!--        USER_AREA = #{userArea,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="userAddr != null">-->
+<!--        USER_ADDR = #{userAddr,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="createTime != null">-->
+<!--        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--      <if test="userAccount != null">-->
+<!--        USER_ACCOUNT = #{userAccount,jdbcType=DOUBLE},-->
+<!--      </if>-->
+<!--      UPDATE_TIME = now()-->
+<!--    </set>-->
+<!--    where USER_ID = #{userId,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.UserInfo">-->
+<!--    update user_info-->
+<!--    set-->
+<!--      USER_NAME = #{userName,jdbcType=VARCHAR},-->
+<!--      WECAHT_ID = #{wecahtId,jdbcType=VARCHAR},-->
+<!--      USER_SEX = #{userSex,jdbcType=INTEGER},-->
+<!--      USER_MOBILE = #{userMobile,jdbcType=VARCHAR},-->
+<!--      USER_AREA = #{userArea,jdbcType=VARCHAR},-->
+<!--      USER_ADDR = #{userAddr,jdbcType=VARCHAR},-->
+<!--      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},-->
+<!--      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},-->
+<!--      USER_ACCOUNT = #{userAccount,jdbcType=DOUBLE}-->
+<!--    where USER_ID = #{userId,jdbcType=INTEGER}-->
+<!--  </update>-->
 
   <select id="queryUserInfo" resultMap="BaseResultMap" parameterType="com.soecode.web.entity.UserInfo">
     select
