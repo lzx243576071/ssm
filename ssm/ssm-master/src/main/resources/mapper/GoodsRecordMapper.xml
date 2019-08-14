@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soecode.web.mapper.GoodsRecordMapper">
+  <resultMap id="BaseResultMap" type="com.soecode.web.entity.GoodsRecord">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="ORDER_ID" jdbcType="INTEGER" property="orderId" />
+    <result column="GOODS_ID" jdbcType="INTEGER" property="goodsId" />
+    <result column="GOODS_STATE" jdbcType="INTEGER" property="goodsState" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, ORDER_ID, GOODS_ID, GOODS_STATE, CREATE_TIME
+  </sql>
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from goods_record-->
+<!--    where ID = #{id,jdbcType=INTEGER}-->
+<!--  </select>-->
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+<!--    delete from goods_record-->
+<!--    where ID = #{id,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.soecode.web.entity.GoodsRecord">-->
+<!--    insert into goods_record (ID, ORDER_ID, GOODS_ID, -->
+<!--      GOODS_STATE, CREATE_TIME)-->
+<!--    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, -->
+<!--      #{goodsState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})-->
+<!--  </insert>-->
+<!--  <insert id="insertSelective" parameterType="com.soecode.web.entity.GoodsRecord">-->
+<!--    insert into goods_record-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--      <if test="id != null">-->
+<!--        ID,-->
+<!--      </if>-->
+<!--      <if test="orderId != null">-->
+<!--        ORDER_ID,-->
+<!--      </if>-->
+<!--      <if test="goodsId != null">-->
+<!--        GOODS_ID,-->
+<!--      </if>-->
+<!--      <if test="goodsState != null">-->
+<!--        GOODS_STATE,-->
+<!--      </if>-->
+<!--      <if test="createTime != null">-->
+<!--        CREATE_TIME,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+<!--      <if test="id != null">-->
+<!--        #{id,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="orderId != null">-->
+<!--        #{orderId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="goodsId != null">-->
+<!--        #{goodsId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="goodsState != null">-->
+<!--        #{goodsState,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="createTime != null">-->
+<!--        #{createTime,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.web.entity.GoodsRecord">-->
+<!--    update goods_record-->
+<!--    <set>-->
+<!--      <if test="orderId != null">-->
+<!--        ORDER_ID = #{orderId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="goodsId != null">-->
+<!--        GOODS_ID = #{goodsId,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="goodsState != null">-->
+<!--        GOODS_STATE = #{goodsState,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="createTime != null">-->
+<!--        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where ID = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.GoodsRecord">-->
+<!--    update goods_record-->
+<!--    set ORDER_ID = #{orderId,jdbcType=INTEGER},-->
+<!--      GOODS_ID = #{goodsId,jdbcType=INTEGER},-->
+<!--      GOODS_STATE = #{goodsState,jdbcType=INTEGER},-->
+<!--      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}-->
+<!--    where ID = #{id,jdbcType=INTEGER}-->
+<!--  </update>-->
+</mapper>
