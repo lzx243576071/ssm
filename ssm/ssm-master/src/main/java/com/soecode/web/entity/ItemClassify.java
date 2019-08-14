@@ -1,11 +1,21 @@
 package com.soecode.web.entity;
 
-public class ItemClassify extends ItemClassifyKey {
+public class ItemClassify{
     private String classifyName;
 
     private String classifyImg;
 
     private Integer enable;
+
+    private Integer classifyId;
+
+    public Integer getClassifyId() {
+        return classifyId;
+    }
+
+    public void setClassifyId(Integer classifyId) {
+        this.classifyId = classifyId;
+    }
 
     public String getClassifyName() {
         return classifyName;

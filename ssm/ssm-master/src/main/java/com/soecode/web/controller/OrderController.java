@@ -65,7 +65,21 @@ public class OrderController {
     }
 
     /**
-     * 获取订单明细
+     * 获取微信订单明细
+     * @param userId
+     * @param orderState
+     * @return
+     */
+    @RequestMapping(value = "/wx/getOrderInfomations")
+    public Result getOrderInfomations(Integer userId,Integer orderState) {
+        if(null == userId || userId==0){
+            return Result.createFailResult().error("缺少必要参数userId");
+        }
+        return orderService.getOrderInfomations(userId,orderState);
+    }
+
+    /**
+     * 获取用户管理后台订单明细
      * @param orderId
      * @return
      */

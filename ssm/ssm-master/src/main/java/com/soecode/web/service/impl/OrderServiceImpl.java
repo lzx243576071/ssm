@@ -1,15 +1,14 @@
 package com.soecode.web.service.impl;
 
 
+import com.alipay.api.domain.GoodsSafetyInventory;
 import com.soecode.web.dto.Result;
-import com.soecode.web.entity.OrderDetail;
-import com.soecode.web.entity.OrderInfo;
-import com.soecode.web.entity.UserInfo;
+import com.soecode.web.entity.*;
 import com.soecode.web.entity.entityVO.OrderDetailWebVO;
+import com.soecode.web.entity.entityVO.OrderDetailWxVO;
 import com.soecode.web.entity.entityVO.OrderGoodsVO;
-import com.soecode.web.mapper.OrderDetailMapper;
-import com.soecode.web.mapper.OrderInfoMapper;
-import com.soecode.web.mapper.UserInfoMapper;
+import com.soecode.web.entity.entityVO.OrderInfoWxVO;
+import com.soecode.web.mapper.*;
 import com.soecode.web.service.OrderService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -36,6 +35,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private UserInfoMapper userInfoMapper;
+
+    @Autowired
+    private GoodsRecordMapper goodsRecordMapper;
+
+    @Autowired
+    private ItemClassifyMapper itemClassifyMapper;
 
 
     @Override
@@ -95,5 +100,60 @@ public class OrderServiceImpl implements OrderService {
         UserInfo userInfoForPhone = userInfoMapper.selectOne(userInfo);
         orderDetailWebVO.setPhoneNum(userInfoForPhone.getUserMobile());
         return Result.createSuccessResult(orderDetailWebVO);
+    }
+
+    /**
+     * 获取微信订单明细
+     * @param userId
+     * @param orderState
+     * @return
+     */
+    @Override
+    public Result getOrderInfomations(Integer userId, Integer orderState) {
+        Result result = Result.createFailResult();
+        List<OrderInfoWxVO> orderInfoWxVOlist = new ArrayList<>();
+        OrderInfo orderInfoQuery = new OrderInfo();
+        orderInfoQuery.setUserId(userId);
+        if(null!=orderState || orderState==0){
+            orderInfoQuery.setOrderState(orderState);
+        }
+        //获取订单列表
+        List<OrderInfo> orderInfoList = orderInfoMapper.select(orderInfoQuery);
+        if(orderInfoList.size()==0){
+            result.value("该用户没有订单信息");
+        }
+        for (OrderInfo orderInfo:orderInfoList) {
+            OrderDetail orderDetailQuery = new OrderDetail();
+            orderDetailQuery.setOrderId(orderInfo.getOrderId());
+            //获取订单详情
+            List<OrderDetail> orderDetailList = orderDetailMapper.select(orderDetailQuery);
+            if(orderDetailList.size()==0){
+                result.value("该用户没有订单详情信息");
+            }
+            OrderInfoWxVO orderInfoWxVO = new OrderInfoWxVO();
+            BeanUtils.copyProperties(orderInfo,orderInfoWxVO);
+            List<OrderDetailWxVO> orderDetailWxVOList = new ArrayList<>();
+            for (OrderDetail orderDetail:orderDetailList) {
+                OrderDetailWxVO orderDetailWxVO = new OrderDetailWxVO();
+                ItemClassify itemClassifyQuery = new ItemClassify();
+                itemClassifyQuery.setClassifyId(orderDetail.getGoodsState());
+                List<ItemClassify> itemClassifyList = itemClassifyMapper.select(itemClassifyQuery);
+                orderDetail.setGoodsType(itemClassifyList.get(0).getClassifyName());
+                BeanUtils.copyProperties(orderDetail,orderDetailWxVO);
+                GoodsRecord goodsRecordQuery = new GoodsRecord();
+                goodsRecordQuery.setOrderId(orderDetail.getOrderId());
+                goodsRecordQuery.setGoodsId(orderDetail.getGoodsId());
+                //获取订单状态更改信息
+                List<GoodsRecord> goodsRecordList = goodsRecordMapper.select(goodsRecordQuery);
+                if(goodsRecordList.size()>0) {
+                    orderDetailWxVO.setGoodsRecordList(goodsRecordList);
+                }
+                orderDetailWxVOList.add(orderDetailWxVO);
+            }
+            orderInfoWxVO.setOrderDetailWxVOList(orderDetailWxVOList);
+            orderInfoWxVOlist.add(orderInfoWxVO);
+        }
+
+        return Result.createSuccessResult(orderInfoWxVOlist);
     }
 }

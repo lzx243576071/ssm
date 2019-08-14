@@ -1,6 +1,6 @@
 package com.soecode.web.entity;
 
-public class ItemInfo extends ItemInfoKey {
+public class ItemInfo{
     private String itemName;
 
     private Integer classifyId;
@@ -18,6 +18,17 @@ public class ItemInfo extends ItemInfoKey {
     private String itemImg;
 
     private Integer joinActivities;
+
+    private Integer itemId;
+
+
+    public Integer getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
+    }
 
     public String getItemName() {
         return itemName;
