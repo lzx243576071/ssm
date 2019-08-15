@@ -83,30 +83,10 @@ public class UserController {
     @RequestMapping("/addressAdministration/chooseReceiverAddress")
     public Result chooseReceiverAddress(HttpServletRequest request,ReceiveArea receiveArea) {
         Result result = Result.createFailResult();
-        //获取userId
-        Cookie[] cookies = request.getCookies();
-        HttpSession session = request.getSession();
-        int userId = 0;
-//        Boolean cookieBoolean = false;
-//        for (Cookie cookie : cookies) {
-//            if(session.getId()==cookie.getValue()){
-//                cookieBoolean=true;
-//            }
-//        }
-        for (Cookie cookie : cookies) {
-            if(cookie.getName().equals("uid")){
-                userId = Integer.parseInt(cookie.getValue());
-            }
+        if(null == receiveArea.getUserId() || receiveArea.getUserId()==0){
+            result.error("缺少必要参数userId");
         }
-//        if(session.getAttribute(Constants.WEB_SESSSION_ID_KEY) == null){
-//            return result.error(ResultCodeEnums.NOT_LOGIN);
-//        }
-//        int userId = (Integer) session.getAttribute(Constants.WEB_SESSSION_ID_KEY);
-        if(userId == 0){
-            result.error(ResultCodeEnums.NOT_LOGIN);
-            return result;
-        }
-        receiveArea.setUserId(userId);
+        receiveArea.setUserId(receiveArea.getUserId());
         List list =  userService.chooseReceiverAddress(receiveArea);
         return Result.createSuccessResult(list);
     }
@@ -118,34 +98,12 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("addressAdministration/updateReceiverAddress")
-    public Result updateReceiverAddress(HttpServletRequest request,ReceiveArea receiveArea) {
+    public Result updateReceiverAddress(ReceiveArea receiveArea) {
         Result result = Result.createFailResult();
-        if(receiveArea.getId()==0||(receiveArea.getId()+"").isEmpty()){
-            return Result.createFailResult("缺少必要参数id");
+        if(null == receiveArea.getId() || receiveArea.getId()==0){
+            result.error("缺少必要参数Id");
         }
-        Cookie[] cookies = request.getCookies();
-        HttpSession session = request.getSession();
-        int userId = 0;
-//        Boolean cookieBoolean = false;
-//        for (Cookie cookie : cookies) {
-//            if(session.getId()==cookie.getValue()){
-//                cookieBoolean=true;
-//            }
-//        }
-        for (Cookie cookie : cookies) {
-            if(cookie.getName().equals("uid")){
-                userId = Integer.parseInt(cookie.getValue());
-            }
-        }
-//        if(session.getAttribute(Constants.WEB_SESSSION_ID_KEY) == null){
-//            return result.error(ResultCodeEnums.NOT_LOGIN);
-//        }
-//        int userId = (Integer) session.getAttribute(Constants.WEB_SESSSION_ID_KEY);
-        if(userId == 0){
-            result.error(ResultCodeEnums.NOT_LOGIN);
-            return result;
-        }
-        receiveArea.setUserId(userId);
+        receiveArea.setUserId(receiveArea.getId());
         return userService.updteReceiverAddress(receiveArea);
     }
 
@@ -158,7 +116,7 @@ public class UserController {
     @RequestMapping("addressAdministration/deleteReceiverAddress")
     public Result deleterReceiverAddress(ReceiveArea ReceiveArea) {
         if(ReceiveArea.getId()==0||(ReceiveArea.getId()+"").isEmpty()){
-            return Result.createFailResult("缺少必要参数receiveInfoId");
+            return Result.createFailResult("缺少必要参数Id");
         }
         int icode =  userService.deleteReceiverAddress(ReceiveArea);
         if(icode>0){
