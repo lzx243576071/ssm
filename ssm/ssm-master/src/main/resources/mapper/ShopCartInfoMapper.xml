@@ -128,7 +128,8 @@
     when 3 then '冬'
     else '' end  as season,
     sum(a.NUM) as num,
-    c.ITEM_IMG as itemImg
+    c.ITEM_IMG as itemImg,
+    c.ITEM_PRICE * sum(a.NUM) as countPrice
     FROM
       shopcart_info a
     LEFT JOIN user_info b ON a.USER_ID = b.USER_ID
@@ -136,8 +137,9 @@
     where  a.STATE = 0
     <if test="userId != null and  userId!= ''">
     and  a.user_id = #{userId,jdbcType=INTEGER}
-    group by itemId
     </if>
+    group by itemId
+
   </select>
   <select id="queryUserId" resultType="java.util.Map">
    select  USER_ID  as userId

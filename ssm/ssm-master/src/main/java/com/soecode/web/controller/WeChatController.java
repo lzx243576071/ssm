@@ -2,6 +2,7 @@ package com.soecode.web.controller;
 
 
 
+import com.soecode.web.entity.OrderInfo;
 import com.soecode.web.message.MessageBean;
 import com.soecode.web.message.MessageClient;
 import com.soecode.web.query.weChatQuery;
@@ -74,5 +75,15 @@ public class WeChatController {
         return MessageClient.createMessage(weChatService.queryShopCart(query));
     }
 
+
+
+    /**
+     * 下单界面
+     */
+    @RequestMapping(value = "querySubmitOrder", method = RequestMethod.GET)
+    public MessageBean<Map<String, Object>> querySubmitOrder(weChatQuery query) {
+
+        return MessageClient.createMessage(weChatService.querySubmitOrder(query));
+    }
 
 }

@@ -3,6 +3,8 @@ package com.soecode.web.entity;
 import java.util.Date;
 
 public class OrderInfo {
+    private Integer id;
+
     private Integer orderId;
 
     private Integer orderState;
@@ -42,6 +44,17 @@ public class OrderInfo {
     private Date createTime;
 
     private Date updateTime;
+
+    private String appointmentTime;
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getOrderId() {
         return orderId;
@@ -201,5 +214,13 @@ public class OrderInfo {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getAppointmentTime() {
+        return appointmentTime;
+    }
+
+    public void setAppointmentTime(String appointmentTime) {
+        this.appointmentTime = appointmentTime == null ? null : appointmentTime.trim();
     }
 }
