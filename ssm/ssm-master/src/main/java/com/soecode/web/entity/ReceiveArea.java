@@ -18,6 +18,16 @@ public class ReceiveArea {
     private Date gmtCreate;         //创建时间
     private Date gmtModify;         //修改时间
 
+    public Integer getReceiveInfoId() {
+        return receiveInfoId;
+    }
+
+    public void setReceiveInfoId(Integer receiveInfoId) {
+        this.receiveInfoId = receiveInfoId;
+    }
+
+    private Integer receiveInfoId;
+
     public String getProvince() {
         return province;
     }
