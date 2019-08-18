@@ -15,6 +15,12 @@ public class AppraiseInfo {
 
     private Date startOrderTime;
 
+    private Byte serviceEvaluate;
+
+    private Byte washingEvaluate;
+
+    private Byte logisticsEvaluate;
+
     private Date appraiseTime;
 
     private String appraiseContent;
@@ -79,6 +85,30 @@ public class AppraiseInfo {
 
     public void setStartOrderTime(Date startOrderTime) {
         this.startOrderTime = startOrderTime;
+    }
+
+    public Byte getServiceEvaluate() {
+        return serviceEvaluate;
+    }
+
+    public void setServiceEvaluate(Byte serviceEvaluate) {
+        this.serviceEvaluate = serviceEvaluate;
+    }
+
+    public Byte getWashingEvaluate() {
+        return washingEvaluate;
+    }
+
+    public void setWashingEvaluate(Byte washingEvaluate) {
+        this.washingEvaluate = washingEvaluate;
+    }
+
+    public Byte getLogisticsEvaluate() {
+        return logisticsEvaluate;
+    }
+
+    public void setLogisticsEvaluate(Byte logisticsEvaluate) {
+        this.logisticsEvaluate = logisticsEvaluate;
     }
 
     public Date getAppraiseTime() {

@@ -3,9 +3,12 @@ package com.soecode.web.controller;
 
 import com.soecode.web.dto.Result;
 import com.soecode.web.dto.ResultCodeEnums;
+import com.soecode.web.entity.AppraiseInfo;
 import com.soecode.web.entity.OrderDetail;
 import com.soecode.web.entity.OrderInfo;
 import com.soecode.web.entity.UserInfo;
+import com.soecode.web.entity.entityVO.OrderDetailWebVO;
+import com.soecode.web.entity.entityVO.OrderInfoWxVO;
 import com.soecode.web.service.OrderService;
 import com.soecode.web.util.constants.Constants;
 import com.sun.org.apache.xpath.internal.operations.Bool;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequestMapping("order")
@@ -71,7 +75,7 @@ public class OrderController {
      * @return
      */
     @RequestMapping(value = "/wx/getOrderInfomations")
-    public Result getOrderInfomations(Integer userId,Integer orderState) {
+    public Result<List<OrderInfoWxVO>> getOrderInfomations(Integer userId, Integer orderState) {
         if(null == userId || userId==0){
             return Result.createFailResult().error("缺少必要参数userId");
         }
@@ -84,10 +88,28 @@ public class OrderController {
      * @return
      */
     @RequestMapping(value = "/web/getOrderDetail")
-    public Result getWebOrderDetail(Integer orderId) {
+    public Result<OrderDetailWebVO> getWebOrderDetail(Integer orderId) {
         if(null == orderId || orderId==0){
             return Result.createFailResult().error("缺少必要参数orderId");
         }
         return orderService.getWebOrderDetail(orderId);
     }
+
+    /**
+     * 添加评论
+     * @param appraiseInfo
+     * @return
+     */
+    @RequestMapping(value = "/wx/addOrderAppraise")
+    public Result addOrderAppraise(AppraiseInfo appraiseInfo) {
+        Result result = Result.createFailResult();
+        if(null == appraiseInfo.getOrderId() || appraiseInfo.getOrderId() ==0){
+            return result.error("缺少必要参数orderId");
+        }
+        if(null == appraiseInfo.getUserId() || appraiseInfo.getUserId() ==0 ){
+            return result.error("缺少必要参数userId");
+        }
+        return orderService.addOrderAppraise(appraiseInfo);
+    }
+
 }

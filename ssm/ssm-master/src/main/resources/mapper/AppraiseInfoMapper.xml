@@ -8,6 +8,9 @@
     <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
     <result column="USER_MOBILE" jdbcType="VARCHAR" property="userMobile" />
     <result column="START_ORDER_TIME" jdbcType="TIMESTAMP" property="startOrderTime" />
+    <result column="SERVICE_EVALUATE" jdbcType="TINYINT" property="serviceEvaluate" />
+    <result column="WASHING_EVALUATE" jdbcType="TINYINT" property="washingEvaluate" />
+    <result column="LOGISTICS_EVALUATE" jdbcType="TINYINT" property="logisticsEvaluate" />
     <result column="APPRAISE_TIME" jdbcType="TIMESTAMP" property="appraiseTime" />
     <result column="APPRAISE_CONTENT" jdbcType="VARCHAR" property="appraiseContent" />
     <result column="APPRAISE_IMG" jdbcType="VARCHAR" property="appraiseImg" />
@@ -18,220 +21,18 @@
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
-<!--  <resultMap id="ResultMap" type="com.soecode.web.entity.entityVO.OrderAppraiseInfoVO">-->
-<!--    <result column="ORDER_ID" jdbcType="INTEGER" property="orderId" />-->
-<!--    <result column="USER_ID" jdbcType="INTEGER" property="userId" />-->
-<!--    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />-->
-<!--    <result column="USER_MOBILE" jdbcType="VARCHAR" property="userMobile" />-->
-<!--    <result column="START_ORDER_TIME" jdbcType="TIMESTAMP" property="startOrderTime" />-->
-<!--    <result column="APPRAISE_TIME" jdbcType="TIMESTAMP" property="appraiseTime" />-->
-<!--    <result column="APPRAISE_CONTENT" jdbcType="VARCHAR" property="appraiseContent" />-->
-<!--    <result column="APPRAISE_IMG" jdbcType="VARCHAR" property="appraiseImg" />-->
-<!--    <result column="GRADE" jdbcType="DOUBLE" property="grade" />-->
-<!--    <result column="Enable_SHOW" jdbcType="INTEGER" property="enableShow" />-->
-<!--    <result column="APPRAISE_REPLY" jdbcType="INTEGER" property="appraiseReply" />-->
-<!--    <result column="REPLY_CONTENT" jdbcType="VARCHAR" property="replyContent" />-->
-<!--    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />-->
-<!--    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />-->
-<!--    <result column="GOODS_TYPE" jdbcType="INTEGER" property="goodsType" />-->
-
-<!--  </resultMap>-->
-
   <sql id="Base_Column_List">
-    ID, ORDER_ID, USER_ID, USER_NAME, USER_MOBILE, START_ORDER_TIME, APPRAISE_TIME, APPRAISE_CONTENT,
-    APPRAISE_IMG, GRADE, Enable_SHOW, APPRAISE_REPLY, REPLY_CONTENT, CREATE_TIME, UPDATE_TIME
+    ID, ORDER_ID, USER_ID, USER_NAME, USER_MOBILE, START_ORDER_TIME, SERVICE_EVALUATE, 
+    WASHING_EVALUATE, LOGISTICS_EVALUATE, APPRAISE_TIME, APPRAISE_CONTENT, APPRAISE_IMG, 
+    GRADE, Enable_SHOW, APPRAISE_REPLY, REPLY_CONTENT, CREATE_TIME, UPDATE_TIME
   </sql>
-<!--  <sql id="Base_Column_List_t">-->
-<!--    t.ORDER_ID, t.USER_ID, t.USER_NAME, t.USER_MOBILE, t.START_ORDER_TIME, t.APPRAISE_TIME, t.APPRAISE_CONTENT,-->
-<!--    t.APPRAISE_IMG, t.GRADE, t.Enable_SHOW, t.APPRAISE_REPLY, t.REPLY_CONTENT, t.CREATE_TIME, t.UPDATE_TIME,-->
-<!--  </sql>-->
+
   <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from appraise_info
     where USER_ID = #{userId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from appraise_info
-    where ID = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.soecode.web.entity.AppraiseInfo">
-    insert into appraise_info (ID, ORDER_ID, USER_ID,
-      USER_NAME, USER_MOBILE, START_ORDER_TIME, 
-      APPRAISE_TIME, APPRAISE_CONTENT, APPRAISE_IMG, 
-      GRADE, Enable_SHOW, APPRAISE_REPLY, 
-      REPLY_CONTENT, CREATE_TIME, UPDATE_TIME
-      )
-    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
-      #{userName,jdbcType=VARCHAR}, #{userMobile,jdbcType=VARCHAR}, #{startOrderTime,jdbcType=TIMESTAMP}, 
-      #{appraiseTime,jdbcType=TIMESTAMP}, #{appraiseContent,jdbcType=VARCHAR}, #{appraiseImg,jdbcType=VARCHAR}, 
-      #{grade,jdbcType=DOUBLE}, #{enableShow,jdbcType=INTEGER}, #{appraiseReply,jdbcType=INTEGER}, 
-      #{replyContent,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.soecode.web.entity.AppraiseInfo">
-    insert into appraise_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        ID,
-      </if>
-      <if test="orderId != null">
-        ORDER_ID,
-      </if>
-      <if test="userId != null">
-        USER_ID,
-      </if>
-      <if test="userName != null">
-        USER_NAME,
-      </if>
-      <if test="userMobile != null">
-        USER_MOBILE,
-      </if>
-      <if test="startOrderTime != null">
-        START_ORDER_TIME,
-      </if>
-      <if test="appraiseTime != null">
-        APPRAISE_TIME,
-      </if>
-      <if test="appraiseContent != null">
-        APPRAISE_CONTENT,
-      </if>
-      <if test="appraiseImg != null">
-        APPRAISE_IMG,
-      </if>
-      <if test="grade != null">
-        GRADE,
-      </if>
-      <if test="enableShow != null">
-        Enable_SHOW,
-      </if>
-      <if test="appraiseReply != null">
-        APPRAISE_REPLY,
-      </if>
-      <if test="replyContent != null">
-        REPLY_CONTENT,
-      </if>
-      <if test="createTime != null">
-        CREATE_TIME,
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="orderId != null">
-        #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="userMobile != null">
-        #{userMobile,jdbcType=VARCHAR},
-      </if>
-      <if test="startOrderTime != null">
-        #{startOrderTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="appraiseTime != null">
-        #{appraiseTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="appraiseContent != null">
-        #{appraiseContent,jdbcType=VARCHAR},
-      </if>
-      <if test="appraiseImg != null">
-        #{appraiseImg,jdbcType=VARCHAR},
-      </if>
-      <if test="grade != null">
-        #{grade,jdbcType=DOUBLE},
-      </if>
-      <if test="enableShow != null">
-        #{enableShow,jdbcType=INTEGER},
-      </if>
-      <if test="appraiseReply != null">
-        #{appraiseReply,jdbcType=INTEGER},
-      </if>
-      <if test="replyContent != null">
-        #{replyContent,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.web.entity.AppraiseInfo">
-    update appraise_info
-    <set>
-      <if test="orderId != null">
-        ORDER_ID = #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        USER_ID = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="userName != null">
-        USER_NAME = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="userMobile != null">
-        USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
-      </if>
-      <if test="startOrderTime != null">
-        START_ORDER_TIME = #{startOrderTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="appraiseTime != null">
-        APPRAISE_TIME = #{appraiseTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="appraiseContent != null">
-        APPRAISE_CONTENT = #{appraiseContent,jdbcType=VARCHAR},
-      </if>
-      <if test="appraiseImg != null">
-        APPRAISE_IMG = #{appraiseImg,jdbcType=VARCHAR},
-      </if>
-      <if test="grade != null">
-        GRADE = #{grade,jdbcType=DOUBLE},
-      </if>
-      <if test="enableShow != null">
-        Enable_SHOW = #{enableShow,jdbcType=INTEGER},
-      </if>
-      <if test="appraiseReply != null">
-        APPRAISE_REPLY = #{appraiseReply,jdbcType=INTEGER},
-      </if>
-      <if test="replyContent != null">
-        REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.AppraiseInfo">
-    update appraise_info
-    set ORDER_ID = #{orderId,jdbcType=INTEGER},
-      USER_ID = #{userId,jdbcType=INTEGER},
-      USER_NAME = #{userName,jdbcType=VARCHAR},
-      USER_MOBILE = #{userMobile,jdbcType=VARCHAR},
-      START_ORDER_TIME = #{startOrderTime,jdbcType=TIMESTAMP},
-      APPRAISE_TIME = #{appraiseTime,jdbcType=TIMESTAMP},
-      APPRAISE_CONTENT = #{appraiseContent,jdbcType=VARCHAR},
-      APPRAISE_IMG = #{appraiseImg,jdbcType=VARCHAR},
-      GRADE = #{grade,jdbcType=DOUBLE},
-      Enable_SHOW = #{enableShow,jdbcType=INTEGER},
-      APPRAISE_REPLY = #{appraiseReply,jdbcType=INTEGER},
-      REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
-    where ID = #{id,jdbcType=INTEGER}
-  </update>
 
   <!--查询评价列表-->
   <select id="selectAppraiseList" resultType="java.util.Map">
@@ -252,18 +53,4 @@
 
   </select>
 
-<!--  <select id="queryAppraiseWithOrder" resultType="resultMap" parameterType="java.lang.Integer">-->
-<!--    select GOODS_TYPE,-->
-<!--    <include refid="Base_Column_List" />-->
-<!--    COUNT(GOODS_TYPE) as num-->
-<!--    FROM-->
-<!--    (select t2.GOODS_TYPE-->
-<!--    <include refid="Base_Column_List_t" />-->
-<!--    from APPRAISE_INFO t left join ORDER_DETAIL t2 on t.order_id = t2.order_id-->
-<!--    WHERE 1=1-->
-<!--    <if test="userId != null">-->
-<!--      and t.USER_ID = #{userId}-->
-<!--    </if>) order by num desc -->
-
-<!--  </select>-->
 </mapper>

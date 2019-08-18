@@ -35,6 +35,7 @@ public class WeChatServiceImpl implements WeChatService {
     @Autowired
     private ShopCartInfoMapper shopCartInfoMapper;
 
+    @Override
     public Map<String,Object> queryoneKeyOrderList() {
         Map<String,Object> map = new HashMap();
         List<Map<String,Object>> itemClassifyList = itemClassifyMapper.selectItemClassifyList();
@@ -46,6 +47,7 @@ public class WeChatServiceImpl implements WeChatService {
         return map;
     }
 
+    @Override
     public Map<String,Object> queryItemList(weChatQuery query) {
         Map<String,Object> map = new HashMap<>();
         List<Map<String,Object>>goodsList =  itemInfoMapper.queryItemList(query);
@@ -53,7 +55,7 @@ public class WeChatServiceImpl implements WeChatService {
         return map;
     }
 
-
+    @Override
     public Map<String,Object> addShopCart(weChatQuery query) throws ParseException {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = sf.format(new Date());
@@ -67,7 +69,7 @@ public class WeChatServiceImpl implements WeChatService {
     }
 
 
-
+    @Override
     public Map<String,Object> queryShopCart(weChatQuery query) {
         Map<String,Object> map = new HashMap<>();
         List<Map<String,Object>>ShopCartList =  shopCartInfoMapper.queryShopCart(query);

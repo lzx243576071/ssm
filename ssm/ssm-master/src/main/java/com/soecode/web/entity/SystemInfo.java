@@ -1,8 +1,11 @@
 package com.soecode.web.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SystemInfo{
+public class SystemInfo implements Serializable {
+
+
     private Integer sysId;
 
     private String sysUserName;

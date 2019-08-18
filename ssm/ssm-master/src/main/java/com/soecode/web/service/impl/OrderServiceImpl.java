@@ -2,6 +2,7 @@ package com.soecode.web.service.impl;
 
 
 import com.alipay.api.domain.GoodsSafetyInventory;
+import com.eimageglobal.common.utils.common.lang.SystemUtil;
 import com.soecode.web.dto.Result;
 import com.soecode.web.entity.*;
 import com.soecode.web.entity.entityVO.OrderDetailWebVO;
@@ -17,10 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -41,6 +39,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ItemClassifyMapper itemClassifyMapper;
+
+    @Autowired
+    private AppraiseInfoMapper appraiseInfoMapper;
 
 
     @Override
@@ -109,7 +110,7 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
-    public Result getOrderInfomations(Integer userId, Integer orderState) {
+    public Result<List<OrderInfoWxVO>> getOrderInfomations(Integer userId, Integer orderState) {
         Result result = Result.createFailResult();
         List<OrderInfoWxVO> orderInfoWxVOlist = new ArrayList<>();
         OrderInfo orderInfoQuery = new OrderInfo();
@@ -155,5 +156,33 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return Result.createSuccessResult(orderInfoWxVOlist);
+    }
+
+    @Override
+    public Result addOrderAppraise(AppraiseInfo appraiseInfo) {
+        Result result = Result.createFailResult();
+        UserInfo userInfoQuery = new UserInfo();
+        userInfoQuery.setUserId(appraiseInfo.getUserId());
+        UserInfo userInfo = userInfoMapper.selectOne(userInfoQuery);
+        if(null == userInfo){
+            result.error("查询不到用户信息");
+        }
+        appraiseInfo.setUserName(userInfo.getUserName());
+        appraiseInfo.setUserMobile(userInfo.getUserMobile());
+        userInfo.setCreateTime(new Date());
+        userInfo.setUpdateTime(new Date());
+        OrderInfo orderInfoQuery = new OrderInfo();
+        orderInfoQuery.setOrderId(appraiseInfo.getOrderId());
+        OrderInfo orderInfo = orderInfoMapper.selectOne(orderInfoQuery);
+        if(null == orderInfo){
+            result.error("查询不到订单信息");
+        }
+        appraiseInfo.setStartOrderTime(orderInfo.getStartOrderTime());
+        appraiseInfo.setAppraiseTime(new Date());
+        int icode = appraiseInfoMapper.insertSelective(appraiseInfo);
+        if(icode>0){
+            return Result.createSuccessResult();
+        }
+        return result.error("插入失败");
     }
 }

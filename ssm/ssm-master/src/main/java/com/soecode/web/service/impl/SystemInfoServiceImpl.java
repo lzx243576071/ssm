@@ -50,6 +50,9 @@ public class SystemInfoServiceImpl implements SystemInfoService {
         CookieUtils.addCookie(request, response, Constants.WEB_USER_ID_KEY, "" + map.get("userId"), BizCons.USER_SESSION_TIMEOUT, BizCons.APP_DOMAIN, "/");
         CookieUtils.addCookie(request, response, Constants.WEB_SESSSION_TRACK_KEY, "" + map.get("idstr"), BizCons.USER_SESSION_TIMEOUT * 10, BizCons.APP_DOMAIN, "/");
 
+        request.getSession().setAttribute(Constants.WEB_USER_ID_KEY, systemInfo1.getSysId());
+        request.getSession().setAttribute(Constants.WEB_SESSSION_ID_KEY, request.getSession().getId());
+
         return Result.createSuccessResult(list);
     }
 
@@ -102,11 +105,11 @@ public class SystemInfoServiceImpl implements SystemInfoService {
 
 
     private Map<String, Object> afterLoginProcess(SystemInfo user) {
-//        redisCacheServiceAdapter.del(Constants.LOGIN_RETRY_PRIFIX + user.getSysId());
+        redisCacheServiceAdapter.del(Constants.LOGIN_RETRY_PRIFIX + user.getSysId());
 
         UserSession<SystemInfo> userSession = new UserSession<>(user, null);
-//        redisCacheServiceAdapter.set(userSession.getSessionId(), userSession);
-//        redisCacheServiceAdapter.set("login-" + user.getSysUserMobile(), userSession.getSessionId());
+        redisCacheServiceAdapter.set(userSession.getSessionId(), userSession);
+        redisCacheServiceAdapter.set("login-" + user.getSysUserMobile(), userSession.getSessionId());
 
 
         String idstr = MD5Util.getMD5Code("" + user.getSysId());
