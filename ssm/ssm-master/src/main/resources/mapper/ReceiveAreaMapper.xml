@@ -83,7 +83,7 @@
         WHERE id = #{receiveInfoId}
     </select>
 
-      <delete id="deleteReceiverAddress" parameterType="com.soecode.web.entity.ReceiveArea">
+  <delete id="deleteReceiverAddress" parameterType="com.soecode.web.entity.ReceiveArea">
         delete from receive_area
         where id = #{receiveInfoId}
     </delete>
@@ -93,5 +93,20 @@
         SET has_default = 0
         where user_id = #{userId}
     </update>
+  <select id="queryDefaultReceiveArea" resultType="java.util.Map">
+SELECT
+	receiver_name AS receiverName,
+	phone AS phoneNum,
+	province,
+	city,
+	area,
+	street,
+	address
+FROM
+	receive_area
+WHERE
+	user_id = #{userId}
+AND has_default = 1
 
+  </select>
 </mapper>

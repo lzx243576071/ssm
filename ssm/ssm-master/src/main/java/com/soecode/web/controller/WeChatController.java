@@ -2,6 +2,7 @@ package com.soecode.web.controller;
 
 
 
+import com.soecode.web.entity.OrderDetail;
 import com.soecode.web.entity.OrderInfo;
 import com.soecode.web.message.MessageBean;
 import com.soecode.web.message.MessageClient;
@@ -70,20 +71,30 @@ public class WeChatController {
      * @return
      */
     @RequestMapping(value = "queryShopCart", method = RequestMethod.GET)
-    public MessageBean<Map<String, Object>> queryShopCart(weChatQuery query) {
+    public MessageBean<Map<String, Object>> queryShopCart(Integer userId) {
 
-        return MessageClient.createMessage(weChatService.queryShopCart(query));
+        return MessageClient.createMessage(weChatService.queryShopCart(userId));
     }
 
 
 
     /**
-     * 下单界面
+     * 下单界面（默认收货地址）
      */
-    @RequestMapping(value = "querySubmitOrder", method = RequestMethod.GET)
-    public MessageBean<Map<String, Object>> querySubmitOrder(weChatQuery query) {
+    @RequestMapping(value = "queryDefaultReceiveArea", method = RequestMethod.GET)
+    public MessageBean<Map<String, Object>> queryDefaultReceiveArea(weChatQuery query) {
 
-        return MessageClient.createMessage(weChatService.querySubmitOrder(query));
+        return MessageClient.createMessage(weChatService.queryDefaultReceiveArea(query));
+    }
+
+    /**
+     *  提交订单
+     * @return
+     */
+    @RequestMapping(value = "submitOrder", method = RequestMethod.GET)
+    public MessageBean<Map<String, Object>> submitOrder(OrderInfo queryOI,OrderDetail queryOD) throws ParseException {
+        weChatService.submitOrder(queryOI,queryOD);
+        return MessageClient.createMessage();
     }
 
 }

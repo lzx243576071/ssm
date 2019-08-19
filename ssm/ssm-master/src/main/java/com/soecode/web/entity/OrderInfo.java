@@ -19,7 +19,7 @@ public class OrderInfo {
 
     private String userName;
 
-    private String userAddr;
+    private String receiveInfoId;
 
     private Integer takePersonId;
 
@@ -110,12 +110,12 @@ public class OrderInfo {
         this.userName = userName == null ? null : userName.trim();
     }
 
-    public String getUserAddr() {
-        return userAddr;
+    public String getReceiveInfoId() {
+        return receiveInfoId;
     }
 
-    public void setUserAddr(String userAddr) {
-        this.userAddr = userAddr == null ? null : userAddr.trim();
+    public void setReceiveInfoId(String receiveInfoId) {
+        this.receiveInfoId = receiveInfoId == null ? null : receiveInfoId.trim();
     }
 
     public Integer getTakePersonId() {

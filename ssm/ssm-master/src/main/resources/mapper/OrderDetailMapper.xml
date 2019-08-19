@@ -45,7 +45,17 @@
     t.GOODS_TYPE, t.WASH_METHOD, t.GOODS_STATE, t.CREATE_TIME, t.UPDATE_TIME,
     t1.CLASSIFY_ID, t1.CLASSIFY_NAME, t1.ITEM_PRICE, t1.SEASON, t1.ITEM_IMG
   </sql>
-<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+    <insert id="insertOrderDetail"  parameterType="com.soecode.web.entity.OrderDetail">
+          insert into order_detail ( ORDER_ID, GOODS_ID,
+            GOODS_NAME, GOODS_PRICE, GOODS_NUM,
+            TOTAL_PRICE, GOODS_TEXTURE, GOODS_TYPE,
+             CREATE_TIME)
+          values ( #{orderId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER},
+            #{goodsName,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DOUBLE}, #{goodsNum,jdbcType=INTEGER},
+            #{totalPrice,jdbcType=DOUBLE}, #{goodsTexture,jdbcType=VARCHAR}, #{goodsType,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+    <!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
 <!--    select -->
 <!--    <include refid="Base_Column_List" />-->
 <!--    from order_detail-->
@@ -57,14 +67,14 @@
 <!--  </delete>-->
 <!--  <insert id="insert" parameterType="com.soecode.web.entity.OrderDetail">-->
 <!--    insert into order_detail (ID, ORDER_ID, GOODS_ID, -->
-<!--      GOODS_NAME, GOODS_PRICE, GOODS_NUM, -->
-<!--      TOTAL_PRICE, GOODS_TEXTURE, GOODS_TYPE, -->
-<!--      WASH_METHOD, GOODS_STATE, CREATE_TIME, -->
-<!--      UPDATE_TIME)-->
-<!--    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, -->
-<!--      #{goodsName,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DOUBLE}, #{goodsNum,jdbcType=INTEGER}, -->
-<!--      #{totalPrice,jdbcType=DOUBLE}, #{goodsTexture,jdbcType=VARCHAR}, #{goodsType,jdbcType=VARCHAR}, -->
-<!--      #{washMethod,jdbcType=VARCHAR}, #{goodsState,jdbcType=INTEGER}, now(),now())-->
+  <!--      GOODS_NAME, GOODS_PRICE, GOODS_NUM, -->
+  <!--      TOTAL_PRICE, GOODS_TEXTURE, GOODS_TYPE, -->
+  <!--      WASH_METHOD, GOODS_STATE, CREATE_TIME, -->
+  <!--      UPDATE_TIME)-->
+  <!--    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, -->
+  <!--      #{goodsName,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DOUBLE}, #{goodsNum,jdbcType=INTEGER}, -->
+  <!--      #{totalPrice,jdbcType=DOUBLE}, #{goodsTexture,jdbcType=VARCHAR}, #{goodsType,jdbcType=VARCHAR}, -->
+  <!--      #{washMethod,jdbcType=VARCHAR}, #{goodsState,jdbcType=INTEGER}, now(),now())-->
 <!--  </insert>-->
 <!--  <insert id="insertSelective" parameterType="com.soecode.web.entity.OrderDetail">-->
 <!--    insert into order_detail-->

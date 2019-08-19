@@ -9,7 +9,7 @@ import java.util.List;
 public interface OrderInfoMapper extends Mapper<OrderInfo> {
 //    int deleteByPrimaryKey(Integer id);
 
-//    int insert(OrderInfo record);
+    int insertOrder(OrderInfo record);
 //
 //    int insertSelective(OrderInfo record);
 
@@ -18,4 +18,6 @@ public interface OrderInfoMapper extends Mapper<OrderInfo> {
 //    int updateByPrimaryKeySelective(OrderInfo record);
 //
 //    int updateByPrimaryKey(OrderInfo record);
+
+
 }

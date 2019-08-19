@@ -2,8 +2,8 @@ package com.soecode.web.service.impl;
 
 
 
+import com.soecode.web.entity.OrderDetail;
 import com.soecode.web.entity.OrderInfo;
-import com.soecode.web.entity.ShopCartInfo;
 import com.soecode.web.mapper.*;
 import com.soecode.web.query.weChatQuery;
 import com.soecode.web.service.WeChatService;
@@ -34,6 +34,12 @@ public class WeChatServiceImpl implements WeChatService {
     private ShopCartInfoMapper shopCartInfoMapper;
     @Autowired
     private OrderInfoMapper orderInfoMapper;
+    @Autowired
+    private ReceiveAreaMapper receiveAreaMapper;
+    @Autowired
+    private UserInfoMapper userInfoMapper;
+    @Autowired
+    private OrderDetailMapper orderDetailMapper;
 
     public Map<String,Object> queryoneKeyOrderList() {
         Map<String,Object> map = new HashMap();
@@ -68,9 +74,9 @@ public class WeChatServiceImpl implements WeChatService {
 
 
 
-    public Map<String,Object> queryShopCart(weChatQuery query) {
+    public Map<String,Object> queryShopCart(Integer userId) {
         Map<String,Object> map = new HashMap<>();
-        List<Map<String,Object>>ShopCartList =  shopCartInfoMapper.queryShopCart(query);
+        List<Map<String,Object>>ShopCartList =  shopCartInfoMapper.queryShopCart(userId);
         int numTotal=0;
         double priceTotal=0;
         if(ShopCartList.size()!=0){
@@ -87,9 +93,52 @@ public class WeChatServiceImpl implements WeChatService {
         return map;
     }
 
-    public Map<String,Object> querySubmitOrder(weChatQuery query) {
-        Map<String,Object> map = new HashMap<>();
-
+    public Map<String,Object> queryDefaultReceiveArea(weChatQuery query) {
+        Map<String,Object> map = receiveAreaMapper.queryDefaultReceiveArea(query);
         return map;
+    }
+
+    public void submitOrder(OrderInfo queryOI,OrderDetail queryOD) throws ParseException {
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = sf.format(new Date());
+        Date nowdate = sf.parse(format);
+        List<Map<String,Object>>ShopCartList = shopCartInfoMapper.queryShopCart(queryOI.getUserId());//查询订单商品信息
+        Map<String,Object> UserInfo =  userInfoMapper.queryUserInfo_order(queryOI.getUserId());//查询用户昵称
+        int numTotal=0;
+        double priceTotal=0;
+        if(ShopCartList.size()!=0){
+            for(int i=0;i<ShopCartList.size();i++){
+                int num= Integer.parseInt(ShopCartList.get(i).get("num").toString());
+                double itemPrice = Double.parseDouble(ShopCartList.get(i).get("itemPrice").toString());
+                numTotal = numTotal+ num;
+                priceTotal = priceTotal + itemPrice*num;
+
+            }
+        }
+        queryOI.setGoodsNum(numTotal);
+        queryOI.setOrderMonery(priceTotal);
+        queryOI.setStartOrderTime(nowdate);
+        queryOI.setUserName(UserInfo.get("userName").toString());
+        queryOI.setCreateTime(nowdate);
+        orderInfoMapper.insertOrder(queryOI);
+        queryOD.setOrderId(queryOI.getOrderId());
+        if(ShopCartList.size()!=0) {
+            for (int i = 0; i < ShopCartList.size(); i++) {
+                queryOD.setGoodsId((Integer) ShopCartList.get(i).get("itemId"));
+                queryOD.setGoodsName(ShopCartList.get(i).get("itemName").toString());
+                queryOD.setGoodsPrice((Double) ShopCartList.get(i).get("itemPrice"));
+                queryOD.setGoodsNum(Integer.valueOf(ShopCartList.get(i).get("num").toString()));
+                queryOD.setTotalPrice((Double) ShopCartList.get(i).get("countPrice"));
+                queryOD.setGoodsTexture(ShopCartList.get(i).get("goodsTexture").toString());
+                queryOD.setGoodsType(ShopCartList.get(i).get("classifyId").toString());
+                queryOD.setCreateTime(nowdate);
+                orderDetailMapper.insertOrderDetail(queryOD);
+                //更新购物车商品状态
+                shopCartInfoMapper.updateShopCartState(queryOI.getUserId(),(Integer) ShopCartList.get(i).get("itemId"));
+            }
+        }
+
+
+        return;
     }
 }
