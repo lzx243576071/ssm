@@ -2,11 +2,9 @@ package com.soecode.web.service.impl;
 
 
 
+import com.soecode.web.entity.OrderInfo;
 import com.soecode.web.entity.ShopCartInfo;
-import com.soecode.web.mapper.AppraiseInfoMapper;
-import com.soecode.web.mapper.ItemClassifyMapper;
-import com.soecode.web.mapper.ItemInfoMapper;
-import com.soecode.web.mapper.ShopCartInfoMapper;
+import com.soecode.web.mapper.*;
 import com.soecode.web.query.weChatQuery;
 import com.soecode.web.service.WeChatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +32,8 @@ public class WeChatServiceImpl implements WeChatService {
     private AppraiseInfoMapper appraiseInfoMapper;
     @Autowired
     private ShopCartInfoMapper shopCartInfoMapper;
+    @Autowired
+    private OrderInfoMapper orderInfoMapper;
 
     @Override
     public Map<String,Object> queryoneKeyOrderList() {
@@ -73,7 +73,25 @@ public class WeChatServiceImpl implements WeChatService {
     public Map<String,Object> queryShopCart(weChatQuery query) {
         Map<String,Object> map = new HashMap<>();
         List<Map<String,Object>>ShopCartList =  shopCartInfoMapper.queryShopCart(query);
+        int numTotal=0;
+        double priceTotal=0;
+        if(ShopCartList.size()!=0){
+            for(int i=0;i<ShopCartList.size();i++){
+             int num= Integer.parseInt(ShopCartList.get(i).get("num").toString());
+             double itemPrice = Double.parseDouble(ShopCartList.get(i).get("itemPrice").toString());
+             numTotal = numTotal+ num;
+             priceTotal = priceTotal + itemPrice*num;
+            }
+        }
         map.put("ShopCartList",ShopCartList);
+        map.put("numTotal",numTotal);
+        map.put("priceTotal",priceTotal);
+        return map;
+    }
+
+    public Map<String,Object> querySubmitOrder(weChatQuery query) {
+        Map<String,Object> map = new HashMap<>();
+
         return map;
     }
 }

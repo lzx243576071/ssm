@@ -1,6 +1,7 @@
 package com.soecode.web.service;
 
 
+import com.soecode.web.entity.OrderInfo;
 import com.soecode.web.query.weChatQuery;
 
 import java.text.ParseException;
@@ -19,6 +20,5 @@ public interface WeChatService {
 
    Map<String,Object> queryShopCart(weChatQuery query);
 
-
-
+   Map<String,Object>  querySubmitOrder(weChatQuery query);
 }

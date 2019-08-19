@@ -43,6 +43,9 @@ public class OrderInfo {
 
     private Date updateTime;
 
+    private String appointmentTime;
+
+
     public Integer getOrderId() {
         return orderId;
     }
@@ -201,5 +204,13 @@ public class OrderInfo {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getAppointmentTime() {
+        return appointmentTime;
+    }
+
+    public void setAppointmentTime(String appointmentTime) {
+        this.appointmentTime = appointmentTime == null ? null : appointmentTime.trim();
     }
 }
