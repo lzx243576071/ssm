@@ -37,12 +37,12 @@
         insert into order_info (ORDER_STATE,
            GOODS_NUM, ORDER_MONERY, START_ORDER_TIME,
            PAY_WAY, USER_ID, USER_NAME,
-           RECEIVE_INFO_ID, REMARKS, CREATE_TIME
+           RECEIVE_INFO_ID, REMARKS, CREATE_TIME,APPOINTMENT_TIME
             )
-          values (#{orderState,jdbcType=INTEGER},
-            #{goodsNum,jdbcType=INTEGER}, #{orderMonery,jdbcType=DOUBLE}, #{startOrderTime,jdbcType=TIMESTAMP},
+          values (1, #{goodsNum,jdbcType=INTEGER}, #{orderMonery,jdbcType=DOUBLE}, #{startOrderTime,jdbcType=TIMESTAMP},
             #{payWay,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
-            #{receiveInfoId,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+            #{receiveInfoId,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+            #{appointmentTime,jdbcType=VARCHAR}
             )
     </insert>
     <!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
