@@ -114,10 +114,12 @@
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
-<!--查询购物车列表-->
+  <!--查询购物车列表-->
   <select id="queryShopCart" resultType="java.util.Map">
     SELECT
+    a.ID as id,
     c.ITEM_ID as itemId,
+    c.CLASSIFY_ID  as classifyId,
     c.CLASSIFY_NAME as classifyName,
     c.ITEM_NAME as itemName,
     c.ITEM_PRICE as itemPrice,
@@ -136,13 +138,20 @@
     LEFT JOIN item_info c ON a.ITEM_ID = c.ITEM_ID
     where  a.STATE = 0
     <if test="userId != null and  userId!= ''">
-    and  a.user_id = #{userId,jdbcType=INTEGER}
+    and  a.user_id = #{userId}
     </if>
     group by itemId
-
   </select>
+
   <select id="queryUserId" resultType="java.util.Map">
    select  USER_ID  as userId
    from user_info where OPEN_ID = #{openId,jdbcType=VARCHAR}
   </select>
+  <update id="updateShopCartState" parameterType="com.soecode.web.entity.ShopCartInfo">
+    update shopcart_info
+    set
+      STATE = 1
+    where USER_ID = #{userId,jdbcType=INTEGER} and ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </update>
+
 </mapper>

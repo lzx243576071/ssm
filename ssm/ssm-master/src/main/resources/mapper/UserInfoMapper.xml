@@ -55,4 +55,9 @@
       </if>
 
   </select>
+  <select id="queryUserInfo_order" resultType="java.util.Map">
+   select ifnull(USER_NAME,WECAHT_ID)  as userName
+   from  user_info
+   where USER_ID = #{userId}
+  </select>
 </mapper>

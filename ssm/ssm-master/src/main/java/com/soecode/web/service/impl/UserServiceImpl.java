@@ -98,6 +98,7 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+
     @Override
     public int deleteReceiverAddress(ReceiveArea receiveArea) {
         return receiveAreaMapper.deleteReceiverAddress(receiveArea);

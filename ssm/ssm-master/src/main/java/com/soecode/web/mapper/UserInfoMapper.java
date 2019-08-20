@@ -5,6 +5,7 @@ import com.soecode.web.entity.UserInfo;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserInfoMapper extends Mapper<UserInfo> {
 //    int deleteByPrimaryKey(Integer id);
@@ -20,4 +21,6 @@ public interface UserInfoMapper extends Mapper<UserInfo> {
 //    int updateByPrimaryKey(UserInfo record);
 
     List<UserInfo> queryUserInfo(UserInfo record);
+
+    Map<String,Object> queryUserInfo_order(Integer userId);
 }

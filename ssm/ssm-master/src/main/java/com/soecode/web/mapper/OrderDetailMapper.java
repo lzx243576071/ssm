@@ -25,4 +25,6 @@ public interface OrderDetailMapper extends Mapper<OrderDetail> {
     List<OrderAppraiseInfoVO> selectMaxNumType(Integer orderId);
 
     List<OrderGoodsVO> selectDetailByOrderId(@Param("orderId") Integer orderId);
+
+    int insertOrderDetail(OrderDetail queryOD);
 }
