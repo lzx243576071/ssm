@@ -55,6 +55,19 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+<!--    <filter>-->
+<!--        <filter-name>loginControl</filter-name>-->
+<!--        <filter-class>com.soecode.web.filter.LoginControlFilter</filter-class>-->
+<!--        <init-param>-->
+<!--            <param-name>noFilter</param-name>-->
+<!--            <param-value>/systemInfo/login,/systemInfo/getSystemInfoList</param-value>-->
+<!--        </init-param>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>loginControl</filter-name>-->
+<!--        <url-pattern>/*</url-pattern>-->
+<!--    </filter-mapping>-->
+
 	<!-- 设置servlet编码结束 -->
 	<servlet>
 		<servlet-name>spring</servlet-name>

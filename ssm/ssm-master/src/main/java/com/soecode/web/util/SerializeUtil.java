@@ -28,6 +28,7 @@ public class SerializeUtil {
             return bytes;
         } catch (Exception e) {
             logger.error("序列化出错：",e);
+            System.out.println(e);
         }
         return null;
     }

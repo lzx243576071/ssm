@@ -2,24 +2,15 @@ package com.soecode.web.mapper;
 
 import com.soecode.web.entity.AppraiseInfo;
 import com.soecode.web.entity.entityVO.OrderAppraiseInfoVO;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 import java.util.Map;
 
-public interface AppraiseInfoMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface AppraiseInfoMapper extends Mapper<AppraiseInfo> {
 
-    int insert(AppraiseInfo record);
+    List<Map<String,Object>>  selectAppraiseList();
 
-    int insertSelective(AppraiseInfo record);
+    List<OrderAppraiseInfoVO> selectByUserId(int userId);
 
-    List<OrderAppraiseInfoVO> selectByUserId(Integer userId);
-
-    int updateByPrimaryKeySelective(AppraiseInfo record);
-
-    int updateByPrimaryKey(AppraiseInfo record);
-
-    List<Map<String,Object>> selectAppraiseList();
-
-    List<OrderAppraiseInfoVO> queryAppraiseWithOrder(int UserId);
 }
