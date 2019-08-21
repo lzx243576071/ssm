@@ -43,6 +43,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private AppraiseInfoMapper appraiseInfoMapper;
 
+    @Autowired
+    private ReceiveAreaMapper receiveAreaMapper;
+
 
     @Override
     public Result getOrderInfo(OrderInfo orderInfo,String phoneNum) {
@@ -105,21 +108,20 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 获取微信订单明细
-     * @param userId
-     * @param orderState
+     * @param orderInfoDO
      * @return
      */
     @Override
-    public Result<List<OrderInfoWxVO>> getOrderInfomations(Integer userId, Integer orderState) {
+    public Result<List<OrderInfoWxVO>> getOrderInfomations(OrderInfo orderInfoDO) {
         Result result = Result.createFailResult();
         List<OrderInfoWxVO> orderInfoWxVOlist = new ArrayList<>();
-        OrderInfo orderInfoQuery = new OrderInfo();
-        orderInfoQuery.setUserId(userId);
-        if(null!=orderState || orderState==0){
-            orderInfoQuery.setOrderState(orderState);
-        }
+//        OrderInfo orderInfoQuery = new OrderInfo();
+//        orderInfoQuery.setUserId(orderInfoDO.getUserId());
+//        if(null!=orderInfoDO.getOrderState() || orderInfoDO.getOrderState()==0){
+//            orderInfoQuery.setOrderState(orderInfoDO.getOrderState());
+//        }
         //获取订单列表
-        List<OrderInfo> orderInfoList = orderInfoMapper.select(orderInfoQuery);
+        List<OrderInfo> orderInfoList = orderInfoMapper.select(orderInfoDO);
         if(orderInfoList.size()==0){
             result.value("该用户没有订单信息");
         }
@@ -156,6 +158,18 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return Result.createSuccessResult(orderInfoWxVOlist);
+    }
+
+    @Override
+    public Result getOrderDetailInfomation(OrderInfo orderInfoDO) {
+        Result<List<OrderInfoWxVO>> orderInfoWxVOListResult = getOrderInfomations(orderInfoDO);
+        List<OrderInfoWxVO> orderInfoWxVOList = orderInfoWxVOListResult.getData();
+        OrderInfoWxVO orderInfoWxVO = orderInfoWxVOList.get(0);
+        ReceiveArea receiveAreaQuery = new ReceiveArea();
+        receiveAreaQuery.setId(orderInfoWxVO.getReceiveInfoId());
+        ReceiveArea receiveArea = receiveAreaMapper.selectOne(receiveAreaQuery);
+        orderInfoWxVO.setReceiveArea(receiveArea);
+        return Result.createSuccessResult(orderInfoWxVO);
     }
 
     @Override

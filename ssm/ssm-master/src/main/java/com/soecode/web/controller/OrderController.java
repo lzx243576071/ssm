@@ -44,7 +44,7 @@ public class OrderController {
 
 
     /**
-     * 获取订单明细
+     * 获取订单详情
      * @param request
      * @param orderId
      * @return
@@ -69,17 +69,29 @@ public class OrderController {
     }
 
     /**
-     * 获取微信订单明细
-     * @param userId
-     * @param orderState
+     * 获取微信订单明细（我的订单）
+     * @param orderInfo
      * @return
      */
     @RequestMapping(value = "/wx/getOrderInfomations")
-    public Result<List<OrderInfoWxVO>> getOrderInfomations(Integer userId, Integer orderState) {
-        if(null == userId || userId==0){
+    public Result<List<OrderInfoWxVO>> getOrderInfomations(OrderInfo orderInfo) {
+        if(null == orderInfo.getUserId() || orderInfo.getUserId()==0){
             return Result.createFailResult().error("缺少必要参数userId");
         }
-        return orderService.getOrderInfomations(userId,orderState);
+        return orderService.getOrderInfomations(orderInfo);
+    }
+
+    /**
+     * 获取微信订单详情
+     * @param orderInfo
+     * @return
+     */
+    @RequestMapping(value = "/wx/getOrderDetailInfomation")
+    public Result<List<OrderInfoWxVO>> getOrderDetailInfomation(OrderInfo orderInfo) {
+        if(null == orderInfo.getOrderId() || orderInfo.getOrderId()==0){
+            return Result.createFailResult().error("缺少必要参数orderId");
+        }
+        return orderService.getOrderDetailInfomation(orderInfo);
     }
 
     /**

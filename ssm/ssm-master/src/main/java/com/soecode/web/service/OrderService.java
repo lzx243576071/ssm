@@ -20,7 +20,9 @@ public interface OrderService {
 
     Result<OrderDetailWebVO> getWebOrderDetail(Integer orderId);
 
-    Result<List<OrderInfoWxVO>> getOrderInfomations(Integer userId, Integer orderState);
+    Result<List<OrderInfoWxVO>> getOrderInfomations(OrderInfo orderInfo);
+
+    Result getOrderDetailInfomation(OrderInfo orderInfo);
 
     Result addOrderAppraise(AppraiseInfo appraiseInfo);
 }

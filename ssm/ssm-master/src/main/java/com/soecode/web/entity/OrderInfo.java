@@ -19,7 +19,7 @@ public class OrderInfo {
 
     private String userName;
 
-    private String receiveInfoId;
+    private Integer receiveInfoId;
 
     private Integer takePersonId;
 
@@ -45,6 +45,13 @@ public class OrderInfo {
 
     private String appointmentTime;
 
+    public Integer getReceiveInfoId() {
+        return receiveInfoId;
+    }
+
+    public void setReceiveInfoId(Integer receiveInfoId) {
+        this.receiveInfoId = receiveInfoId;
+    }
 
     public Integer getOrderId() {
         return orderId;
@@ -108,14 +115,6 @@ public class OrderInfo {
 
     public void setUserName(String userName) {
         this.userName = userName == null ? null : userName.trim();
-    }
-
-    public String getReceiveInfoId() {
-        return receiveInfoId;
-    }
-
-    public void setReceiveInfoId(String receiveInfoId) {
-        this.receiveInfoId = receiveInfoId == null ? null : receiveInfoId.trim();
     }
 
     public Integer getTakePersonId() {

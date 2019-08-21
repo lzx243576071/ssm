@@ -2,11 +2,12 @@ package com.soecode.web.mapper;
 
 import com.soecode.web.entity.ReceiveArea;
 import com.soecode.web.query.weChatQuery;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 import java.util.Map;
 
-public interface ReceiveAreaMapper {
+public interface ReceiveAreaMapper extends Mapper<ReceiveArea> {
 
    int addReceiverAddress(ReceiveArea receiveArea);
 

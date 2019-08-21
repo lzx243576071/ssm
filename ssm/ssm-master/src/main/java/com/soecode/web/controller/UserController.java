@@ -102,8 +102,8 @@ public class UserController {
     @RequestMapping("addressAdministration/updateReceiverAddress")
     public Result updateReceiverAddress(ReceiveArea receiveArea) {
         Result result = Result.createFailResult();
-        if(null == receiveArea.getReceiveInfoId() || receiveArea.getReceiveInfoId()==0){
-            result.error("缺少必要参数ReceiveInfoId");
+        if(receiveArea.getId()==0||(receiveArea.getId()+"").isEmpty()){
+            return Result.createFailResult("缺少必要参数id");
         }
         if(null == receiveArea.getUserId() || receiveArea.getUserId()==0){
             result.error("缺少必要参数userId");
@@ -118,11 +118,11 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("addressAdministration/deleteReceiverAddress")
-    public Result deleterReceiverAddress(ReceiveArea ReceiveArea) {
-        if(ReceiveArea.getReceiveInfoId()==0||(ReceiveArea.getReceiveInfoId()+"").isEmpty()){
-            return Result.createFailResult("缺少必要参数ReceiveInfoId");
+    public Result deleterReceiverAddress(ReceiveArea receiveArea) {
+        if(receiveArea.getId()==0||(receiveArea.getId()+"").isEmpty()){
+            return Result.createFailResult("缺少必要参数id");
         }
-        int icode =  userService.deleteReceiverAddress(ReceiveArea);
+        int icode =  userService.deleteReceiverAddress(receiveArea);
         if(icode>0){
             return Result.createSuccessResult();
         }

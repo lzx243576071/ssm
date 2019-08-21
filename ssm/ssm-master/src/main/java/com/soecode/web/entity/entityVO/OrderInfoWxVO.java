@@ -1,6 +1,7 @@
 package com.soecode.web.entity.entityVO;
 
 import com.soecode.web.entity.OrderDetail;
+import com.soecode.web.entity.ReceiveArea;
 
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,27 @@ public class OrderInfoWxVO {
 
     private Integer userId;
 
+    private Integer receiveInfoId;
+
     private List<OrderDetailWxVO> orderDetailWxVOList;
+
+    private ReceiveArea receiveArea;
+
+    public ReceiveArea getReceiveArea() {
+        return receiveArea;
+    }
+
+    public void setReceiveArea(ReceiveArea receiveArea) {
+        this.receiveArea = receiveArea;
+    }
+
+    public Integer getReceiveInfoId() {
+        return receiveInfoId;
+    }
+
+    public void setReceiveInfoId(Integer receiveInfoId) {
+        this.receiveInfoId = receiveInfoId;
+    }
 
     public Integer getOrderId() {
         return orderId;

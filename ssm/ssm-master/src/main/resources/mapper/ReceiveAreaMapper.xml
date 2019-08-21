@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.soecode.web.mapper.ReceiveAreaMapper">
       <resultMap id="BaseResultMap" type="com.soecode.web.entity.ReceiveArea">
-        <result column="id" property="receiveInfoId"/>
+        <result column="id" property="id"/>
         <result column="receiver_name" property="receiverName"/>
         <result column="province" property="province"/>
         <result column="city" property="city"/>
@@ -67,7 +67,7 @@
           has_default = #{hasDefault},
         </if>
         gmt_modify = now()
-        WHERE id = #{receiveInfoId}
+        WHERE id = #{id}
       </update>
 
       <select id="chooseReceiverAddress" resultMap="BaseResultMap">
@@ -80,12 +80,12 @@
       <select id="countReceiverAddress"  resultType="java.lang.Integer">
         SELECT COUNT(1) AS countNum
         FROM  receive_area
-        WHERE id = #{receiveInfoId}
+        WHERE id = #{id}
     </select>
 
   <delete id="deleteReceiverAddress" parameterType="com.soecode.web.entity.ReceiveArea">
         delete from receive_area
-        where id = #{receiveInfoId}
+        where id = #{id}
     </delete>
 
       <update id="updateHasDefault" parameterType="com.soecode.web.entity.ReceiveArea">
