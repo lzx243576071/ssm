@@ -136,11 +136,11 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("/area/list")
-    public Result listArea(Long parentId) {
+    public Result listArea(String areaCode) {
 //        if(parentId==0){
 //            return Result.createFailResult("缺少必要参数parentId");
 //        }
-        List list =  userService.listArea(parentId);
+        List list =  userService.listArea(areaCode);
         return Result.createSuccessResult(list);
     }
 

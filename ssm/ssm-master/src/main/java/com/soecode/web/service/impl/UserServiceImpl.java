@@ -105,9 +105,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Area> listArea(Long parentId) {
+    public List<Area> listArea(String areaCode) {
         Area area = new Area();
-        area.setParentId(parentId);
+        area.setParentCode(areaCode);
         return areaMapper.listArea(area);
     }
 

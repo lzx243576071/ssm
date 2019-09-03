@@ -3,96 +3,82 @@ package com.soecode.web.entity;
 import java.util.Date;
 
 public class Area {
-    private Long id;
+    private Long areaId;
 
-    private Date gmtCreate;
+    private String areaCode;
 
-    private Date gmtModify;
+    private String areaDesc;
 
-    private Long version;
+    private Integer sortCode;
 
-    private Integer orders;
+    private Short hosOpenFlag;
 
-    private Integer grade;
+    private Short areaLevel;
 
-    private String name;
-
-    private String treePath;
-
-    private Long parentId;
+    private String parentCode;
 
     private String fullName;
 
-    public Long getId() {
-        return id;
+    private Date createTime;
+
+    private String quhao;
+
+    private String firstletter;
+
+    public Long getAreaId() {
+        return areaId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAreaId(Long areaId) {
+        this.areaId = areaId;
     }
 
-    public Date getGmtCreate() {
-        return gmtCreate;
+    public String getAreaCode() {
+        return areaCode;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode == null ? null : areaCode.trim();
     }
 
-    public Date getGmtModify() {
-        return gmtModify;
+    public String getAreaDesc() {
+        return areaDesc;
     }
 
-    public void setGmtModify(Date gmtModify) {
-        this.gmtModify = gmtModify;
+    public void setAreaDesc(String areaDesc) {
+        this.areaDesc = areaDesc == null ? null : areaDesc.trim();
     }
 
-    public Long getVersion() {
-        return version;
+    public Integer getSortCode() {
+        return sortCode;
     }
 
-    public void setVersion(Long version) {
-        this.version = version;
+    public void setSortCode(Integer sortCode) {
+        this.sortCode = sortCode;
     }
 
-    public Integer getOrders() {
-        return orders;
+    public Short getHosOpenFlag() {
+        return hosOpenFlag;
     }
 
-    public void setOrders(Integer orders) {
-        this.orders = orders;
+    public void setHosOpenFlag(Short hosOpenFlag) {
+        this.hosOpenFlag = hosOpenFlag;
     }
 
-    public Integer getGrade() {
-        return grade;
+    public Short getAreaLevel() {
+        return areaLevel;
     }
 
-    public void setGrade(Integer grade) {
-        this.grade = grade;
+    public void setAreaLevel(Short areaLevel) {
+        this.areaLevel = areaLevel;
     }
 
-    public String getName() {
-        return name;
+    public String getParentCode() {
+        return parentCode;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
-    public String getTreePath() {
-        return treePath;
-    }
-
-    public void setTreePath(String treePath) {
-        this.treePath = treePath == null ? null : treePath.trim();
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setParentCode(String parentCode) {
+        this.parentCode = parentCode == null ? null : parentCode.trim();
     }
 
     public String getFullName() {
@@ -101,5 +87,29 @@ public class Area {
 
     public void setFullName(String fullName) {
         this.fullName = fullName == null ? null : fullName.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getQuhao() {
+        return quhao;
+    }
+
+    public void setQuhao(String quhao) {
+        this.quhao = quhao == null ? null : quhao.trim();
+    }
+
+    public String getFirstletter() {
+        return firstletter;
+    }
+
+    public void setFirstletter(String firstletter) {
+        this.firstletter = firstletter == null ? null : firstletter.trim();
     }
 }

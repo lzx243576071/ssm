@@ -2,183 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.soecode.web.mapper.AreaMapper">
   <resultMap id="BaseResultMap" type="com.soecode.web.entity.Area">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
-    <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
-    <result column="version" jdbcType="BIGINT" property="version" />
-    <result column="orders" jdbcType="INTEGER" property="orders" />
-    <result column="grade" jdbcType="INTEGER" property="grade" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="tree_path" jdbcType="VARCHAR" property="treePath" />
-    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.soecode.web.entity.Area">
-    <result column="full_name" jdbcType="LONGVARCHAR" property="fullName" />
+    <id column="AREA_ID" jdbcType="BIGINT" property="areaId" />
+    <result column="AREA_CODE" jdbcType="VARCHAR" property="areaCode" />
+    <result column="AREA_DESC" jdbcType="VARCHAR" property="areaDesc" />
+    <result column="SORT_CODE" jdbcType="INTEGER" property="sortCode" />
+    <result column="HOS_OPEN_FLAG" jdbcType="SMALLINT" property="hosOpenFlag" />
+    <result column="AREA_LEVEL" jdbcType="SMALLINT" property="areaLevel" />
+    <result column="PARENT_CODE" jdbcType="VARCHAR" property="parentCode" />
+    <result column="FULL_NAME" jdbcType="VARCHAR" property="fullName" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="QUHAO" jdbcType="VARCHAR" property="quhao" />
+    <result column="FIRSTLETTER" jdbcType="CHAR" property="firstletter" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, gmt_create, gmt_modify, version, orders, grade, name, tree_path, parent_id
+    AREA_ID, AREA_CODE, AREA_DESC, SORT_CODE, HOS_OPEN_FLAG, AREA_LEVEL, PARENT_CODE, 
+    FULL_NAME, CREATE_TIME, QUHAO, FIRSTLETTER
   </sql>
-  <sql id="Blob_Column_List">
-    full_name
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from area
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from area
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.soecode.web.entity.Area">
-    insert into area (id, gmt_create, gmt_modify, 
-      version, orders, grade, 
-      name, tree_path, parent_id, 
-      full_name)
-    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}, 
-      #{version,jdbcType=BIGINT}, #{orders,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, 
-      #{name,jdbcType=VARCHAR}, #{treePath,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, 
-      #{fullName,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.soecode.web.entity.Area">
-    insert into area
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="gmtCreate != null">
-        gmt_create,
-      </if>
-      <if test="gmtModify != null">
-        gmt_modify,
-      </if>
-      <if test="version != null">
-        version,
-      </if>
-      <if test="orders != null">
-        orders,
-      </if>
-      <if test="grade != null">
-        grade,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="treePath != null">
-        tree_path,
-      </if>
-      <if test="parentId != null">
-        parent_id,
-      </if>
-      <if test="fullName != null">
-        full_name,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="gmtCreate != null">
-        #{gmtCreate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModify != null">
-        #{gmtModify,jdbcType=TIMESTAMP},
-      </if>
-      <if test="version != null">
-        #{version,jdbcType=BIGINT},
-      </if>
-      <if test="orders != null">
-        #{orders,jdbcType=INTEGER},
-      </if>
-      <if test="grade != null">
-        #{grade,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="treePath != null">
-        #{treePath,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="fullName != null">
-        #{fullName,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.web.entity.Area">
-    update area
-    <set>
-      <if test="gmtCreate != null">
-        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModify != null">
-        gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
-      </if>
-      <if test="version != null">
-        version = #{version,jdbcType=BIGINT},
-      </if>
-      <if test="orders != null">
-        orders = #{orders,jdbcType=INTEGER},
-      </if>
-      <if test="grade != null">
-        grade = #{grade,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="treePath != null">
-        tree_path = #{treePath,jdbcType=VARCHAR},
-      </if>
-      <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="fullName != null">
-        full_name = #{fullName,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.soecode.web.entity.Area">
-    update area
-    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
-      version = #{version,jdbcType=BIGINT},
-      orders = #{orders,jdbcType=INTEGER},
-      grade = #{grade,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      tree_path = #{treePath,jdbcType=VARCHAR},
-      parent_id = #{parentId,jdbcType=BIGINT},
-      full_name = #{fullName,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.Area">
-    update area
-    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
-      version = #{version,jdbcType=BIGINT},
-      orders = #{orders,jdbcType=INTEGER},
-      grade = #{grade,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      tree_path = #{treePath,jdbcType=VARCHAR},
-      parent_id = #{parentId,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
 
   <select id="listArea" parameterType="com.soecode.web.entity.Area" resultMap="BaseResultMap">
     SELECT
-    <include refid="Base_Column_List"/>
+    <include refid="Base_Column_List" />
     FROM  area
     WHERE
-    <if test="parentId == null">
-      parent_id is null
+    <if test="parentCode == null">
+      parent_code =0
     </if>
-    <if test="parentId != null">
-      parent_id = #{parentId}
+    <if test="parentCode != null">
+      parent_code = #{parentCode}
     </if>
   </select>
 </mapper>

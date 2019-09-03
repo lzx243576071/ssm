@@ -51,5 +51,5 @@ public interface UserService {
      * @param
      * @return
      */
-    List<Area> listArea(Long parentId);
+    List<Area> listArea(String areaCode);
 }
