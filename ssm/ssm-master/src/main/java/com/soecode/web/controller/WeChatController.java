@@ -51,9 +51,10 @@ public class WeChatController {
      */
     @RequestMapping(value = "queryItemList", method = RequestMethod.GET)
     public MessageBean<Map<String, Object>> queryGoodsList(weChatQuery query) {
-
         return MessageClient.createMessage(weChatService.queryItemList(query));
     }
+
+
 
     /**
      *  加入购物车

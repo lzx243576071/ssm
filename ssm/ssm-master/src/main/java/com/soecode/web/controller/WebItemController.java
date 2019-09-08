@@ -7,8 +7,7 @@ import com.soecode.web.dto.Result;
 import com.soecode.web.dto.UploadFiles;
 import com.soecode.web.entity.ItemClassify;
 import com.soecode.web.service.WebItemService;
-import com.soecode.web.util.OssUtil;
-import com.soecode.web.util.Session.OSSInitConfig;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

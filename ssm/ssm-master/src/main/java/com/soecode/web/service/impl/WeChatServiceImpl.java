@@ -56,8 +56,25 @@ public class WeChatServiceImpl implements WeChatService {
     @Override
     public Map<String,Object> queryItemList(weChatQuery query) {
         Map<String,Object> map = new HashMap<>();
-        List<Map<String,Object>>goodsList =  itemInfoMapper.queryItemList(query);
-        map.put("goodsList",goodsList);
+        if(query.getItemName()!=""&&query.getItemName()!=null){
+            List<Map<String,Object>>goodsList =  itemInfoMapper.queryByItemName(query);
+            map.put("goodsList",goodsList);
+        }else{
+            List<Map<String,Object>>goodsList =  itemInfoMapper.queryByClassifyId(query);
+            map.put("全部",goodsList);
+            query.setSeason(1);
+            List<Map<String,Object>>goodsList1 =  itemInfoMapper.queryByClassifyId(query);
+            map.put("春秋",goodsList1);
+            query.setSeason(2);
+            List<Map<String,Object>>goodsList2 =  itemInfoMapper.queryByClassifyId(query);
+            map.put("夏季",goodsList2);
+            query.setSeason(3);
+            List<Map<String,Object>>goodsList3 =  itemInfoMapper.queryByClassifyId(query);
+            map.put("冬季",goodsList3);
+            query.setSeason(4);
+            List<Map<String,Object>>goodsList4 =  itemInfoMapper.queryByClassifyId(query);
+            map.put("其他",goodsList4);
+        }
         return map;
     }
 
