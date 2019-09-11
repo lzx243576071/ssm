@@ -2,6 +2,7 @@ package com.soecode.web.service.impl;
 
 
 
+import com.soecode.web.dto.Result;
 import com.soecode.web.entity.OrderDetail;
 import com.soecode.web.entity.OrderInfo;
 import com.soecode.web.mapper.*;
@@ -42,7 +43,7 @@ public class WeChatServiceImpl implements WeChatService {
     private OrderDetailMapper orderDetailMapper;
 
     @Override
-    public Map<String,Object> queryoneKeyOrderList() {
+    public Result queryoneKeyOrderList() {
         Map<String,Object> map = new HashMap();
         List<Map<String,Object>> itemClassifyList = itemClassifyMapper.selectItemClassifyList();
         List<Map<String,Object>> XSQGItemList = itemInfoMapper.selectXSQGItemList();
@@ -50,19 +51,36 @@ public class WeChatServiceImpl implements WeChatService {
         map.put("itemClassifyList",itemClassifyList);
         map.put("XSQGItemList",XSQGItemList);
         map.put("appraiseList",appraiseList);
-        return map;
+        return Result.createSuccessResult(map);
     }
 
     @Override
-    public Map<String,Object> queryItemList(weChatQuery query) {
+    public Result queryItemList(weChatQuery query) {
         Map<String,Object> map = new HashMap<>();
-        List<Map<String,Object>>goodsList =  itemInfoMapper.queryItemList(query);
-        map.put("goodsList",goodsList);
-        return map;
+        if(query.getItemName()!=""&&query.getItemName()!=null){
+            List<Map<String,Object>>goodsList =  itemInfoMapper.queryByItemName(query);
+            map.put("goodsList",goodsList);
+        }else{
+            List<Map<String,Object>>goodsList =  itemInfoMapper.queryByClassifyId(query);
+            map.put("全部",goodsList);
+            query.setSeason(1);
+            List<Map<String,Object>>goodsList1 =  itemInfoMapper.queryByClassifyId(query);
+            map.put("春秋",goodsList1);
+            query.setSeason(2);
+            List<Map<String,Object>>goodsList2 =  itemInfoMapper.queryByClassifyId(query);
+            map.put("夏季",goodsList2);
+            query.setSeason(3);
+            List<Map<String,Object>>goodsList3 =  itemInfoMapper.queryByClassifyId(query);
+            map.put("冬季",goodsList3);
+            query.setSeason(4);
+            List<Map<String,Object>>goodsList4 =  itemInfoMapper.queryByClassifyId(query);
+            map.put("其他",goodsList4);
+        }
+        return Result.createSuccessResult(map);
     }
 
     @Override
-    public Map<String,Object> addShopCart(weChatQuery query) throws ParseException {
+    public Result addShopCart(weChatQuery query) throws ParseException {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = sf.format(new Date());
         Date nowdate = sf.parse(format);
@@ -71,12 +89,12 @@ public class WeChatServiceImpl implements WeChatService {
         query.setCreateTime(nowdate);
         query.setUpdateTime(nowdate);
         shopCartInfoMapper.insert(query);
-        return userInfo;
+        return Result.createSuccessResult(userInfo);
     }
 
 
 
-    public Map<String,Object> queryShopCart(Integer userId) {
+    public Result queryShopCart(Integer userId) {
         Map<String,Object> map = new HashMap<>();
         List<Map<String,Object>>ShopCartList =  shopCartInfoMapper.queryShopCart(userId);
         int numTotal=0;
@@ -92,15 +110,16 @@ public class WeChatServiceImpl implements WeChatService {
         map.put("ShopCartList",ShopCartList);
         map.put("numTotal",numTotal);
         map.put("priceTotal",priceTotal);
-        return map;
+        return Result.createSuccessResult(map);
     }
 
-    public Map<String,Object> queryDefaultReceiveArea(weChatQuery query) {
+    public Result queryDefaultReceiveArea(weChatQuery query) {
         Map<String,Object> map = receiveAreaMapper.queryDefaultReceiveArea(query);
-        return map;
+        return Result.createSuccessResult(map);
     }
 
-    public void submitOrder(OrderInfo queryOI,OrderDetail queryOD) throws ParseException {
+    public Result submitOrder(OrderInfo queryOI,OrderDetail queryOD) throws ParseException {
+        Result result = Result.createFailResult();
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = sf.format(new Date());
         Date nowdate = sf.parse(format);
@@ -139,8 +158,6 @@ public class WeChatServiceImpl implements WeChatService {
                 shopCartInfoMapper.updateShopCartState(queryOI.getUserId(),(Integer) ShopCartList.get(i).get("itemId"));
             }
         }
-
-
-        return;
+        return result;
     }
 }

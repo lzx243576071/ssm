@@ -2,6 +2,7 @@ package com.soecode.web.service.impl;
 
 import com.soecode.web.cache.RedisCacheServiceAdapter;
 import com.soecode.web.dto.Result;
+import com.soecode.web.entity.ModuleFunc;
 import com.soecode.web.entity.SystemInfo;
 import com.soecode.web.mapper.SystemInfoMapper;
 import com.soecode.web.service.SystemInfoService;
@@ -54,6 +55,17 @@ public class SystemInfoServiceImpl implements SystemInfoService {
         request.getSession().setAttribute(Constants.WEB_SESSSION_ID_KEY, request.getSession().getId());
 
         return Result.createSuccessResult(list);
+    }
+
+
+    @Override
+    public List<ModuleFunc> selectMenusList(Integer roleId) {
+        return systemInfoMapper.selectMenusList(roleId);
+    }
+
+    @Override
+    public List<Map<String, Object>> selectChildMenusList(String parentId,Integer roleId) {
+        return systemInfoMapper.selectChildMenusList(parentId,roleId);
     }
 
     /**

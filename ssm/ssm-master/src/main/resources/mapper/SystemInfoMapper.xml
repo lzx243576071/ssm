@@ -173,4 +173,36 @@
     </if>
 
   </select>
+
+  <select id="selectMenusList" resultType="com.soecode.web.entity.ModuleFunc">
+    SELECT
+        a.MODULE_ID AS moduleId,
+        a.MODULE_NAME AS moduleName,
+        a.PARENT_ID AS parentId,
+        a.MODUALURL AS modualUrl,
+        a.MODUALORDER AS modualOrder,
+        a.ISBUTTON AS isButton,
+        a.FUNCID AS funcId
+    FROM
+        module_func a
+    LEFT JOIN role_function b ON a.module_id = b.module_id
+    WHERE
+        PARENT_ID = 0  and b.ROLE_ID = #{roleId}
+  </select>
+
+  <select id="selectChildMenusList" resultType="java.util.Map">
+ SELECT
+        a.MODULE_ID AS moduleId,
+        a.MODULE_NAME AS moduleName,
+        a.PARENT_ID AS parentId,
+        a.MODUALURL AS modualUrl,
+        a.MODUALORDER AS modualOrder,
+        a.ISBUTTON AS isButton,
+        a.FUNCID AS funcId
+    FROM
+        module_func a
+    LEFT JOIN role_function b ON a.module_id = b.module_id
+    WHERE
+        PARENT_ID = #{parentId}  and b.ROLE_ID = #{roleId}
+  </select>
 </mapper>

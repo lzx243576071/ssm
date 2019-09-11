@@ -1,9 +1,13 @@
 package com.soecode.web.controller;
 
+import com.eimageglobal.common.client.domain.model.ModualFunc;
 import com.soecode.web.cache.RedisCacheServiceAdapter;
 import com.soecode.web.dto.Result;
 import com.soecode.web.dto.ResultCodeEnums;
+import com.soecode.web.entity.ModuleFunc;
 import com.soecode.web.entity.SystemInfo;
+import com.soecode.web.message.MessageBean;
+import com.soecode.web.message.MessageClient;
 import com.soecode.web.service.SystemInfoService;
 import com.soecode.web.util.CookieUtils;
 import com.soecode.web.util.Session.BizCons;
@@ -19,6 +23,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -47,6 +55,77 @@ public class SystemInfoController {
         return  systemInfoService.queryUsers(request,response,systemInfo);
     }
 
+    /**
+     * 查询当前用户菜单
+     *
+     * @return 菜单
+     */
+    @RequestMapping(value = "/menus", method = RequestMethod.GET)
+    public MessageBean<List<Map<String, Object>>> listMenus(Integer roleId,HttpServletRequest request) {
+        List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>();
+        if(roleId == null) {
+            return MessageClient.createMessage(dataList);
+        }
+        List<ModuleFunc> menusList = systemInfoService.selectMenusList(roleId);
+
+
+        for (ModuleFunc modualfunc : menusList) {
+            Map<String, Object> data = new HashMap<String, Object>(6);
+
+
+////            String parentId = map.get("moduleId").toString();
+//            List<Map<String, Object>> childMenusList = systemInfoService.selectChildMenusList(parentId,roleId);
+//            menusList.add()
+        }
+//        for (CasPermissionInfo casPermissionInfo : tModualFuncService.selectByUserId(userId, Long.valueOf(code), "10")) {
+//
+//            Map<String, Object> data = new HashMap<String, Object>(6);
+//            data.put("key", casPermissionInfo.getUrl());
+//
+//            data.put("name", casPermissionInfo.getName());
+//            data.put("icon", casPermissionInfo.getIcon());
+//            List<Map<String, Object>> childDataList = new ArrayList<Map<String, Object>>();
+//            List<CasPermissionInfo> functionChilds = tModualFuncService.selectByUserId(userId, casPermissionInfo.getId(), "10");
+//            if (!functionChilds.isEmpty()) {
+//                data.put("key", functionChilds.get(0).getUrl());
+//            }
+//            for (CasPermissionInfo functionChild : functionChilds) {
+//
+//                Map<String, Object> childData = new HashMap<String, Object>(6);
+//                childData.put("key", functionChild.getUrl());
+//                childData.put("name", functionChild.getName());
+//                childData.put("icon", functionChild.getIcon());
+//                //三级
+//                List<Map<String, String>> childDataList1 = new ArrayList<Map<String, String>>();
+//                List<CasPermissionInfo> functionChilds1 = tModualFuncService.selectByUserId(CasSecurityUtil.getCasSubject().getCasSecurity().getCasUser().getUserId(), functionChild.getId(), "10");
+//                for (CasPermissionInfo functionChild1 : functionChilds1) {
+//
+//                    Map<String, String> childData1 = new HashMap<String, String>(5);
+//                    childData1.put("key", functionChild1.getUrl());
+//                    childData1.put("name", functionChild1.getName());
+//                    childData1.put("icon", functionChild1.getIcon());
+//                    childDataList1.add(childData1);
+//                }
+//                if (!childDataList1.isEmpty()) {
+//                    childData.put("child", childDataList1);
+//                }
+//                childDataList.add(childData);
+//            }
+//
+////			boolean hasChild = casPermissionInfo.getChild() != null && casPermissionInfo.getChild() > 0 && functionChilds.isEmpty();
+////			if (!hasChild) {
+////				if (!childDataList.isEmpty()) {
+////					data.put("child", childDataList);
+////				}
+////				dataList.add(data);
+////			}
+//            if (!childDataList.isEmpty()) {
+//                data.put("child", childDataList);
+//            }
+//            dataList.add(data);
+//        }
+        return MessageClient.createMessage(dataList);
+    }
 
     /**
      * 添加用户

@@ -2,6 +2,7 @@ package com.soecode.web.controller;
 
 
 
+import com.soecode.web.dto.Result;
 import com.soecode.web.entity.OrderDetail;
 import com.soecode.web.entity.OrderInfo;
 import com.soecode.web.message.MessageBean;
@@ -39,9 +40,9 @@ public class WeChatController {
      * @return
      */
     @RequestMapping(value = "oneKeyOrder", method = RequestMethod.GET)
-    public MessageBean<Map<String, Object>> queryItemClassifyList() {
+    public Result queryItemClassifyList() {
 
-        return MessageClient.createMessage(weChatService.queryoneKeyOrderList());
+        return weChatService.queryoneKeyOrderList();
     }
 
 
@@ -50,19 +51,20 @@ public class WeChatController {
      * @return
      */
     @RequestMapping(value = "queryItemList", method = RequestMethod.GET)
-    public MessageBean<Map<String, Object>> queryGoodsList(weChatQuery query) {
-
-        return MessageClient.createMessage(weChatService.queryItemList(query));
+    public Result queryGoodsList(weChatQuery query) {
+        return weChatService.queryItemList(query);
     }
+
+
 
     /**
      *  加入购物车
      * @return
      */
     @RequestMapping(value = "addShopCart", method = RequestMethod.GET)
-    public MessageBean<Map<String, Object>> addShopCart(weChatQuery query) throws ParseException {
+    public Result addShopCart(weChatQuery query) throws ParseException {
 
-        return MessageClient.createMessage(weChatService.addShopCart(query));
+        return weChatService.addShopCart(query);
     }
 
 
@@ -71,9 +73,9 @@ public class WeChatController {
      * @return
      */
     @RequestMapping(value = "queryShopCart", method = RequestMethod.GET)
-    public MessageBean<Map<String, Object>> queryShopCart(Integer userId) {
+    public Result queryShopCart(Integer userId) {
 
-        return MessageClient.createMessage(weChatService.queryShopCart(userId));
+        return weChatService.queryShopCart(userId);
     }
 
 
@@ -82,9 +84,9 @@ public class WeChatController {
      * 下单界面（默认收货地址）
      */
     @RequestMapping(value = "queryDefaultReceiveArea", method = RequestMethod.GET)
-    public MessageBean<Map<String, Object>> queryDefaultReceiveArea(weChatQuery query) {
+    public Result queryDefaultReceiveArea(weChatQuery query) {
 
-        return MessageClient.createMessage(weChatService.queryDefaultReceiveArea(query));
+        return weChatService.queryDefaultReceiveArea(query);
     }
 
     /**
@@ -92,9 +94,9 @@ public class WeChatController {
      * @return
      */
     @RequestMapping(value = "submitOrder", method = RequestMethod.GET)
-    public MessageBean<Map<String, Object>> submitOrder(OrderInfo queryOI,OrderDetail queryOD) throws ParseException {
-        weChatService.submitOrder(queryOI,queryOD);
-        return MessageClient.createMessage();
+    public Result submitOrder(OrderInfo queryOI,OrderDetail queryOD) throws ParseException {
+
+        return  weChatService.submitOrder(queryOI,queryOD);
     }
 
 }

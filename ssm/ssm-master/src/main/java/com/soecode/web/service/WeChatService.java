@@ -1,6 +1,7 @@
 package com.soecode.web.service;
 
 
+import com.soecode.web.dto.Result;
 import com.soecode.web.entity.OrderDetail;
 import com.soecode.web.entity.OrderInfo;
 import com.soecode.web.query.weChatQuery;
@@ -13,15 +14,15 @@ import java.util.Map;
  */
 public interface WeChatService {
 
-   Map<String,Object> queryoneKeyOrderList();
+   Result queryoneKeyOrderList();
 
-   Map<String,Object> queryItemList(weChatQuery query);
+   Result queryItemList(weChatQuery query);
 
-   Map<String,Object> addShopCart(weChatQuery query) throws ParseException;
+   Result addShopCart(weChatQuery query) throws ParseException;
 
-   Map<String,Object> queryShopCart(Integer userId);
+   Result queryShopCart(Integer userId);
 
-   Map<String,Object>  queryDefaultReceiveArea(weChatQuery query);
+   Result  queryDefaultReceiveArea(weChatQuery query);
 
-   void submitOrder(OrderInfo queryOI,OrderDetail queryOD) throws ParseException;
+   Result submitOrder(OrderInfo queryOI,OrderDetail queryOD) throws ParseException;
 }
