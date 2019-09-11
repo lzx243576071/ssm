@@ -1,11 +1,11 @@
-package com.soecode.web.entity;
+package com.soecode.web.query;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
 
-public class ItemInfo{
+public class ItemInfoQuery {
     private Integer itemId;
 
     private String itemName;
@@ -22,7 +22,9 @@ public class ItemInfo{
 
     private String washMethod;
 
-    private String itemImg;
+    private transient List<MultipartFile> itemImg;
+
+    private String oldItemImg;
 
     private Integer joinActivities;
 
@@ -95,12 +97,20 @@ public class ItemInfo{
         this.washMethod = washMethod == null ? null : washMethod.trim();
     }
 
-    public String getItemImg() {
+    public List<MultipartFile> getItemImg() {
         return itemImg;
     }
 
-    public void setItemImg(String itemImg) {
+    public void setItemImg(List<MultipartFile> itemImg) {
         this.itemImg = itemImg == null ? null : itemImg;
+    }
+
+    public String getOldItemImg() {
+        return oldItemImg;
+    }
+
+    public void setOldItemImg(String oldItemImg) {
+        this.oldItemImg = oldItemImg == null ? null : oldItemImg.trim();
     }
 
     public Integer getJoinActivities() {
