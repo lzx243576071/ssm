@@ -31,6 +31,13 @@ public interface UserService {
      */
     List chooseReceiverAddress(ReceiveArea receiveArea);
 
+    /**
+     * 收货地址详情
+     * @param receiveArea
+     * @return
+     */
+    ReceiveArea receiverAddressDetail(ReceiveArea receiveArea);
+
 
     /**
      * 更新收货地址

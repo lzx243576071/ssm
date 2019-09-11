@@ -94,6 +94,22 @@ public class UserController {
     }
 
     /**
+     * 收货地址详情
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/addressAdministration/receiverAddressDetail")
+    public Result receiverAddressDetail(HttpServletRequest request,ReceiveArea receiveArea) {
+        Result result = Result.createFailResult();
+        if(null == receiveArea.getId() || receiveArea.getId()==0){
+            result.error("缺少必要参数id");
+        }
+        ReceiveArea receiveAreaDetail =  userService.receiverAddressDetail(receiveArea);
+        return Result.createSuccessResult(receiveAreaDetail);
+    }
+
+    /**
      * 更新收货地址
      *
      * @return

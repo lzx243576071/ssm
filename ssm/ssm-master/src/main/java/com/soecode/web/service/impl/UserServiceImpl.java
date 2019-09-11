@@ -86,6 +86,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public ReceiveArea receiverAddressDetail(ReceiveArea receiveArea) {
+        return receiveAreaMapper.selectOne(receiveArea);
+    }
+
+    @Override
     public Result updteReceiverAddress(ReceiveArea receiveArea) {
         Result result = Result.createFailResult();
         if(receiveArea.getHasDefault()==1) {
