@@ -42,6 +42,9 @@
       <update id="updteReceiverAddress"  parameterType="com.soecode.web.entity.ReceiveArea">
         update receive_area
         SET
+        <if test="userId !=null">
+          user_id = #{userId},
+        </if>
         <if test="receiverName !=null">
           receiver_name = #{receiverName},
         </if>

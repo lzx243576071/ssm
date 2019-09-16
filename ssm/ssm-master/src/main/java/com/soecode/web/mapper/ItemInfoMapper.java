@@ -1,20 +1,21 @@
 package com.soecode.web.mapper;
 
 import com.soecode.web.entity.ItemInfo;
-import com.soecode.web.entity.ItemInfoKey;
 import com.soecode.web.query.weChatQuery;
 
 import java.util.List;
 import java.util.Map;
 
 public interface ItemInfoMapper {
-    int deleteByPrimaryKey(ItemInfoKey key);
 
+    /**
+     * 新增商品
+     * @param record
+     * @return
+     */
     int insert(ItemInfo record);
 
     int insertSelective(ItemInfo record);
-
-    ItemInfo selectByPrimaryKey(ItemInfoKey key);
 
     int updateByPrimaryKeySelective(ItemInfo record);
 

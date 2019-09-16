@@ -68,4 +68,9 @@ public class Constants {
     public static final String CHANGE_ACCOUNT = "change-account-";
     public static final int CHANGE_ACCOUNT_EXPIRED_TIME = 10 * 60;
 
+    /**
+     * 图片最大大小 5M
+     */
+    public static final int MAX_IMAGE_SIZE_REF = 1024 * 1024 * 5;
+
 }
