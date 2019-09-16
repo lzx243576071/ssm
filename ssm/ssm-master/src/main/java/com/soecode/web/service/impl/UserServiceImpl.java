@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ReceiveArea receiverAddressDetail(ReceiveArea receiveArea) {
-        return receiveAreaMapper.selectOne(receiveArea);
+        return receiveAreaMapper.selectOneById(receiveArea);
     }
 
     @Override

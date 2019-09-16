@@ -19,6 +19,8 @@ public interface ReceiveAreaMapper extends Mapper<ReceiveArea> {
 
     int updateHasDefault(ReceiveArea receiveArea);
 
+    ReceiveArea selectOneById(ReceiveArea receiveArea);
+
 
  Map<String,Object> queryDefaultReceiveArea(weChatQuery query);
 }

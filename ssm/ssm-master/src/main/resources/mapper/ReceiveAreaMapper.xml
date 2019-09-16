@@ -109,4 +109,11 @@ WHERE
 AND has_default = 1
 
   </select>
+
+    <select id="selectOneById" parameterType="com.soecode.web.entity.ReceiveArea" resultMap="BaseResultMap">
+      SELECT id,
+      <include refid="baseColumn"/>
+      FROM  receive_area
+      WHERE id = #{id}
+    </select>
 </mapper>
