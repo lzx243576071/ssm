@@ -124,4 +124,18 @@ public class OrderController {
         return orderService.addOrderAppraise(appraiseInfo);
     }
 
+    /**
+     * 删除订单
+     * @param request
+     * @param orderId
+     * @return
+     */
+    @RequestMapping(value = "/common/deleteOrder")
+    public Result deleteOrder(HttpServletRequest request,Integer orderId) {
+        if(null==orderId || orderId==0){
+            return Result.createFailResult("缺少必要参数orderId");
+        }
+        return orderService.deleteOrder(orderId);
+    }
+
 }

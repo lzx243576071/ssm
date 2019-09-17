@@ -199,4 +199,18 @@ public class OrderServiceImpl implements OrderService {
         }
         return result.error("插入失败");
     }
+
+    @Override
+    public Result deleteOrder(Integer orderId) {
+        Result result = Result.createSuccessResult();
+        int icodeInfo = orderInfoMapper.deleteByOrderId(orderId);
+        int icodeDetail = orderDetailMapper.deleteByOrderId(orderId);
+        if(icodeInfo==0){
+            return result.error("订单删除失败orderInfo");
+        }
+        if(icodeDetail==0){
+            return result.error("订单删除失败orderDetail");
+        }
+        return result;
+    }
 }

@@ -74,4 +74,9 @@
 
   </select>
 
+  <delete id="deleteByOrderId" parameterType="java.lang.Integer">
+    delete from order_detail
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+
 </mapper>

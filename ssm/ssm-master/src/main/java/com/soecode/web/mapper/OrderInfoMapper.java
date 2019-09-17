@@ -19,5 +19,7 @@ public interface OrderInfoMapper extends Mapper<OrderInfo> {
 //
 //    int updateByPrimaryKey(OrderInfo record);
 
+    Integer deleteByOrderId(Integer orderId);
+
 
 }

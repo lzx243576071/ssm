@@ -25,4 +25,6 @@ public interface OrderService {
     Result getOrderDetailInfomation(OrderInfo orderInfo);
 
     Result addOrderAppraise(AppraiseInfo appraiseInfo);
+
+    Result deleteOrder(Integer orderId);
 }

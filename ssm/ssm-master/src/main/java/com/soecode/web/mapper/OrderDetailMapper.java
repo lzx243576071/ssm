@@ -27,4 +27,6 @@ public interface OrderDetailMapper extends Mapper<OrderDetail> {
     List<OrderGoodsVO> selectDetailByOrderId(@Param("orderId") Integer orderId);
 
     int insertOrderDetail(OrderDetail queryOD);
+
+    Integer deleteByOrderId(Integer orderId);
 }
