@@ -45,14 +45,6 @@ public class OrderInfo {
 
     private String appointmentTime;
 
-    public Integer getReceiveInfoId() {
-        return receiveInfoId;
-    }
-
-    public void setReceiveInfoId(Integer receiveInfoId) {
-        this.receiveInfoId = receiveInfoId;
-    }
-
     public Integer getOrderId() {
         return orderId;
     }
@@ -115,6 +107,14 @@ public class OrderInfo {
 
     public void setUserName(String userName) {
         this.userName = userName == null ? null : userName.trim();
+    }
+
+    public Integer getReceiveInfoId() {
+        return receiveInfoId;
+    }
+
+    public void setReceiveInfoId(Integer receiveInfoId) {
+        this.receiveInfoId = receiveInfoId;
     }
 
     public Integer getTakePersonId() {

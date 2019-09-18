@@ -31,7 +31,7 @@
     DELIVERY_TIME, GET_GOODS_TIME, COMMISSION, REMARKS, CREATE_TIME, UPDATE_TIME,APPOINTMENT_TIME
   </sql>
     <insert id="insertOrder" parameterType="com.soecode.web.entity.OrderInfo">
-      <selectKey resultType = "java.lang.Integer" keyProperty = "orderId"  order = "AFTER" >
+      <selectKey keyProperty="orderId" order="AFTER" resultType="java.lang.Integer">
         select LAST_INSERT_ID() as  orderId
       </selectKey>
         insert into order_info (ORDER_STATE,
@@ -49,4 +49,71 @@
     delete from order_info
     where order_id = #{orderId,jdbcType=INTEGER}
   </delete>
+
+  <update id="updateByOrderIdSelective" parameterType="com.soecode.web.entity.OrderInfo">
+    update order_info
+    <set>
+      <if test="orderState != null">
+        ORDER_STATE = #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="goodsNum != null">
+        GOODS_NUM = #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="orderMonery != null">
+        ORDER_MONERY = #{orderMonery,jdbcType=DOUBLE},
+      </if>
+      <if test="startOrderTime != null">
+        START_ORDER_TIME = #{startOrderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payWay != null">
+        PAY_WAY = #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveInfoId != null">
+        RECEIVE_INFO_ID = #{receiveInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="takePersonId != null">
+        TAKE_PERSON_ID = #{takePersonId,jdbcType=INTEGER},
+      </if>
+      <if test="takePersonName != null">
+        TAKE_PERSON_NAME = #{takePersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="takeTime != null">
+        TAKE_TIME = #{takeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sortTime != null">
+        SORT_TIME = #{sortTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cleanTime != null">
+        CLEAN_TIME = #{cleanTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryTime != null">
+        DELIVERY_TIME = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="getGoodsTime != null">
+        GET_GOODS_TIME = #{getGoodsTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commission != null">
+        COMMISSION = #{commission,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appointmentTime != null">
+        APPOINTMENT_TIME = #{appointmentTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORDER_ID = #{orderId,jdbcType=INTEGER}
+  </update>
 </mapper>

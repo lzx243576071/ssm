@@ -70,14 +70,18 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Result updateOrder(OrderInfo orderInfo, OrderDetail orderDetail) {
         Result result = Result.createFailResult();
-        int icode = orderInfoMapper.updateByPrimaryKeySelective(orderInfo);
+        orderInfo.setUpdateTime(new Date());
+        int icode = orderInfoMapper.updateByOrderIdSelective(orderInfo);
         if(icode == 0){
-            return result.error("更新orderDetail失败");
+            return result.error("更新orderInfo失败");
+        }else{
+            result = Result.createSuccessResult();
         }
-        if(null != orderDetail.getId()){
-            int code = orderDetailMapper.updateByPrimaryKeySelective(orderDetail);
+        if(null !=orderDetail && null!= orderDetail.getId()){
+            orderDetail.setUpdateTime(new Date());
+            int code = orderDetailMapper.updateByIdSelective(orderDetail);
             if(code == 0){
-                return result.error("更新orderInfo失败");
+                return result.error("更新orderDetail失败");
             }
         }
         return result;
@@ -150,6 +154,9 @@ public class OrderServiceImpl implements OrderService {
                 List<GoodsRecord> goodsRecordList = goodsRecordMapper.select(goodsRecordQuery);
                 if(goodsRecordList.size()>0) {
                     orderDetailWxVO.setGoodsRecordList(goodsRecordList);
+                }
+                if(null != itemClassifyList.get(0).getClassifyImg()) {
+                    orderDetailWxVO.setImg(itemClassifyList.get(0).getClassifyImg());
                 }
                 orderDetailWxVOList.add(orderDetailWxVO);
             }

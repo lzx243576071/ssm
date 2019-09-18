@@ -28,6 +28,16 @@ public class OrderDetailWxVO {
 
         private List<GoodsRecord> goodsRecordList;
 
+        private String img;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public List<GoodsRecord> getGoodsRecordList() {
         return goodsRecordList;
     }

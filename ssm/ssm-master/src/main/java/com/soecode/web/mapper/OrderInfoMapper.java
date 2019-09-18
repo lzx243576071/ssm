@@ -4,22 +4,20 @@ import com.soecode.web.entity.OrderInfo;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
-import java.util.List;
+public interface OrderInfoMapper extends Mapper<OrderInfo>{
+//    int deleteByPrimaryKey(Integer orderId);
 
-public interface OrderInfoMapper extends Mapper<OrderInfo> {
-//    int deleteByPrimaryKey(Integer id);
-
-    int insertOrder(OrderInfo record);
+//    int insert(OrderInfo record);
 //
 //    int insertSelective(OrderInfo record);
 
-//    List<OrderInfo> selectByPrimaryKey(@Param("userId") Integer userId,@Param("orderState") Integer orderState);
+//    OrderInfo selectByPrimaryKey(Integer orderId);
 
-//    int updateByPrimaryKeySelective(OrderInfo record);
-//
+    int updateByOrderIdSelective(OrderInfo record);
+
 //    int updateByPrimaryKey(OrderInfo record);
 
     Integer deleteByOrderId(Integer orderId);
 
-
+    int insertOrder(OrderInfo record);
 }

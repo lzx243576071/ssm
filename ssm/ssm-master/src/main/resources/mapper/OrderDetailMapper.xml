@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.soecode.web.mapper.OrderDetailMapper">
+
   <resultMap id="BaseResultMap" type="com.soecode.web.entity.OrderDetail">
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="ORDER_ID" jdbcType="INTEGER" property="orderId" />
@@ -45,7 +46,7 @@
     t.GOODS_TYPE, t.WASH_METHOD, t.GOODS_STATE, t.CREATE_TIME, t.UPDATE_TIME,
     t1.CLASSIFY_ID, t1.CLASSIFY_NAME, t1.ITEM_PRICE, t1.SEASON, t1.ITEM_IMG
   </sql>
-    <insert id="insertOrderDetail"  parameterType="com.soecode.web.entity.OrderDetail">
+    <insert id="insertOrderDetail" parameterType="com.soecode.web.entity.OrderDetail">
           insert into order_detail ( ORDER_ID, GOODS_ID,
             GOODS_NAME, GOODS_PRICE, GOODS_NUM,
             TOTAL_PRICE, GOODS_TEXTURE, GOODS_TYPE,
@@ -78,5 +79,48 @@
     delete from order_detail
     where order_id = #{orderId,jdbcType=INTEGER}
   </delete>
+
+  <update id="updateByIdSelective" parameterType="com.soecode.web.entity.OrderDetail">
+    update order_detail
+    <set>
+      <if test="orderId != null">
+        ORDER_ID = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        GOODS_ID = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null">
+        GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        GOODS_PRICE = #{goodsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsNum != null">
+        GOODS_NUM = #{goodsNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        TOTAL_PRICE = #{totalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsTexture != null">
+        GOODS_TEXTURE = #{goodsTexture,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null">
+        GOODS_TYPE = #{goodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="washMethod != null">
+        WASH_METHOD = #{washMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsState != null">
+        GOODS_STATE = #{goodsState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
 
 </mapper>
