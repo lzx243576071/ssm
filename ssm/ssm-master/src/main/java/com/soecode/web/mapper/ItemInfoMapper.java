@@ -21,6 +21,8 @@ public interface ItemInfoMapper {
 
     int updateByPrimaryKey(ItemInfo record);
 
+
+
     /**
      * 限时抢购商品列表
      * @return
@@ -46,4 +48,11 @@ public interface ItemInfoMapper {
      * @return
      */
     List<Map<String,Object>> queryByClassifyId(weChatQuery query);
+
+    /**
+     * 查询商品列表（类目季节分类）
+     * @param itemId
+     * @return
+     */
+    ItemInfo queryOneByItemId(Integer itemId);
 }

@@ -46,6 +46,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ReceiveAreaMapper receiveAreaMapper;
 
+    @Autowired
+    private ItemInfoMapper itemInfoMapper;
+
 
     @Override
     public Result getOrderInfo(OrderInfo orderInfo,String phoneNum) {
@@ -155,8 +158,9 @@ public class OrderServiceImpl implements OrderService {
                 if(goodsRecordList.size()>0) {
                     orderDetailWxVO.setGoodsRecordList(goodsRecordList);
                 }
-                if(null != itemClassifyList.get(0).getClassifyImg()) {
-                    orderDetailWxVO.setImg(itemClassifyList.get(0).getClassifyImg());
+                ItemInfo itemInfo = itemInfoMapper.queryOneByItemId(orderDetail.getGoodsId());
+                if(null != itemInfo.getItemImg()) {
+                    orderDetailWxVO.setImg(itemInfo.getItemImg());
                 }
                 orderDetailWxVOList.add(orderDetailWxVO);
             }

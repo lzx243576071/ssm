@@ -14,7 +14,7 @@
     <result column="JOIN_ACTIVITIES" jdbcType="INTEGER" property="joinActivities" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, ITEM_ID, ITEM_NAME, CLASSIFY_ID, CLASSIFY_NAME, ITEM_PRICE, GOODS_TEXTURE, SEASON, 
+    ITEM_ID, ITEM_NAME, CLASSIFY_ID, CLASSIFY_NAME, ITEM_PRICE, GOODS_TEXTURE, SEASON,
     WASH_METHOD, ITEM_IMG, JOIN_ACTIVITIES
   </sql>
   <delete id="deleteByPrimaryKey" parameterType="com.soecode.web.entity.ItemInfo">
@@ -242,4 +242,11 @@
           and  SEASON = #{season}
         </if>
   </select>
+  <select id="queryOneByItemId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from item_info
+    where item_id = #{itemId}
+  </select>
+
 </mapper>
