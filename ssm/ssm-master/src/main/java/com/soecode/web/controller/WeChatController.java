@@ -74,7 +74,10 @@ public class WeChatController {
      */
     @RequestMapping(value = "queryShopCart", method = RequestMethod.GET)
     public Result queryShopCart(Integer userId) {
-
+        Result result = Result.createFailResult();
+        if(userId ==null){
+            return  result.error("缺少必要参数userId");
+        }
         return weChatService.queryShopCart(userId);
     }
 
@@ -94,7 +97,7 @@ public class WeChatController {
      * @return
      */
     @RequestMapping(value = "submitOrder", method = RequestMethod.GET)
-    public Result submitOrder(OrderInfo queryOI,OrderDetail queryOD) throws ParseException {
+    public Result submitOrder(OrderInfo queryOI,OrderDetail queryOD){
 
         return  weChatService.submitOrder(queryOI,queryOD);
     }

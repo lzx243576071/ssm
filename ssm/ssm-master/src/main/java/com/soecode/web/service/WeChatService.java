@@ -24,5 +24,5 @@ public interface WeChatService {
 
    Result  queryDefaultReceiveArea(weChatQuery query);
 
-   Result submitOrder(OrderInfo queryOI,OrderDetail queryOD) throws ParseException;
+   Result submitOrder(OrderInfo queryOI,OrderDetail queryOD);
 }

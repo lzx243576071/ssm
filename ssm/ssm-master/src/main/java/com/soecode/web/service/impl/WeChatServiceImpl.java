@@ -118,11 +118,8 @@ public class WeChatServiceImpl implements WeChatService {
         return Result.createSuccessResult(map);
     }
 
-    public Result submitOrder(OrderInfo queryOI,OrderDetail queryOD) throws ParseException {
+    public Result submitOrder(OrderInfo queryOI,OrderDetail queryOD){
         Result result = Result.createFailResult();
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String format = sf.format(new Date());
-        Date nowdate = sf.parse(format);
         List<Map<String,Object>>ShopCartList = shopCartInfoMapper.queryShopCart(queryOI.getUserId());//查询订单商品信息
         Map<String,Object> UserInfo =  userInfoMapper.queryUserInfo_order(queryOI.getUserId());//查询用户昵称
         int numTotal=0;
@@ -138,9 +135,9 @@ public class WeChatServiceImpl implements WeChatService {
         }
         queryOI.setGoodsNum(numTotal);
         queryOI.setOrderMonery(priceTotal);
-        queryOI.setStartOrderTime(nowdate);
+        queryOI.setStartOrderTime(new Date());
         queryOI.setUserName(UserInfo.get("userName").toString());
-        queryOI.setCreateTime(nowdate);
+        queryOI.setCreateTime(new Date());
         orderInfoMapper.insertOrder(queryOI);
         queryOD.setOrderId(queryOI.getOrderId());
         if(ShopCartList.size()!=0) {
@@ -152,7 +149,7 @@ public class WeChatServiceImpl implements WeChatService {
                 queryOD.setTotalPrice((Double) ShopCartList.get(i).get("countPrice"));
                 queryOD.setGoodsTexture(ShopCartList.get(i).get("goodsTexture").toString());
                 queryOD.setGoodsType(ShopCartList.get(i).get("classifyId").toString());
-                queryOD.setCreateTime(nowdate);
+                queryOD.setCreateTime(new Date());
                 orderDetailMapper.insertOrderDetail(queryOD);
                 //更新购物车商品状态
                 shopCartInfoMapper.updateShopCartState(queryOI.getUserId(),(Integer) ShopCartList.get(i).get("itemId"));
