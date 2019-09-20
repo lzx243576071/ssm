@@ -146,7 +146,7 @@ public class OrderServiceImpl implements OrderService {
             for (OrderDetail orderDetail:orderDetailList) {
                 OrderDetailWxVO orderDetailWxVO = new OrderDetailWxVO();
                 ItemClassify itemClassifyQuery = new ItemClassify();
-                itemClassifyQuery.setClassifyId(orderDetail.getGoodsState());
+                itemClassifyQuery.setClassifyId(Integer.parseInt(orderDetail.getGoodsType()));
                 List<ItemClassify> itemClassifyList = itemClassifyMapper.select(itemClassifyQuery);
                 orderDetail.setGoodsType(itemClassifyList.get(0).getClassifyName());
                 BeanUtils.copyProperties(orderDetail,orderDetailWxVO);
