@@ -1,2 +1,0 @@
-webpackJsonp([16],{SWxC:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r={render:function(){this.$createElement;this._self._c;return this._m(0)},staticRenderFns:[function(){var e=this.$createElement,t=this._self._c||e;return t("div",[this._v("demo1\n    "),t("input",{attrs:{type:"text"}})])}]},s=n("VU/8")(null,r,!1,null,null,null);t.default=s.exports}});
-//# sourceMappingURL=16.e9010589ad7a03064b00.js.map
