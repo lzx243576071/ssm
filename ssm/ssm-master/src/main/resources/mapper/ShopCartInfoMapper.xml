@@ -23,6 +23,14 @@
     delete from shopcart_info
     where ID = #{id,jdbcType=INTEGER}
   </delete>
+  <!--删除购物车商品-->
+  <delete id="deleteShopCart">
+    delete from shopcart_info
+    where ID in (
+      <foreach collection="id" item="id" separator=",">
+    #{id}
+  </foreach>)
+  </delete>
   <insert id="insert" parameterType="com.soecode.web.entity.ShopCartInfo">
     insert into `test`.`shopcart_info` ( USER_ID, ITEM_ID,
         CREATE_TIME,
@@ -146,11 +154,22 @@
    select  USER_ID  as userId
    from user_info where OPEN_ID = #{openId,jdbcType=VARCHAR}
   </select>
+  <!--查询单类商品数量-->
+  <select id="queryItemNum" resultType="java.util.Map">
+    select NUM as num from shopcart_info where ID = #{id}
+  </select>
   <update id="updateShopCartState" parameterType="com.soecode.web.entity.ShopCartInfo">
     update shopcart_info
     set
       STATE = 1
     where USER_ID = #{userId,jdbcType=INTEGER} and ITEM_ID = #{itemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateItemNum">
+    update shopcart_info
+    set
+      NUM = #{num},
+      UPDATE_TIME = now()
+    where ID = #{id,jdbcType=INTEGER}
   </update>
 
 </mapper>

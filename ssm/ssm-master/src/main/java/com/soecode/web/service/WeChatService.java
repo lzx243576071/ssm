@@ -7,6 +7,7 @@ import com.soecode.web.entity.OrderInfo;
 import com.soecode.web.query.weChatQuery;
 
 import java.text.ParseException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,4 +26,8 @@ public interface WeChatService {
    Result  queryDefaultReceiveArea(weChatQuery query);
 
    Result submitOrder(OrderInfo queryOI,OrderDetail queryOD);
+
+   Result updateShopCart(Integer id,Integer flag);
+
+   Result deleteShopCart(List<String> id) ;
 }

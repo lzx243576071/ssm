@@ -113,6 +113,25 @@ public class WeChatServiceImpl implements WeChatService {
         return Result.createSuccessResult(map);
     }
 
+
+    public Result updateShopCart(Integer id,Integer flag) {
+        Map<String,Object> itemNum = shopCartInfoMapper.queryItemNum(id);
+        int num = 0;
+        if(flag==1){
+             num = (int) itemNum.get("num")+1;
+        }else{
+            num = (int) itemNum.get("num")-1;
+        }
+        shopCartInfoMapper.updateItemNum(id,num);
+        return Result.createSuccessResult();
+    }
+
+
+    public Result deleteShopCart(List<String> id) {
+        shopCartInfoMapper.deleteShopCart(id);
+        return Result.createSuccessResult();
+    }
+
     public Result queryDefaultReceiveArea(weChatQuery query) {
         Map<String,Object> map = receiveAreaMapper.queryDefaultReceiveArea(query);
         return Result.createSuccessResult(map);

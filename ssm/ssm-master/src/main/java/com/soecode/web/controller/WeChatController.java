@@ -82,6 +82,35 @@ public class WeChatController {
     }
 
 
+    /**
+     *  修改购物车商品数量
+     * @return
+     */
+    @RequestMapping(value = "updateShopCart", method = RequestMethod.GET)
+    public Result updateShopCart(Integer id,Integer flag) {
+        Result result = Result.createFailResult();
+        if(id ==null){
+            return  result.error("缺少必要参数id");
+        }
+        if(flag ==null){
+            return  result.error("缺少必要参数flag");
+        }
+        return weChatService.updateShopCart(id,flag);
+    }
+
+    /**
+     *  删除购物车
+     * @return
+     */
+    @RequestMapping(value = "deleteShopCart", method = RequestMethod.GET)
+    public Result updateShopCart(List<String> id) {
+        Result result = Result.createFailResult();
+        if(id.size() == 0){
+            return  result.error("缺少必要参数id");
+        }
+        return weChatService.deleteShopCart(id);
+    }
+
 
     /**
      * 下单界面（默认收货地址）

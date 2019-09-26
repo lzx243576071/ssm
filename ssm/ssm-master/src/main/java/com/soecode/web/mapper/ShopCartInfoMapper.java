@@ -25,4 +25,10 @@ public interface ShopCartInfoMapper {
     Map<String,Object> queryUserId(weChatQuery query);
 
     int updateShopCartState(@Param("userId")Integer userId,@Param("itemId") Integer itemId);
+
+    int updateItemNum(@Param("id")Integer id,@Param("num") Integer num);
+
+    Map<String, Object> queryItemNum(Integer id);
+
+    void deleteShopCart(List<String> id);
 }
