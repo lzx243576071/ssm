@@ -19,15 +19,15 @@ public interface WeChatService {
 
    Result queryItemList(weChatQuery query);
 
-   Result addShopCart(weChatQuery query) throws ParseException;
+   Result addShopCart(weChatQuery query);
 
    Result queryShopCart(Integer userId);
 
    Result  queryDefaultReceiveArea(weChatQuery query);
 
-   Result submitOrder(OrderInfo queryOI,OrderDetail queryOD);
+   Result submitOrder(OrderInfo queryOI,OrderDetail queryOD,String shopId);
 
-   Result updateShopCart(Integer id,Integer flag);
+   Result deleteShopCart(String shopId) ;
 
-   Result deleteShopCart(List<String> id) ;
+   Result queryPrice(String shopId);
 }

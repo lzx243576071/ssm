@@ -9,10 +9,12 @@ import com.soecode.web.message.MessageBean;
 import com.soecode.web.message.MessageClient;
 import com.soecode.web.query.weChatQuery;
 import com.soecode.web.service.WeChatService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -58,15 +60,14 @@ public class WeChatController {
 
 
     /**
-     *  加入购物车
+     *  加入购物车（数量修改）
      * @return
      */
     @RequestMapping(value = "addShopCart", method = RequestMethod.GET)
-    public Result addShopCart(weChatQuery query) throws ParseException {
+    public Result addShopCart(weChatQuery query){
 
         return weChatService.addShopCart(query);
     }
-
 
     /**
      *  购物车列表
@@ -82,20 +83,18 @@ public class WeChatController {
     }
 
 
+
     /**
-     *  修改购物车商品数量
+     *  查询购物车选中商品数量和总价
      * @return
      */
-    @RequestMapping(value = "updateShopCart", method = RequestMethod.GET)
-    public Result updateShopCart(Integer id,Integer flag) {
+    @RequestMapping(value = "queryPrice", method = RequestMethod.GET)
+    public Result queryPrice(String shopId) {
         Result result = Result.createFailResult();
-        if(id ==null){
-            return  result.error("缺少必要参数id");
+        if(shopId == null){
+            return  result.error("缺少必要参数shopId");
         }
-        if(flag ==null){
-            return  result.error("缺少必要参数flag");
-        }
-        return weChatService.updateShopCart(id,flag);
+        return weChatService.queryPrice(shopId);
     }
 
     /**
@@ -103,12 +102,12 @@ public class WeChatController {
      * @return
      */
     @RequestMapping(value = "deleteShopCart", method = RequestMethod.GET)
-    public Result updateShopCart(List<String> id) {
+    public Result deleteShopCart(String shopId) {
         Result result = Result.createFailResult();
-        if(id.size() == 0){
-            return  result.error("缺少必要参数id");
+        if(shopId == null){
+            return  result.error("缺少必要参数shopId");
         }
-        return weChatService.deleteShopCart(id);
+        return weChatService.deleteShopCart(shopId);
     }
 
 
@@ -126,9 +125,9 @@ public class WeChatController {
      * @return
      */
     @RequestMapping(value = "submitOrder", method = RequestMethod.GET)
-    public Result submitOrder(OrderInfo queryOI,OrderDetail queryOD){
+    public Result submitOrder(OrderInfo queryOI,OrderDetail queryOD,String shopId){
 
-        return  weChatService.submitOrder(queryOI,queryOD);
+        return  weChatService.submitOrder(queryOI,queryOD,shopId);
     }
 
 }

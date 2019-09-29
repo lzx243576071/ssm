@@ -1,6 +1,7 @@
 package com.soecode.web.query;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Jiangyue on 2019/7/25.
@@ -29,6 +30,13 @@ public class weChatQuery extends BaseQuery{
     private Integer season;
 
     private String itemName;
+
+    private List<String> shopId;
+
+    private Integer flag;//修改商品数量标志 1增加 2减少
+
+
+
 
 
     public String getOpenId() {
@@ -117,6 +125,22 @@ public class weChatQuery extends BaseQuery{
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public List<String> getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(List<String> itemName) {
+        this.shopId = shopId;
+    }
+
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
     }
 
 }

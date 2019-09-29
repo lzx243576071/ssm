@@ -191,56 +191,79 @@
   </select>
 <!--查询商品列表-->
     <select id="queryByItemName" resultType="java.util.Map">
- select
-      CLASSIFY_NAME  as  classifyName,
-      ITEM_ID as itemId,
-      ITEM_NAME as itemName,
-      ITEM_PRICE  as itemPrice,
-      GOODS_TEXTURE  as goodsTexture,
-      case SEASON
+      select
+      a.CLASSIFY_NAME  as  classifyName,
+      a.ITEM_ID as itemId,
+      a.ITEM_NAME as itemName,
+      a.ITEM_PRICE  as itemPrice,
+      a.GOODS_TEXTURE  as goodsTexture,
+      case a.SEASON
       when 1 then '春秋'
       when 2 then '夏'
       when 3 then '冬'
+      when 4 then '其他'
       else '' end  as season,
-      WASH_METHOD as washMethod,
-      ITEM_IMG as itemImg
-      from item_info
+      a.WASH_METHOD as washMethod,
+      a.ITEM_IMG as itemImg ,
+      ifnull(b.num,0) as num,
+      b.id as id
+      from item_info a
+      LEFT JOIN(
+        select
+        ITEM_ID, NUM as num,ID as id from  shopcart_info
+        where STATE = 0
+        <if test="userId!=null">
+          and USER_ID = #{userId}
+        </if>
+        )b
+      on a.ITEM_ID = b.ITEM_ID
       where
       <choose>
         <when test="itemName != null and itemName !=''">
-          lower(ITEM_NAME) like concat('%',concat(lower(#{itemName})),'%')
+          lower(a.ITEM_NAME) like concat('%',concat(lower(#{itemName})),'%')
         </when>
         <otherwise>
           <if test="classifyId!=null and classifyId != ''">
-             CLASSIFY_ID = #{classifyId}
+             a.CLASSIFY_ID = #{classifyId}
           </if>
           <if test="season!=null and season != ''">
-            and  SEASON = #{season}
+            and  a.SEASON = #{season}
           </if>
         </otherwise>
       </choose>
     </select>
   <select id="queryByClassifyId" resultType="java.util.Map">
     select
-    CLASSIFY_NAME  as  classifyName,
-    ITEM_ID as itemId,
-    ITEM_NAME as itemName,
-    ITEM_PRICE  as itemPrice,
-    GOODS_TEXTURE  as goodsTexture,
-    case SEASON
-    when 1 then '春秋'
-    when 2 then '夏'
-    when 3 then '冬'
-    when 4 then '其他'
-    else '' end  as season,
-    WASH_METHOD as washMethod,
-    ITEM_IMG as itemImg
-    from item_info
-    where
-        CLASSIFY_ID = #{classifyId}
-        <if test="season!=null and season != ''">
-          and  SEASON = #{season}
-        </if>
+      a.CLASSIFY_NAME  as  classifyName,
+      a.ITEM_ID as itemId,
+      a.ITEM_NAME as itemName,
+      a.ITEM_PRICE  as itemPrice,
+      a.GOODS_TEXTURE  as goodsTexture,
+      case a.SEASON
+      when 1 then '春秋'
+      when 2 then '夏'
+      when 3 then '冬'
+      when 4 then '其他'
+      else '' end  as season,
+      a.WASH_METHOD as washMethod,
+      a.ITEM_IMG as itemImg ,
+      ifnull(b.num,0) as num,
+      b.id as id
+      from item_info a
+      LEFT JOIN(
+        select
+        ITEM_ID, NUM as num,ID as id from  shopcart_info
+        where STATE = 0
+          <if test="userId!=null">
+            and USER_ID = #{userId}
+           </if>
+         )b
+        on a.ITEM_ID = b.ITEM_ID
+      where
+            a.CLASSIFY_ID = #{classifyId}
+            <if test="season!=null and season != ''">
+              and  a.SEASON = #{season}
+            </if>
   </select>
   <select id="queryOneByItemId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
