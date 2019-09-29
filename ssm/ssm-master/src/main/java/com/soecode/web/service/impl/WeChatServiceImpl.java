@@ -40,10 +40,13 @@ public class WeChatServiceImpl implements WeChatService {
     private OrderDetailMapper orderDetailMapper;
 
     @Override
-    public Result queryoneKeyOrderList() {
+    public Result queryoneKeyOrderList(weChatQuery query) {
         Map<String,Object> map = new HashMap();
         List<Map<String,Object>> itemClassifyList = itemClassifyMapper.selectItemClassifyList();
-        List<Map<String,Object>> XSQGItemList = itemInfoMapper.selectXSQGItemList();
+        if(query.getUserId()==null||"".equals(query.getUserId())){
+            query.setUserId(0);
+        }
+        List<Map<String,Object>> XSQGItemList = itemInfoMapper.selectXSQGItemList(query);
         List<Map<String,Object>>appraiseList = appraiseInfoMapper.selectAppraiseList();
         map.put("itemClassifyList",itemClassifyList);
         map.put("XSQGItemList",XSQGItemList);

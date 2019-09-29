@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public interface WeChatService {
 
-   Result queryoneKeyOrderList();
+   Result queryoneKeyOrderList(weChatQuery query);
 
    Result queryItemList(weChatQuery query);
 

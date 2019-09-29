@@ -27,7 +27,7 @@ public interface ItemInfoMapper {
      * 限时抢购商品列表
      * @return
      */
-    List<Map<String,Object>> selectXSQGItemList();
+    List<Map<String,Object>> selectXSQGItemList(weChatQuery query);
 
     /**
      * 查询加入购物车商品

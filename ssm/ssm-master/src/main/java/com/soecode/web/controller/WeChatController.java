@@ -42,9 +42,9 @@ public class WeChatController {
      * @return
      */
     @RequestMapping(value = "oneKeyOrder", method = RequestMethod.GET)
-    public Result queryItemClassifyList() {
+    public Result queryItemClassifyList(weChatQuery query) {
 
-        return weChatService.queryoneKeyOrderList();
+        return weChatService.queryoneKeyOrderList(query);
     }
 
 
