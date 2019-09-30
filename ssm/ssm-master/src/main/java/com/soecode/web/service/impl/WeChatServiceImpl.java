@@ -98,7 +98,9 @@ public class WeChatServiceImpl implements WeChatService {
           }
           shopCartInfoMapper.updateItemNum(query.getId(),num);
       }
-        return Result.createSuccessResult();
+     Map<String,Object>map=new HashMap<>();
+      map.put("id",query.getId());
+    return Result.createSuccessResult(map);
     }
 
 

@@ -32,6 +32,9 @@
   </foreach>)
   </delete>
   <insert id="insert" parameterType="com.soecode.web.entity.ShopCartInfo">
+    <selectKey resultType = "java.lang.Integer" keyProperty = "id"  order = "AFTER" >
+      select LAST_INSERT_ID() as  id
+    </selectKey>
     insert into `test`.`shopcart_info` ( USER_ID, ITEM_ID,
         CREATE_TIME,
       UPDATE_TIME)
