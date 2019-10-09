@@ -23,7 +23,9 @@ public interface WeChatService {
 
    Result queryShopCart(Integer userId);
 
-   Result  queryDefaultReceiveArea(weChatQuery query);
+   Result queryDefaultReceiveArea(weChatQuery query);
+
+   Result queryAppointmentTime(weChatQuery query) throws ParseException;
 
    Result submitOrder(OrderInfo queryOI,OrderDetail queryOD,String shopId);
 

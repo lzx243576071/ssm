@@ -3,6 +3,7 @@ package com.soecode.web.service.impl;
 
 
 import com.soecode.web.dto.Result;
+import com.soecode.web.entity.AppointmentInfo;
 import com.soecode.web.entity.OrderDetail;
 import com.soecode.web.entity.OrderInfo;
 import com.soecode.web.mapper.*;
@@ -38,6 +39,8 @@ public class WeChatServiceImpl implements WeChatService {
     private UserInfoMapper userInfoMapper;
     @Autowired
     private OrderDetailMapper orderDetailMapper;
+    @Autowired
+    private AppointmentInfoMapper appointmentInfoMapper;
 
     @Override
     public Result queryoneKeyOrderList(weChatQuery query) {
@@ -154,6 +157,36 @@ public class WeChatServiceImpl implements WeChatService {
     public Result queryDefaultReceiveArea(weChatQuery query) {
         Map<String,Object> map = receiveAreaMapper.queryDefaultReceiveArea(query);
         return Result.createSuccessResult(map);
+    }
+
+    @Override
+    public Result queryAppointmentTime(weChatQuery query) throws ParseException {
+        List<Map<String, Object>>dateList = new ArrayList<>();
+        if(query.getId()==null) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date appointmentDateStart =  format.parse(query.getAppointmentDate());
+            Calendar c = Calendar.getInstance();
+            c.setTime(appointmentDateStart);
+            c.add(Calendar.DATE, +5);
+            Date y = c.getTime();
+            String appointmentDateEnd = format.format(y);
+            dateList = appointmentInfoMapper.queryAppointmentDate(query.getAppointmentDate(),appointmentDateEnd);
+            if(dateList.size()!=0){
+                for(int i=0;i<dateList.size();i++){
+                    String appointmentDate = dateList.get(i).get("appointmentDate").toString();
+                    List<Map<String, Object>> timeList = appointmentInfoMapper.queryAppointmentTime(appointmentDate);
+                    dateList.get(i).put("timeList",timeList);
+                }
+            }
+        }else{
+            Map<String,Object> map = appointmentInfoMapper.queryOrderNumNow(query);
+            AppointmentInfo appointmentInfo = new AppointmentInfo();
+            appointmentInfo.setOrderNumNow(Integer.valueOf(map.get("orderNumNow").toString())+1);
+            appointmentInfo.setId(query.getId());
+            appointmentInfoMapper.updateByPrimaryKeySelective(appointmentInfo);
+            return Result.createSuccessResult(appointmentInfoMapper.queryOrderNumNow(query));
+        }
+        return Result.createSuccessResult(dateList);
     }
 
     public Result submitOrder(OrderInfo queryOI,OrderDetail queryOD,String shopId){

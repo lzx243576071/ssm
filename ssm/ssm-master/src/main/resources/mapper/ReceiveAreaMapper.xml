@@ -98,6 +98,7 @@
     </update>
   <select id="queryDefaultReceiveArea" resultType="java.util.Map">
 SELECT
+    id as id,
 	receiver_name AS receiverName,
 	phone AS phoneNum,
 	province,

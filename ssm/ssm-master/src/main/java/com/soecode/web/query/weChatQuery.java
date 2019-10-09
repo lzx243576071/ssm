@@ -1,5 +1,7 @@
 package com.soecode.web.query;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class weChatQuery extends BaseQuery{
 
     private Integer flag;//修改商品数量标志 1增加 2减少
 
-
+    private String appointmentDate;
 
 
 
@@ -141,6 +143,14 @@ public class weChatQuery extends BaseQuery{
 
     public void setFlag(Integer flag) {
         this.flag = flag;
+    }
+
+    public String getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public void setAppointmentDate(String appointmentDate) {
+        this.appointmentDate = appointmentDate;
     }
 
 }

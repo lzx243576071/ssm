@@ -121,6 +121,15 @@ public class WeChatController {
     }
 
     /**
+     * 下单界面（预约取件时间信息）
+     */
+    @RequestMapping(value = "queryAppointmentTime ", method = RequestMethod.GET)
+    public Result queryAppointmentTime(weChatQuery query) throws ParseException {
+
+        return weChatService.queryAppointmentTime(query);
+    }
+
+    /**
      *  提交订单
      * @return
      */
