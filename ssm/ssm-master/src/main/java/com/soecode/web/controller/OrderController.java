@@ -57,15 +57,15 @@ public class OrderController {
     /**
      * 更改订单
      * @param orderInfo
-     * @param orderDetail
+     * @param orderDetailList
      * @return
      */
     @RequestMapping(value = "/common/updateOrder")
-    public Result updateOrder(OrderInfo orderInfo, OrderDetail orderDetail) {
+    public Result updateOrder(OrderInfo orderInfo, List<OrderDetail> orderDetailList) {
         if(null == orderInfo.getOrderId()){
             return Result.createFailResult("orderId不能為空");
         }
-        return orderService.updateOrder(orderInfo,orderDetail);
+        return orderService.updateOrder(orderInfo,orderDetailList);
     }
 
     /**

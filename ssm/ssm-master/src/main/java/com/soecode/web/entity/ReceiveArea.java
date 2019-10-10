@@ -14,7 +14,7 @@ public class ReceiveArea {
     private String area;            //区
     private String street;          //街道
 
-    private int hasDefault;         //是否默认
+    private Integer hasDefault;         //是否默认
     private Date gmtCreate;         //创建时间
     private Date gmtModify;         //修改时间
 

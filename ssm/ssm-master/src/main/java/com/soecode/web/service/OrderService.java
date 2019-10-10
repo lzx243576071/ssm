@@ -16,7 +16,7 @@ public interface OrderService {
 
     Result getOrderDetail(Integer orderId);
 
-    Result updateOrder(OrderInfo orderInfo, OrderDetail orderDetail);
+    Result updateOrder(OrderInfo orderInfo, List<OrderDetail> orderDetailList);
 
     Result<OrderDetailWebVO> getWebOrderDetail(Integer orderId);
 

@@ -71,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Result updateOrder(OrderInfo orderInfo, OrderDetail orderDetail) {
+    public Result updateOrder(OrderInfo orderInfo, List<OrderDetail> orderDetailList) {
         Result result = Result.createFailResult();
         orderInfo.setUpdateTime(new Date());
         int icode = orderInfoMapper.updateByOrderIdSelective(orderInfo);
@@ -80,12 +80,15 @@ public class OrderServiceImpl implements OrderService {
         }else{
             result = Result.createSuccessResult();
         }
-        if(null !=orderDetail && null!= orderDetail.getId()){
-            orderDetail.setUpdateTime(new Date());
-            int code = orderDetailMapper.updateByIdSelective(orderDetail);
-            if(code == 0){
-                return result.error("更新orderDetail失败");
+        if(null !=orderDetailList || orderDetailList.size()>0){
+            for (OrderDetail orderDetail: orderDetailList) {
+                orderDetail.setUpdateTime(new Date());
+                int code = orderDetailMapper.updateByIdSelective(orderDetail);
+                if(code == 0){
+                    return result.error("更新orderDetail失败");
+                }
             }
+
         }
         return result;
     }
@@ -178,7 +181,7 @@ public class OrderServiceImpl implements OrderService {
         OrderInfoWxVO orderInfoWxVO = orderInfoWxVOList.get(0);
         ReceiveArea receiveAreaQuery = new ReceiveArea();
         receiveAreaQuery.setId(orderInfoWxVO.getReceiveInfoId());
-        ReceiveArea receiveArea = receiveAreaMapper.selectOne(receiveAreaQuery);
+        ReceiveArea receiveArea = receiveAreaMapper.selectOneById(receiveAreaQuery);
         orderInfoWxVO.setReceiveArea(receiveArea);
         return Result.createSuccessResult(orderInfoWxVO);
     }
