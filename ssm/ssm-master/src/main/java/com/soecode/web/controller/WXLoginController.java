@@ -7,6 +7,7 @@ package com.soecode.web.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.internal.util.StringUtils;
 import com.google.gson.*;
+import com.soecode.web.mapper.ShopCartInfoMapper;
 import com.soecode.web.query.LoginQuery;
 import com.soecode.web.service.WXLoginService;
 import com.soecode.web.util.WXAuthUtil;
@@ -40,6 +41,8 @@ public class WXLoginController {
 
     @Autowired
     private WXLoginService wxLoginService;
+    @Autowired
+    private ShopCartInfoMapper shopCartInfoMapper;
 
     private static final Logger logger = Logger.getLogger(WXLoginController.class);
     public static final String APPID="wx999864fea89d73b4";
@@ -55,7 +58,7 @@ public class WXLoginController {
                        HttpServletResponse response)
          throws ParseException, IOException {
         //这个url的域名必须要进行再公众号中进行注册验证，这个地址是成功后的回调地址
-        String backUrl="http://9tvy3f.natappfree.cc/ssm/wx/callBack";
+        String backUrl="http://tkctt9.natappfree.cc/ssm/wx/callBack";
         // 第一步：用户同意授权，获取code
         String url ="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+ APPID
         + "&redirect_uri=" + URLEncoder.encode(backUrl)
@@ -158,6 +161,8 @@ public class WXLoginController {
             query.setCreateTime(nowdate);
             wxLoginService.SaveUserInfo(query);
         }
+        Map<String,Object> userId = shopCartInfoMapper.queryUserId(query);
+        map.put("userId",userId.get("userId"));
         return map;
   }
     /**

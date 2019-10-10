@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soecode.web.mapper.AppointmentInfoMapper">
+  <resultMap id="BaseResultMap" type="com.soecode.web.entity.AppointmentInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="APPOINTMENT_DATE" jdbcType="DATE" property="appointmentDate" />
+    <result column="APPOINTMENT_TIME_FRAME" jdbcType="VARCHAR" property="appointmentTimeFrame" />
+    <result column="ORDER_NUM_SUM" jdbcType="INTEGER" property="orderNumSum" />
+    <result column="ORDER_NUM_NOW" jdbcType="INTEGER" property="orderNumNow" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, APPOINTMENT_DATE, APPOINTMENT_TIME_FRAME, ORDER_NUM_SUM, ORDER_NUM_NOW
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from appointment_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from appointment_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.soecode.web.entity.AppointmentInfo">
+    insert into appointment_info (ID, APPOINTMENT_DATE, APPOINTMENT_TIME_FRAME, 
+      ORDER_NUM_SUM, ORDER_NUM_NOW)
+    values (#{id,jdbcType=INTEGER}, #{appointmentDate,jdbcType=DATE}, #{appointmentTimeFrame,jdbcType=VARCHAR}, 
+      #{orderNumSum,jdbcType=INTEGER}, #{orderNumNow,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.soecode.web.entity.AppointmentInfo">
+    insert into appointment_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="appointmentDate != null">
+        APPOINTMENT_DATE,
+      </if>
+      <if test="appointmentTimeFrame != null">
+        APPOINTMENT_TIME_FRAME,
+      </if>
+      <if test="orderNumSum != null">
+        ORDER_NUM_SUM,
+      </if>
+      <if test="orderNumNow != null">
+        ORDER_NUM_NOW,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="appointmentDate != null">
+        #{appointmentDate,jdbcType=DATE},
+      </if>
+      <if test="appointmentTimeFrame != null">
+        #{appointmentTimeFrame,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumSum != null">
+        #{orderNumSum,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumNow != null">
+        #{orderNumNow,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.soecode.web.entity.AppointmentInfo">
+
+    update appointment_info
+    <set>
+      <if test="appointmentDate != null">
+        APPOINTMENT_DATE = #{appointmentDate,jdbcType=DATE},
+      </if>
+      <if test="appointmentTimeFrame != null">
+        APPOINTMENT_TIME_FRAME = #{appointmentTimeFrame,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumSum != null">
+        ORDER_NUM_SUM = #{orderNumSum,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumNow != null">
+        ORDER_NUM_NOW = #{orderNumNow,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.soecode.web.entity.AppointmentInfo">
+    update appointment_info
+    set APPOINTMENT_DATE = #{appointmentDate,jdbcType=DATE},
+      APPOINTMENT_TIME_FRAME = #{appointmentTimeFrame,jdbcType=VARCHAR},
+      ORDER_NUM_SUM = #{orderNumSum,jdbcType=INTEGER},
+      ORDER_NUM_NOW = #{orderNumNow,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <!--查询预约取件信息-->
+  <select id="queryAppointmentTime" resultType="java.util.Map">
+    select ID as id ,
+           APPOINTMENT_DATE as appointmentDate,
+           APPOINTMENT_TIME_FRAME as appointmentTimeFrame,
+           ORDER_NUM_SUM as orderNumSum,
+           ORDER_NUM_NOW as orderNumNow from appointment_info
+    where APPOINTMENT_DATE = str_to_date(#{appointmentDate},'%Y-%m-%d')
+  </select>
+  <select id="queryAppointmentDate" resultType="java.util.Map">
+    select distinct
+    APPOINTMENT_DATE as appointmentDate from appointment_info
+    where APPOINTMENT_DATE &gt;= str_to_date(#{appointmentDateStart},'%Y-%m-%d')
+      and APPOINTMENT_DATE &lt;= str_to_date(#{appointmentDateEnd},'%Y-%m-%d')
+  </select>
+  <select id="queryOrderNumNow" resultType="java.util.Map">
+    select
+           ORDER_NUM_NOW as orderNumNow from appointment_info
+    where ID = #{id}
+  </select>
+
+</mapper>

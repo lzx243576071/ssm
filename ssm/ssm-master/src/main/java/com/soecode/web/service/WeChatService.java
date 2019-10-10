@@ -15,19 +15,21 @@ import java.util.Map;
  */
 public interface WeChatService {
 
-   Result queryoneKeyOrderList();
+   Result queryoneKeyOrderList(weChatQuery query);
 
    Result queryItemList(weChatQuery query);
 
-   Result addShopCart(weChatQuery query) throws ParseException;
+   Result addShopCart(weChatQuery query);
 
    Result queryShopCart(Integer userId);
 
-   Result  queryDefaultReceiveArea(weChatQuery query);
+   Result queryDefaultReceiveArea(weChatQuery query);
 
-   Result submitOrder(OrderInfo queryOI,OrderDetail queryOD);
+   Result queryAppointmentTime(weChatQuery query) throws ParseException;
 
-   Result updateShopCart(Integer id,Integer flag);
+   Result submitOrder(OrderInfo queryOI,OrderDetail queryOD,String shopId);
 
-   Result deleteShopCart(List<String> id) ;
+   Result deleteShopCart(String shopId) ;
+
+   Result queryPrice(String shopId);
 }

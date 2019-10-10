@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by Jiangyue on 2019/7/28.
  */
 public class LoginQuery {
-    private String userId;
+    private Integer userId;
     private String openId;
     private String wecahtId;
     private Integer userSex;
@@ -15,11 +15,11 @@ public class LoginQuery {
     private Date updateTime;
 
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
     public String getOpenId() {

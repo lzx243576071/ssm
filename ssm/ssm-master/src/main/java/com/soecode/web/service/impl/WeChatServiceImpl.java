@@ -3,6 +3,7 @@ package com.soecode.web.service.impl;
 
 
 import com.soecode.web.dto.Result;
+import com.soecode.web.entity.AppointmentInfo;
 import com.soecode.web.entity.OrderDetail;
 import com.soecode.web.entity.OrderInfo;
 import com.soecode.web.mapper.*;
@@ -13,10 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 微信接口实现类
@@ -41,12 +39,17 @@ public class WeChatServiceImpl implements WeChatService {
     private UserInfoMapper userInfoMapper;
     @Autowired
     private OrderDetailMapper orderDetailMapper;
+    @Autowired
+    private AppointmentInfoMapper appointmentInfoMapper;
 
     @Override
-    public Result queryoneKeyOrderList() {
+    public Result queryoneKeyOrderList(weChatQuery query) {
         Map<String,Object> map = new HashMap();
         List<Map<String,Object>> itemClassifyList = itemClassifyMapper.selectItemClassifyList();
-        List<Map<String,Object>> XSQGItemList = itemInfoMapper.selectXSQGItemList();
+        if(query.getUserId()==null||"".equals(query.getUserId())){
+            query.setUserId(0);
+        }
+        List<Map<String,Object>> XSQGItemList = itemInfoMapper.selectXSQGItemList(query);
         List<Map<String,Object>>appraiseList = appraiseInfoMapper.selectAppraiseList();
         map.put("itemClassifyList",itemClassifyList);
         map.put("XSQGItemList",XSQGItemList);
@@ -57,6 +60,9 @@ public class WeChatServiceImpl implements WeChatService {
     @Override
     public Result queryItemList(weChatQuery query) {
         Map<String,Object> map = new HashMap<>();
+        if(query.getUserId()==null||"".equals(query.getUserId())){
+             query.setUserId(0);
+        }
         if(query.getItemName()!=""&&query.getItemName()!=null){
             List<Map<String,Object>>goodsList =  itemInfoMapper.queryByItemName(query);
             map.put("goodsList",goodsList);
@@ -80,56 +86,72 @@ public class WeChatServiceImpl implements WeChatService {
     }
 
     @Override
-    public Result addShopCart(weChatQuery query) throws ParseException {
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String format = sf.format(new Date());
-        Date nowdate = sf.parse(format);
-        Map<String,Object> userInfo = shopCartInfoMapper.queryUserId(query);
-        query.setUserId((Integer) userInfo.get("userId"));
-        query.setCreateTime(nowdate);
-        query.setUpdateTime(nowdate);
-        shopCartInfoMapper.insert(query);
-        return Result.createSuccessResult(userInfo);
+    public Result addShopCart(weChatQuery query) {
+      if (query.getId()==null||"".equals(query.getId())){//新增
+          query.setCreateTime(new Date());
+          query.setUpdateTime(new Date());
+          shopCartInfoMapper.insert(query);
+      }else{//已新增，修改数量
+          Map<String,Object> itemNum = shopCartInfoMapper.queryItemNum(query.getId());
+          int num = 0;
+          if(query.getFlag()==1){
+              num = (int) itemNum.get("num")+1;
+          }else{
+              num = (int) itemNum.get("num")-1;
+          }
+          shopCartInfoMapper.updateItemNum(query.getId(),num);
+      }
+     Map<String,Object>map=new HashMap<>();
+      map.put("id",query.getId());
+    return Result.createSuccessResult(map);
     }
-
 
 
     public Result queryShopCart(Integer userId) {
         Map<String,Object> map = new HashMap<>();
         List<Map<String,Object>>ShopCartList =  shopCartInfoMapper.queryShopCart(userId);
-        int numTotal=0;
-        double priceTotal=0;
-        if(ShopCartList.size()!=0){
-            for(int i=0;i<ShopCartList.size();i++){
-             int num= Integer.parseInt(ShopCartList.get(i).get("num").toString());
-             double itemPrice = Double.parseDouble(ShopCartList.get(i).get("itemPrice").toString());
-             numTotal = numTotal+ num;
-             priceTotal = priceTotal + itemPrice*num;
-            }
-        }
+//        int numTotal=0;
+//        double priceTotal=0;
+//        if(ShopCartList.size()!=0){
+//            for(int i=0;i<ShopCartList.size();i++){
+//             int num= Integer.parseInt(ShopCartList.get(i).get("num").toString());
+//             double itemPrice = Double.parseDouble(ShopCartList.get(i).get("itemPrice").toString());
+//             numTotal = numTotal+ num;
+//             priceTotal = priceTotal + itemPrice*num;
+//            }
+//        }
         map.put("ShopCartList",ShopCartList);
-        map.put("numTotal",numTotal);
-        map.put("priceTotal",priceTotal);
+//        map.put("numTotal",numTotal);
+////        map.put("priceTotal",priceTotal);
         return Result.createSuccessResult(map);
     }
 
 
-    public Result updateShopCart(Integer id,Integer flag) {
-        Map<String,Object> itemNum = shopCartInfoMapper.queryItemNum(id);
-        int num = 0;
-        if(flag==1){
-             num = (int) itemNum.get("num")+1;
-        }else{
-            num = (int) itemNum.get("num")-1;
-        }
-        shopCartInfoMapper.updateItemNum(id,num);
+
+    public Result deleteShopCart(String shopId) {
+        List<String> id = new ArrayList<>();
+        String[] ids = shopId.split(",");
+        id = Arrays.asList(ids);
+        shopCartInfoMapper.deleteShopCart(id);
         return Result.createSuccessResult();
     }
 
-
-    public Result deleteShopCart(List<String> id) {
-        shopCartInfoMapper.deleteShopCart(id);
-        return Result.createSuccessResult();
+    public Result queryPrice(String shopId) {
+        List<String> id = new ArrayList<>();
+        String[] ids = shopId.split(",");
+        id = Arrays.asList(ids);
+        Map<String,Object>map = new HashMap<>();
+        int totalNum = 0;
+        double totalPrice = 0.0;
+        for(int i=0;i<id.size();i++){
+            int id2 = Integer.parseInt(id.get(i));
+            Map<String,Object>priceMap= shopCartInfoMapper.queryPrice(id2);
+            totalNum = totalNum +  Integer.parseInt(priceMap.get("num").toString());
+            totalPrice = totalPrice + Double.parseDouble(priceMap.get("countPrice").toString());
+        }
+        map.put("totalNum",totalNum);
+        map.put("totalPrice",totalPrice);
+        return Result.createSuccessResult(map);
     }
 
     public Result queryDefaultReceiveArea(weChatQuery query) {
@@ -137,9 +159,42 @@ public class WeChatServiceImpl implements WeChatService {
         return Result.createSuccessResult(map);
     }
 
-    public Result submitOrder(OrderInfo queryOI,OrderDetail queryOD){
+    @Override
+    public Result queryAppointmentTime(weChatQuery query) throws ParseException {
+        List<Map<String, Object>>dateList = new ArrayList<>();
+        if(query.getId()==null) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date appointmentDateStart =  format.parse(query.getAppointmentDate());
+            Calendar c = Calendar.getInstance();
+            c.setTime(appointmentDateStart);
+            c.add(Calendar.DATE, +5);
+            Date y = c.getTime();
+            String appointmentDateEnd = format.format(y);
+            dateList = appointmentInfoMapper.queryAppointmentDate(query.getAppointmentDate(),appointmentDateEnd);
+            if(dateList.size()!=0){
+                for(int i=0;i<dateList.size();i++){
+                    String appointmentDate = dateList.get(i).get("appointmentDate").toString();
+                    List<Map<String, Object>> timeList = appointmentInfoMapper.queryAppointmentTime(appointmentDate);
+                    dateList.get(i).put("timeList",timeList);
+                }
+            }
+        }else{
+            Map<String,Object> map = appointmentInfoMapper.queryOrderNumNow(query);
+            AppointmentInfo appointmentInfo = new AppointmentInfo();
+            appointmentInfo.setOrderNumNow(Integer.valueOf(map.get("orderNumNow").toString())+1);
+            appointmentInfo.setId(query.getId());
+            appointmentInfoMapper.updateByPrimaryKeySelective(appointmentInfo);
+            return Result.createSuccessResult(appointmentInfoMapper.queryOrderNumNow(query));
+        }
+        return Result.createSuccessResult(dateList);
+    }
+
+    public Result submitOrder(OrderInfo queryOI,OrderDetail queryOD,String shopId){
         Result result = Result.createFailResult();
-        List<Map<String,Object>>ShopCartList = shopCartInfoMapper.queryShopCart(queryOI.getUserId());//查询订单商品信息
+        List<String> id = new ArrayList<>();
+        String[] ids = shopId.split(",");
+        id = Arrays.asList(ids);
+        List<Map<String,Object>>ShopCartList = shopCartInfoMapper.querySubmitItem(id);//查询订单商品信息
         Map<String,Object> UserInfo =  userInfoMapper.queryUserInfo_order(queryOI.getUserId());//查询用户昵称
         int numTotal=0;
         double priceTotal=0;
