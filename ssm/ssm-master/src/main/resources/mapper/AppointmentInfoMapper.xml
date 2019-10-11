@@ -108,6 +108,7 @@
   </select>
   <select id="queryOrderNumNow" resultType="java.util.Map">
     select
+           ORDER_NUM_SUM as orderNumSum,
            ORDER_NUM_NOW as orderNumNow from appointment_info
     where ID = #{id}
   </select>

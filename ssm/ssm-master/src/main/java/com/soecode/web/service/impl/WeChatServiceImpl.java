@@ -190,7 +190,6 @@ public class WeChatServiceImpl implements WeChatService {
     }
 
     public Result submitOrder(OrderInfo queryOI,OrderDetail queryOD,String shopId){
-        Result result = Result.createFailResult();
         List<String> id = new ArrayList<>();
         String[] ids = shopId.split(",");
         id = Arrays.asList(ids);
@@ -229,6 +228,11 @@ public class WeChatServiceImpl implements WeChatService {
                 shopCartInfoMapper.updateShopCartState(queryOI.getUserId(),(Integer) ShopCartList.get(i).get("itemId"));
             }
         }
-        return result;
+        return Result.createSuccessResult();
+    }
+
+    public Result checkAppointmentNum(weChatQuery query) {
+        Map<String,Object> map = appointmentInfoMapper.queryOrderNumNow(query);
+        return Result.createSuccessResult(map);
     }
 }

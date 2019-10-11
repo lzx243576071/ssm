@@ -130,6 +130,15 @@ public class WeChatController {
     }
 
     /**
+     * 当前时间段预约校验
+     */
+    @RequestMapping(value = "checkAppointmentNum ", method = RequestMethod.GET)
+    public Result checkAppointmentNum(weChatQuery query) throws ParseException {
+
+        return weChatService.checkAppointmentNum(query);
+    }
+
+    /**
      *  提交订单
      * @return
      */
