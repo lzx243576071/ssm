@@ -45,6 +45,17 @@ public class OrderInfo {
 
     private String appointmentTime;
 
+    private Integer appointmentTimeId;
+
+    public Integer getAppointmentTimeId() {
+        return appointmentTimeId;
+    }
+
+    public void setAppointmentTimeId(Integer appointmentTimeId) {
+        this.appointmentTimeId = appointmentTimeId;
+    }
+
+
     public Integer getOrderId() {
         return orderId;
     }

@@ -112,5 +112,9 @@
            ORDER_NUM_NOW as orderNumNow from appointment_info
     where ID = #{id}
   </select>
+  <select id="queryIntervalTime" resultType="java.util.Map">
+    select time_to_sec(timediff(now(), START_ORDER_TIME)) as intervalTime
+    from order_info where ORDER_ID =#{orderId}
+  </select>
 
 </mapper>

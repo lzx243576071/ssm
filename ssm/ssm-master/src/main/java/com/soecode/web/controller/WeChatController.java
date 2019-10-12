@@ -139,6 +139,15 @@ public class WeChatController {
     }
 
     /**
+     * 待付款倒计时
+     */
+    @RequestMapping(value = "queryIntervalTime ", method = RequestMethod.GET)
+    public Result queryIntervalTime(Integer orderId) throws ParseException {
+
+        return weChatService.queryIntervalTime(orderId);
+    }
+
+    /**
      *  提交订单
      * @return
      */

@@ -25,4 +25,6 @@ public interface AppointmentInfoMapper {
     List<Map<String, Object>> queryAppointmentDate(@Param("appointmentDateStart") String appointmentDateStart, @Param("appointmentDateEnd") String appointmentDateEnd);
 
     Map<String, Object> queryOrderNumNow(weChatQuery query);
+
+    Map<String, Object> queryIntervalTime(Integer orderId);
 }
