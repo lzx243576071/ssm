@@ -32,4 +32,8 @@ public interface WeChatService {
    Result deleteShopCart(String shopId) ;
 
    Result queryPrice(String shopId);
+
+   Result checkAppointmentNum(weChatQuery query);
+
+   Result queryIntervalTime(Integer orderId);
 }
