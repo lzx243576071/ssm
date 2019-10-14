@@ -21,9 +21,29 @@ public class OrderInfoWxVO {
 
     private Integer receiveInfoId;
 
+    private String remarks;
+
+    private Date takeTime;
+
     private List<OrderDetailWxVO> orderDetailWxVOList;
 
     private ReceiveArea receiveArea;
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public Date getTakeTime() {
+        return takeTime;
+    }
+
+    public void setTakeTime(Date takeTime) {
+        this.takeTime = takeTime;
+    }
 
     public ReceiveArea getReceiveArea() {
         return receiveArea;
