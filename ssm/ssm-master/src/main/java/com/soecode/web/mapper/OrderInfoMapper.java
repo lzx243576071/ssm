@@ -20,4 +20,6 @@ public interface OrderInfoMapper extends Mapper<OrderInfo>{
     Integer deleteByOrderId(Integer orderId);
 
     int insertOrder(OrderInfo record);
+
+    void updateOrderState(Integer orderId);
 }

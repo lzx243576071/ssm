@@ -240,6 +240,9 @@ public class WeChatServiceImpl implements WeChatService {
         Map<String,Object> map = appointmentInfoMapper.queryIntervalTime(orderId);
         int intervalTime = 1800- Integer.parseInt(map.get("intervalTime").toString());
         map.put("intervalTime",intervalTime);
+        if(intervalTime<0||intervalTime==0){
+            orderInfoMapper.updateOrderState(orderId);
+        }
         return Result.createSuccessResult(map);
     }
 }

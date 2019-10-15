@@ -23,7 +23,7 @@ public class OrderInfoWxVO {
 
     private String remarks;
 
-    private Date takeTime;
+    private String appointmentTime;
 
     private List<OrderDetailWxVO> orderDetailWxVOList;
 
@@ -37,12 +37,12 @@ public class OrderInfoWxVO {
         this.remarks = remarks;
     }
 
-    public Date getTakeTime() {
-        return takeTime;
+    public String getAppointmentTime() {
+        return appointmentTime;
     }
 
-    public void setTakeTime(Date takeTime) {
-        this.takeTime = takeTime;
+    public void setAppointmentTime(String appointmentTime) {
+        this.appointmentTime = appointmentTime;
     }
 
     public ReceiveArea getReceiveArea() {

@@ -116,4 +116,11 @@
     </set>
     where ORDER_ID = #{orderId,jdbcType=INTEGER}
   </update>
+  <update id="updateOrderState">
+    update order_info
+    <set>
+        ORDER_STATE = 9
+    </set>
+    where ORDER_ID = #{orderId,jdbcType=INTEGER}
+  </update>
 </mapper>
