@@ -7,6 +7,7 @@ package com.soecode.web.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.internal.util.StringUtils;
 import com.google.gson.*;
+import com.soecode.web.dto.Result;
 import com.soecode.web.mapper.ShopCartInfoMapper;
 import com.soecode.web.query.LoginQuery;
 import com.soecode.web.service.WXLoginService;
@@ -24,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,15 +50,15 @@ public class WXLoginController {
     private static final String TOKEN = "weixin";
     /**
  * 公众号微信登录授权
- * @param request
- * @param response
- */
+     * @param request
+     * @param response
+     */
      @RequestMapping(value = "/wxLogin", method = RequestMethod.GET)
  public void wxLogin(HttpServletRequest request,
                        HttpServletResponse response)
          throws ParseException, IOException {
         //这个url的域名必须要进行再公众号中进行注册验证，这个地址是成功后的回调地址
-        String backUrl="http://tkctt9.natappfree.cc/ssm/wx/callBack";
+        String backUrl="http://stx8gk.natappfree.cc/ssm/#/";
         // 第一步：用户同意授权，获取code
         String url ="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+ APPID
         + "&redirect_uri=" + URLEncoder.encode(backUrl)
@@ -68,13 +68,14 @@ public class WXLoginController {
         logger.info("forward重定向地址{" + url + "}");
        response.sendRedirect(url);
 //     return "redirect:"+url;//必须重定向，否则不能成功
+//       return url;
     }
 /**
  * 公众号微信登录授权回调函数
  * @parameter
  */
 @RequestMapping(value = "/callBack", method = RequestMethod.GET)
-  public Map<String,Object> callBack(ModelMap modelMap, HttpServletRequest req, HttpServletResponse resp, LoginQuery query) throws ServletException, IOException, ParseException {
+  public Result callBack(ModelMap modelMap, HttpServletRequest req, HttpServletResponse resp, LoginQuery query) throws ServletException, IOException, ParseException {
         /*
         * start 获取微信用户基本信息
         */
@@ -163,7 +164,7 @@ public class WXLoginController {
         }
         Map<String,Object> userId = shopCartInfoMapper.queryUserId(query);
         map.put("userId",userId.get("userId"));
-        return map;
+        return Result.createSuccessResult(map);
   }
     /**
      * @Description 将字符串中的emoji表情转换成可以在utf-8字符集数据库中保存的格式（表情占4个字节，需要utf8mb4字符集）
