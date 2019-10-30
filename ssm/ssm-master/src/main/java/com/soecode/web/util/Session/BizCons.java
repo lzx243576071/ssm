@@ -12,4 +12,7 @@ public class BizCons {
 
     public static String APP_DOMAIN = "ssm";
 
+    public static final int WX_ACCESSTOKEN_TIMEOUT = 60 * 60 * 2 ;
+
+
 }

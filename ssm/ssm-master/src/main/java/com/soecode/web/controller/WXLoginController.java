@@ -11,7 +11,10 @@ import com.soecode.web.dto.Result;
 import com.soecode.web.mapper.ShopCartInfoMapper;
 import com.soecode.web.query.LoginQuery;
 import com.soecode.web.service.WXLoginService;
+import com.soecode.web.util.CookieUtils;
+import com.soecode.web.util.Session.BizCons;
 import com.soecode.web.util.WXAuthUtil;
+import com.soecode.web.util.constants.Constants;
 import org.apache.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -53,12 +57,13 @@ public class WXLoginController {
      * @param request
      * @param response
      */
-     @RequestMapping(value = "/wxLogin", method = RequestMethod.GET)
+    @ResponseBody
+    @RequestMapping(value = "/wxLogin", method = RequestMethod.GET)
  public void wxLogin(HttpServletRequest request,
                        HttpServletResponse response)
          throws ParseException, IOException {
         //这个url的域名必须要进行再公众号中进行注册验证，这个地址是成功后的回调地址
-        String backUrl="http://stx8gk.natappfree.cc/ssm/#/";
+        String backUrl="http://mgduq3.natappfree.cc/ssm/#/center";
         // 第一步：用户同意授权，获取code
         String url ="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+ APPID
         + "&redirect_uri=" + URLEncoder.encode(backUrl)
@@ -66,6 +71,7 @@ public class WXLoginController {
         + "&scope=snsapi_userinfo"
         + "&state=STATE#wechat_redirect";
         logger.info("forward重定向地址{" + url + "}");
+        response.setHeader("Access-Control-Allow-Origin","*");
        response.sendRedirect(url);
 //     return "redirect:"+url;//必须重定向，否则不能成功
 //       return url;
@@ -74,6 +80,7 @@ public class WXLoginController {
  * 公众号微信登录授权回调函数
  * @parameter
  */
+@ResponseBody
 @RequestMapping(value = "/callBack", method = RequestMethod.GET)
   public Result callBack(ModelMap modelMap, HttpServletRequest req, HttpServletResponse resp, LoginQuery query) throws ServletException, IOException, ParseException {
         /*
@@ -164,7 +171,10 @@ public class WXLoginController {
         }
         Map<String,Object> userId = shopCartInfoMapper.queryUserId(query);
         map.put("userId",userId.get("userId"));
-        return Result.createSuccessResult(map);
+
+       CookieUtils.addCookie(req, resp, Constants.WX_SESSSION_TOKEN_ID, "" + access_token, BizCons.WX_ACCESSTOKEN_TIMEOUT, BizCons.APP_DOMAIN, "/");
+
+    return Result.createSuccessResult(map);
   }
     /**
      * @Description 将字符串中的emoji表情转换成可以在utf-8字符集数据库中保存的格式（表情占4个字节，需要utf8mb4字符集）

@@ -29,6 +29,9 @@ public class Constants {
     public static final String WEB_SESSSION_ID_KEY = "sessionid";
     public static final String WEB_USER_ID_KEY = "userid";
     public static final String WEB_SESSSION_TRACK_KEY = "trackid";//跟踪用户id
+    //  微信登录验证
+    public static final String WX_SESSSION_TOKEN_ID = "tokenId";//跟踪用户id
+
 
     //用户登录错误重试次数key
     public static final String LOGIN_RETRY_PRIFIX = "login_retry";
