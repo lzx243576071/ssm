@@ -68,6 +68,23 @@
 <!--        <url-pattern>/*</url-pattern>-->
 <!--    </filter-mapping>-->
 
+	<filter>
+		<filter-name>WXloginControl</filter-name>
+		<filter-class>com.soecode.web.filter.WXLoginControlFilter</filter-class>
+		<init-param>
+			<param-name>noFilter</param-name>
+			<param-value>/wx/,/,/static/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>filter</param-name>
+			<param-value>/user/addressAdministration/chooseReceiverAddress</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>WXloginControl</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<!-- 设置servlet编码结束 -->
 	<servlet>
 		<servlet-name>spring</servlet-name>
