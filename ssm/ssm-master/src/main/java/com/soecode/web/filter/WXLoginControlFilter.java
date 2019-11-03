@@ -93,9 +93,9 @@ public class WXLoginControlFilter implements Filter{
         chain.doFilter(servletRequest, servletResponse);
     }
 
-        public void redirectLogin(HttpServletRequest request, HttpServletResponse response, String uri) throws IOException,
+        public Result redirectLogin(HttpServletRequest request, HttpServletResponse response, String uri) throws IOException,
             ServletException {
-            Result result=Result.createFailResult();
+            Result<String> result=Result.createFailResult();
             result.setMsg("未登录或已超时");
             String jsonpCallback = (String) request.getParameter("callback");
             response.setCharacterEncoding("utf-8");
@@ -103,7 +103,7 @@ public class WXLoginControlFilter implements Filter{
             response.setStatus(200);
             PrintWriter out = response.getWriter();
             try{
-                out.print(jsonpCallback+"("+ JSON.toJSON(result)+")");
+                out.print(JSON.toJSON(result));
                 out.flush();
             }finally{
                 if (out != null) {
@@ -111,7 +111,7 @@ public class WXLoginControlFilter implements Filter{
                 }
             }
 
-            return;
+            return result;
 
     }
 
